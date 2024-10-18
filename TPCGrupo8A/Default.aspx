@@ -4,6 +4,7 @@
 
     <navbar class="navbar-dropdown" style="background-color: #e3f2fd; padding: 0; display: flex; justify-content: center;">
         <div class="btn-group" >
+
             <button class="dropdown-menu-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Categorías
             </button>
@@ -13,6 +14,7 @@
                 <li><a class="desplegable-item" href="#">Opcion 3</a></li>
             </ul>
         </div>
+
         <div class="btn-group">
             <button class="dropdown-menu-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Calzados
