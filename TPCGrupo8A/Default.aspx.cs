@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -12,7 +13,10 @@ namespace TPCGrupo8A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            if (!IsPostBack)
+            {
+                
+            }
 
         }
 
