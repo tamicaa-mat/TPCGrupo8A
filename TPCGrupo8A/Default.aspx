@@ -26,7 +26,7 @@
                     Categorías
                 </button>
                 <ul id="ulCategorias" class="dropdown-menu bg-light" runat="server">
-                    <!-- Los elementos se llenarán dinámicamente desde el backend -->
+                    <!-- elementos dinámicamente -->
                 </ul>
             </div>
         </nav>

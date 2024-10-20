@@ -26,26 +26,24 @@ namespace TPCGrupo8A
 
         private void CargarCategorias()
         {
-            // Instancia de la clase que accede a las categorías
+           
             CategoriaNegocio cateNegocio = new CategoriaNegocio();
             AccesoDatos accesoDatos = new AccesoDatos();
 
-            // Obtener la lista de categorías
+            
             List<Categoria> categorias = cateNegocio.listar();
 
-            // Iterar sobre las categorías y generar los elementos del menú
             foreach (var categoria in categorias)
             {
-                // Crear el elemento <li>
+             
                 var li = new HtmlGenericControl("li");
                 
 
 
-                // Crear el elemento <a> dentro del <li>
                 var a = new HtmlGenericControl("a");
                 a.Attributes["class"] = "dropdown-item";
-                a.Attributes["href"] = "#";  // Puedes enlazar a una URL específica si lo necesitas
-                a.InnerText = categoria.Nombre;  // Nombre de la categoría
+                a.Attributes["href"] = "#";  
+                a.InnerText = categoria.Nombre;  
 
                 // Agregar el <a> dentro del <li>
                 li.Controls.Add(a);
