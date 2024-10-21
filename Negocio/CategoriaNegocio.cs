@@ -18,13 +18,13 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("select CategoriaID, Nombre from Categoria");
+                datos.setearConsulta("select idCategoria, Nombre from Categoria");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Categoria categoria = new Categoria();
-                    categoria.ID = (int)datos.Lector["CategoriaID"];
+                    categoria.ID = (int)datos.Lector["idCategoria"];
                     categoria.Nombre = datos.Lector["Nombre"].ToString();
 
                     lista.Add(categoria);
