@@ -18,13 +18,21 @@ namespace Negocio
 
             try
             {
+<<<<<<< HEAD
                 datos.setearConsulta("select idCategoria, Nombre from Categoria");
+=======
+                datos.setearConsulta("select IdCategoria, Nombre from Categoria");
+>>>>>>> 3eb66954ef36fc27a777f4bb48025b6653417813
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Categoria categoria = new Categoria();
+<<<<<<< HEAD
                     categoria.ID = (int)datos.Lector["idCategoria"];
+=======
+                    categoria.ID = (int)datos.Lector["IdCategoria"];
+>>>>>>> 3eb66954ef36fc27a777f4bb48025b6653417813
                     categoria.Nombre = datos.Lector["Nombre"].ToString();
 
                     lista.Add(categoria);
@@ -41,7 +49,7 @@ namespace Negocio
             }
         }
 
-        /// agregar o eliminar categorias de la bd
+        /// agregar o eliminar categorias de la bd hay que modificarlo porque las columnas de categorias cambiaron en la bd
         public void agregar(Categoria nuevaCategoria)
         {
             AccesoDatos datos = new AccesoDatos();
