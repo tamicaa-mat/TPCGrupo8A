@@ -11,7 +11,7 @@ namespace TPCGrupo8A
 {
 
 
-    public partial class WebForm1
+    public partial class IniciarSesion
     {
     }
 }
