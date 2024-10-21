@@ -44,7 +44,9 @@
     <Compile Include="Administrador.cs" />
     <Compile Include="Categoria.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="DetallePedido.cs" />
     <Compile Include="Direccion.cs" />
+    <Compile Include="EstadoPedido.cs" />
     <Compile Include="Imagen.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="MetodoPago.cs" />

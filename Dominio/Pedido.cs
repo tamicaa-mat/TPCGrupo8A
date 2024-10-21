@@ -11,9 +11,8 @@ namespace Dominio
         public int ID { get; set; }
         public DateTime Fecha { get; set; }
         public Cliente Cliente { get; set; }  // Asociación con la clase Cliente
-
-        public string Detalle { get; set; } 
-      
+        public DetallePedido Detalle { get; set; }  // Asociado con clase DetallePedido
+        public EstadoPedido Estado {  get; set; }
         public string MetodoPago { get; set; }// hay que definir como queda esto
 
     }
