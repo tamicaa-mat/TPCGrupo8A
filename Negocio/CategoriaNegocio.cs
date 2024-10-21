@@ -19,9 +19,7 @@ namespace Negocio
             try
             {
 
-                datos.setearConsulta("select idCategoria, Nombre from Categoria");
-
-                datos.setearConsulta("select IdCategoria, Nombre from Categoria");
+                datos.setearConsulta("select idCategoria, Nombre from Categorias");
 
                 datos.ejecutarLectura();
 
@@ -30,9 +28,6 @@ namespace Negocio
                     Categoria categoria = new Categoria();
 
                     categoria.ID = (int)datos.Lector["idCategoria"];
-
-                    categoria.ID = (int)datos.Lector["IdCategoria"];
-
                     categoria.Nombre = datos.Lector["Nombre"].ToString();
 
                     lista.Add(categoria);
@@ -56,7 +51,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO CATEGORIAS (Descripcion) VALUES (@Descripcion)");
+                datos.setearConsulta("INSERT INTO Categorias (Descripcion) VALUES (@Descripcion)");
                 datos.SetearParametro("@Descripcion", nuevaCategoria.Nombre);
                 datos.ejecutarAccion();
             }
@@ -76,7 +71,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("DELETE FROM CATEGORIAS WHERE id = @id");
+                datos.setearConsulta("DELETE FROM Categorias WHERE id = @id");
                 datos.SetearParametro("@id", id);
                 datos.ejecutarAccion();
             }
