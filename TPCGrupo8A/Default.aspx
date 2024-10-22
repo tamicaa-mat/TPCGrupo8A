@@ -5,20 +5,15 @@
 
 
     <main>
-
-
-
         <nav class="navbar-dropdown" style="background-color: #e3f2fd; padding: 0; display: flex; justify-content: center;">
 
             <div class="btn-group">
-                <button id="btn-menu1" class="dropdown-menu-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    OtraCosa
+                <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Marcas
                 </button>
-                <ul class="nav-item dropdown dropdown-menu" style="background-color: #273746">
-                    <li><a class="desplegable-item" href="#">Opcion 1</a></li>
-                    <li><a class="desplegable-item" href="#">Opcion 2</a></li>
-                    <li><a class="desplegable-item" href="#">Opcion 3</a></li> 
-                </ul>
+                 <ul id="ulMarcas" class="dropdown-menu bg-light" runat="server">
+                     <!-- Desplegable de Marcas -->
+                 </ul>
             </div>
 
             <div class="btn-group">
@@ -28,6 +23,16 @@
                 <ul id="ulCategorias" class="dropdown-menu bg-light" runat="server">
                     <!-- elementos dinámicamente -->
                 </ul>
+            </div>
+            <div class="btn-group">
+                <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Mi Cuenta
+                </button>
+                    <ul class="dropdown-menu bg-light">
+                        <li><a class="dropdown-item" href="/Perfil">Perfil</a></li>
+                        <li><a class="dropdown-item" href="/Pedidos">Pedidos</a></li>
+                        <li><a class="dropdown-item" href="/CerrarSesion">Cerrar Sesión</a></li>
+                    </ul>
             </div>
         </nav>
 

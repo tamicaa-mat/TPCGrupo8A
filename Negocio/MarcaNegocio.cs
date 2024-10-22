@@ -1,5 +1,5 @@
-﻿using Dominio;
-using Datos;
+﻿using Datos;
+using Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,35 +8,34 @@ using System.Threading.Tasks;
 
 namespace Negocio
 {
-
-    public class CategoriaNegocio
+    public class MarcaNegocio
     {
-        public List<Categoria> listar()
+        public List<Marca> listar()
         {
-            List<Categoria> lista = new List<Categoria>();
+            List<Marca> lista = new List<Marca>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
 
-                datos.setearConsulta("select idCategoria, Nombre from Categorias");
+                datos.setearConsulta("select idMarca, Nombre from Marcas");
 
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Categoria categoria = new Categoria();
+                    Marca marca = new Marca();
 
-                    categoria.ID = (int)datos.Lector["idCategoria"];
-                    categoria.Nombre = datos.Lector["Nombre"].ToString();
+                    marca.ID = (int)datos.Lector["idMarca"];
+                    marca.Nombre = datos.Lector["Nombre"].ToString();
 
-                    lista.Add(categoria);
+                    lista.Add(marca);
                 }
                 return lista;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar las categorías", ex);
+                throw new Exception("Error al listar las marcas", ex);
             }
             finally
             {
@@ -44,15 +43,14 @@ namespace Negocio
             }
         }
 
-        /// agregar o eliminar categorias de la bd hay que modificarlo porque las columnas de categorias cambiaron en la bd
-        public void agregar(Categoria nuevaCategoria)
+        public void agregar(Categoria nuevaMarca)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("INSERT INTO Categorias (Descripcion) VALUES (@Descripcion)");
-                datos.SetearParametro("@Descripcion", nuevaCategoria.Nombre);
+                datos.setearConsulta("INSERT INTO Marcas (Descripcion) VALUES (@Descripcion)");
+                datos.SetearParametro("@Descripcion", nuevaMarca.Nombre);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -86,3 +84,4 @@ namespace Negocio
         }
     }
 }
+
