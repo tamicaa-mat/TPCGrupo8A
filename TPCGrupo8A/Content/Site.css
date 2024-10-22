@@ -62,35 +62,3 @@ textarea {
     color: blueviolet;
 }
 
-.h3-iniciar{
-    text-align: center;
-    margin-top: 10px;
-}
-
-.form-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border: 1px solid;
-    margin: 0 auto;
-    width: 300px;
-    padding: 10px;
-    border-color: darkviolet;
-}
-
-form {
-    display: flex;
-    justify-content: left;
-    border-radius: 10px;
-    padding: 5px;
-    border: 1px solid;
-    border-color: darkviolet;
-}
-
-form-envia{
-    padding: 5px;
-    border-radius: 10px;
-    color: white;
-    background-color: darkviolet;
-    border-style: none;
-}
