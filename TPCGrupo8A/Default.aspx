@@ -21,7 +21,7 @@
                     Categorías
                 </button>
                 <ul id="ulCategorias" class="dropdown-menu bg-light" runat="server">
-                    <!-- elementos dinámicamente -->
+                    <!-- elementos dinmicamente -->
                 </ul>
             </div>
             <div class="btn-group">
