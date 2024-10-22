@@ -97,15 +97,35 @@ textarea {
     margin-bottom: 5px; 
 }
 
+.container-btn-iniciar{
+    width:100%;
+    display: flex;
+    text-align: center;
+    flex-direction:column;
+}
 
-
-.btn-iniciar{
+.btn-iniciar {
     padding: 5px;
     text-decoration: none;
     font-weight: bold;
-    border:1px solid;
-    color: white;
+    color: black;
     border-radius: 5px;
-    background-color: black;
-    
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.btn-iniciar:hover{
+    border-color: orangered;
+    background-color: red;
+    color: white;
+}
+
+.btn-registrarse{
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-registrarse:hover{
+    text-decoration:underline;
+   
 }

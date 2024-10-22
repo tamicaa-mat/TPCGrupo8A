@@ -12,10 +12,12 @@
                 <asp:Label class="lbldatos" ID="lblPassword" runat="server" Text="CONTRASEÑA: "> </asp:Label>
                 <asp:TextBox class="txtdatos" ID="txtpassword" runat="server" TextMode="Password"></asp:TextBox>
                 <div class="container-btn-iniciar">
-                <a href="#" class="btn-iniciar">Iniciar Sesión</a>
-                <p style="text-align: center;">o</p>
+                <a href="#" class="btn-iniciar">Ingresar</a>
+                <p>o</p>
                 <a href="#" class="btn-registrarse">Registrarse</a>
                 </div>
+                
+                
 
             
         </div>  
