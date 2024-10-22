@@ -45,20 +45,67 @@ textarea {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -25%);
-    transition: transform 0.3s ease-in-out;
+    
 }
 
 .btn-primavera {
     font-size: 25px;
-    font-family: Georgia, serif;
+    font-family:'Lucida Console';
     color: black;
     text-decoration: none;
     border: 1px solid;
-    padding: 5px;
+    padding: 10px;
+    transition: transform 0.3s ease;
 }
 
-.btn-primavera:hover{
+    .btn-primavera:hover {
+       border-radius: 5px;
+        border-color: blueviolet;
+    }
+
+.container-inicio{
+    display:flex;
+    flex-direction:column;
     
-    color: blueviolet;
 }
 
+.h3-inicio{
+    text-align: center;
+    margin-top: 5%;
+}
+
+.container-datos{
+   width: 300px;
+   padding: 20px;
+   margin: 0 auto;
+   border: 1px solid;
+   border-radius: 10px;
+}
+
+.txtdatos {
+    width: 100%; 
+    padding: 10px;
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    margin-bottom: 15px; 
+}
+
+.lbldatos {
+    font-weight: bold; 
+    display: block; 
+    margin-bottom: 5px; 
+}
+
+
+
+.btn-iniciar{
+    padding: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    border:1px solid;
+    color: white;
+    border-radius: 5px;
+    background-color: black;
+    
+}
