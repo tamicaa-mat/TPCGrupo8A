@@ -19,6 +19,7 @@ namespace TPCGrupo8A
             if (!IsPostBack)
             {
                 CargarCategorias();
+                CargarMarcas();
             }
 
         }
@@ -35,11 +36,8 @@ namespace TPCGrupo8A
 
             foreach (var categoria in categorias)
             {
-             
                 var li = new HtmlGenericControl("li");
                 
-
-
                 var a = new HtmlGenericControl("a");
                 a.Attributes["class"] = "dropdown-item";
                 a.Attributes["href"] = "#";  
@@ -50,6 +48,32 @@ namespace TPCGrupo8A
 
                 // Agregar el <li> a la lista del menú (control <ul>)
                 ulCategorias.Controls.Add(li);  // 'ulCategorias' es el ID del <ul> en el HTML
+            }
+        }
+
+        private void CargarMarcas()
+        {
+
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+
+            List<Marca> marcas = marcaNegocio.listar();
+
+            foreach (var marca in marcas)
+            {
+                var li = new HtmlGenericControl("li");
+
+                var a = new HtmlGenericControl("a");
+                a.Attributes["class"] = "dropdown-item";
+                a.Attributes["href"] = "#";
+                a.InnerText = marca.Nombre;
+
+                // Agregar el <a> dentro del <li>
+                li.Controls.Add(a);
+
+                // Agregar el <li> a la lista del menú (control <ul>)
+                ulMarcas.Controls.Add(li);  // 'ulMarcas' es el ID del <ul> en el HTML
             }
         }
     }
