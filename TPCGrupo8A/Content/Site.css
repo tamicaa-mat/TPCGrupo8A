@@ -157,19 +157,22 @@ label{
 }
 
 .textbox:focus {
-    border-color: #921dd6;
+    border-color: red;
     outline: none;
 }
+
 .btn-bd-primary-Personalizado-violeta {
-    background-color: #6135b1;
-    color: white;
-    border: 2px solid #7a2dff;
+    padding: 5px;
+    color: black;
+    font-weight: bold;
+    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .btn-bd-primary-Personalizado-violeta:hover {
-    background-color: #5A339B;
-    border-color: #5A339B;
+    color: white;
+    background-color: red;
+    border-color: #ff7e7e;
 }
 
 .btn-bd-primary-Personalizado-violeta:focus {
