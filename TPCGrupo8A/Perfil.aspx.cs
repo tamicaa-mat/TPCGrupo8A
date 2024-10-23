@@ -13,5 +13,17 @@ namespace TPCGrupo8A
         {
 
         }
+        protected void btnCambiarContraseniaOnClick(object sender, EventArgs e)
+        {
+            CambiarContrasenia.Visible = !CambiarContrasenia.Visible;
+        }
+        protected void btnGuardarNuevaContOnClick(object sender, EventArgs e)
+        {
+            CambiarContrasenia.Visible = !CambiarContrasenia.Visible;
+        }
+        protected void btnGuardarPerfilOnClick(object sender, EventArgs e)
+        {
+
+        }
     }
 }

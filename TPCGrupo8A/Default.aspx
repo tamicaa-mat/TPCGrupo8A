@@ -5,7 +5,7 @@
 
 
     <main>
-        <nav class="navbar-dropdown" style="background-color: #e3f2fd; padding: 0; display: flex; justify-content: center;">
+       <%-- <nav class="navbar-dropdown" style="background-color: #e3f2fd; padding: 0; display: flex; justify-content: center;">
 
             <div class="btn-group">
                 <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,7 +34,7 @@
                         <li><a class="dropdown-item" href="/CerrarSesion">Cerrar Sesión</a></li>
                     </ul>
             </div>
-        </nav>
+        </nav>--%>
 
         <div class="img-card">
             <img src="./assets/fondo.jpeg" alt="fondo" style="width: 100%; height: auto;" />

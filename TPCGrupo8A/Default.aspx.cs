@@ -16,138 +16,64 @@ namespace TPCGrupo8A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                CargarCategorias();
-                CargarMarcas();
-            }
+            //if (!IsPostBack)
+            //{
+            //    CargarCategorias();
+            //    CargarMarcas();
+            //}
 
         }
 
 
-        private void CargarCategorias()
-        {
+        //private void CargarCategorias()
+        //{
            
-            CategoriaNegocio cateNegocio = new CategoriaNegocio();
-            AccesoDatos accesoDatos = new AccesoDatos();
+        //    CategoriaNegocio cateNegocio = new CategoriaNegocio();
+        //    AccesoDatos accesoDatos = new AccesoDatos();
 
             
-            List<Categoria> categorias = cateNegocio.listar();
+        //    List<Categoria> categorias = cateNegocio.listar();
 
-            foreach (var categoria in categorias)
-            {
-                var li = new HtmlGenericControl("li");
+        //    foreach (var categoria in categorias)
+        //    {
+        //        var li = new HtmlGenericControl("li");
                 
-                var a = new HtmlGenericControl("a");
-                a.Attributes["class"] = "dropdown-item";
-                a.Attributes["href"] = "#";  
-                a.InnerText = categoria.Nombre;  
+        //        var a = new HtmlGenericControl("a");
+        //        a.Attributes["class"] = "dropdown-item";
+        //        a.Attributes["href"] = "#";  
+        //        a.InnerText = categoria.Nombre;  
 
-                // Agregar el <a> dentro del <li>
-                li.Controls.Add(a);
+        //        // Agregar el <a> dentro del <li>
+        //        li.Controls.Add(a);
 
-                // Agregar el <li> a la lista del menú (control <ul>)
-                ulCategorias.Controls.Add(li);  // 'ulCategorias' es el ID del <ul> en el HTML
-            }
-        }
+        //        // Agregar el <li> a la lista del menú (control <ul>)
+        //        ulCategorias.Controls.Add(li);  // 'ulCategorias' es el ID del <ul> en el HTML
+        //    }
+        //}
 
-        private void CargarMarcas()
-        {
+        //private void CargarMarcas()
+        //{
 
-            MarcaNegocio marcaNegocio = new MarcaNegocio();
-            AccesoDatos accesoDatos = new AccesoDatos();
+        //    MarcaNegocio marcaNegocio = new MarcaNegocio();
+        //    AccesoDatos accesoDatos = new AccesoDatos();
 
 
-            List<Marca> marcas = marcaNegocio.listar();
+        //    List<Marca> marcas = marcaNegocio.listar();
 
-            foreach (var marca in marcas)
-            {
-                var li = new HtmlGenericControl("li");
+        //    foreach (var marca in marcas)
+        //    {
+        //        var li = new HtmlGenericControl("li");
 
-                var a = new HtmlGenericControl("a");
-                a.Attributes["class"] = "dropdown-item";
-                a.Attributes["href"] = "#";
-                a.InnerText = marca.Nombre;
+        //        var a = new HtmlGenericControl("a");
+        //        a.Attributes["class"] = "dropdown-item";
+        //        a.Attributes["href"] = "#";
+        //        a.InnerText = marca.Nombre;
 
-                // Agregar el <a> dentro del <li>
-                li.Controls.Add(a);
+        //        // Agregar el <a> dentro del <li>
+        //        li.Controls.Add(a);
 
-                // Agregar el <li> a la lista del menú (control <ul>)
-                ulMarcas.Controls.Add(li);  // 'ulMarcas' es el ID del <ul> en el HTML
-            }
-        }
+        //        // Agregar el <li> a la lista del menú (control <ul>)
+        //        ulMarcas.Controls.Add(li);  // 'ulMarcas' es el ID del <ul> en el HTML
+        //    }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

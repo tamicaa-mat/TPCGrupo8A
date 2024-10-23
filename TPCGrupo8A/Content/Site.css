@@ -129,3 +129,49 @@ textarea {
     text-decoration:underline;
    
 }
+
+/**** Perfil ****/
+#perfil{
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.datos{
+    display: flex;
+    flex-direction: column;
+    margin-bottom:15px;
+}
+
+label{
+    font-weight: bold;
+    margin-bottom: 5px; 
+}
+
+.textbox {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.textbox:focus {
+    border-color: #921dd6;
+    outline: none;
+}
+.btn-bd-primary-Personalizado-violeta {
+    background-color: #6135b1;
+    color: white;
+    border: 2px solid #7a2dff;
+    border-radius: 5px;
+}
+
+.btn-bd-primary-Personalizado-violeta:hover {
+    background-color: #5A339B;
+    border-color: #5A339B;
+}
+
+.btn-bd-primary-Personalizado-violeta:focus {
+    box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.5);
+}
