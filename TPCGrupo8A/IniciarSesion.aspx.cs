@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +14,28 @@ namespace TPCGrupo8A
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+        protected void btnButtonIngresarOnClick(object sender, EventArgs e)
+        {
+            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            try
+            {
+                Usuario usuario = new Usuario(txtemail.Text, txtpassword.Text, false);
+                if (usuarioNegocio.IniciarSesion(usuario))
+                {
+                    Session.Add("usuario", usuario);
+                    Response.Redirect("~/Default.aspx", false);
+                }
+                else
+                {
+                    Session.Add("Error", "user o pass incorrectos");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Datos;
+using Negocio;
 
 namespace TPCGrupo8A
 {
@@ -11,7 +14,21 @@ namespace TPCGrupo8A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuario"] == null)
+            {
+                Session.Add("Error", "Necesitas logearte ");
+                Response.Redirect("~/IniciarSesion", false);
+            }
+            else if (!IsPostBack)
+            {
+                CargarPerfil();
+            }
+        }
 
+        protected void CargarPerfil()
+        {
+            Usuario usuario = (Usuario)Session["usuario"];
+                TextEmail.Text = usuario.Email;
         }
         protected void btnCambiarContraseniaOnClick(object sender, EventArgs e)
         {

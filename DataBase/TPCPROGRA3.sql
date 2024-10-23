@@ -71,3 +71,25 @@ VALUES
 (5, 'https://http2.mlstatic.com/D_NQ_NP_637482-MLA79955935763_102024-O.webp'),
 (6, 'https://http2.mlstatic.com/D_Q_NP_2X_619261-MLA31356897283_072019-E.webp')
 
+CREATE TABLE Usuarios (
+    IdUsuario INT PRIMARY KEY IDENTITY(1,1),
+    Apellido VARCHAR(100) NOT NULL,
+    Nombre VARCHAR(100) NOT NULL,
+    Email VARCHAR(150) NOT NULL UNIQUE,
+    Contraseña VARCHAR(150) NOT NULL,
+    FechaAlta DATETIME NOT NULL DEFAULT GETDATE(),
+    FechaNacimiento DATETIME NULL,
+	TipoUsuario INT NOT NULL
+);
+ 
+SET DATEFORMAT 'YMD';
+INSERT INTO Usuarios (Apellido, Nombre, Email, Contraseña, TipoUsuario)
+VALUES 
+('Administrador', 'Admin', 'administrador@email.com', 'admin123', 1)
+
+SET DATEFORMAT 'YMD';
+INSERT INTO Usuarios (Apellido, Nombre, Email, Contraseña, FechaAlta, FechaNacimiento, TipoUsuario)
+VALUES 
+('Simpson', 'Homero', 'h.simpson@email.com', 'homer123', DEFAULT, '1980-05-12', 0)
+
+select*from Usuarios

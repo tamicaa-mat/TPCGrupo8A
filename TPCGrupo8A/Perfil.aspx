@@ -19,10 +19,6 @@
             <label for="txtFechaNacimiento">Fecha de Nacimiento:</label>
             <asp:TextBox ID="TextFechaNacimiento" runat="server" Placeholder="Ingrese su apellido" TextMode="Date" CssClass="textbox"></asp:TextBox>
         </div>
-        <div class="datos">
-            <label for="txtTelefono">Teléfono:</label>
-            <asp:TextBox ID="TextTelefono" runat="server" Placeholder="Ingrese su teléfono" CssClass="textbox"></asp:TextBox>
-        </div>
 
         <h2>Cambiar contraseña</h2>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
