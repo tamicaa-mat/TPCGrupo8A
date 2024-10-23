@@ -1,7 +1,7 @@
-CREATE DATABASE TPCGRUPO8A;
+CREATE DATABASE nuevatp;
 GO
 
-USE TPCGRUPO8A;
+USE nuevatp;
 GO
 
 CREATE TABLE Categorias(
@@ -33,18 +33,21 @@ VALUES
     ('Camisas'),
     ('Pantalones'),
     ('Camperas')
+GO
 
 INSERT INTO Marcas (Nombre)
 VALUES 
     ('Zara'),
     ('H&M'),
     ('Lacoste')
+GO
 
 CREATE TABLE Imagenes (
     IdImagen INT PRIMARY KEY IDENTITY(1,1),
     IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(IdProducto),
     ImagenUrl VARCHAR(1000) NOT NULL,
 )
+GO
 
 UPDATE Marcas
 	SET Nombre = 'PepeGrillo'
@@ -52,6 +55,7 @@ UPDATE Marcas
 UPDATE Marcas
 	SET Nombre = 'AliciaEnLasMaravillas'
 	WHERE IdMarca = 2
+GO
 
 INSERT INTO Productos(Codigo, Nombre, Descripcion, Precio, IdCategoria, IdMarca)
 VALUES 
@@ -61,6 +65,7 @@ VALUES
 ('CAM002','Camisa Lisa','Algodon 90% 10% licra blanca',$23663,2,1),
 ('PAN001','Pantalon','Impermeable con bolsillos cargo',$86000,3,2),
 ('PAN002','Pantalon','Bolsillos con cierre y botones',$95660,3,2)
+GO
 
 INSERT INTO Imagenes (IdProducto, ImagenUrl)
 VALUES 
@@ -70,6 +75,7 @@ VALUES
 (4, 'https://http2.mlstatic.com/D_NQ_NP_601108-MLA31013770285_062019-O.webp'),
 (5, 'https://http2.mlstatic.com/D_NQ_NP_637482-MLA79955935763_102024-O.webp'),
 (6, 'https://http2.mlstatic.com/D_Q_NP_2X_619261-MLA31356897283_072019-E.webp')
+GO
 
 CREATE TABLE Usuarios (
     IdUsuario INT PRIMARY KEY IDENTITY(1,1),
@@ -81,15 +87,16 @@ CREATE TABLE Usuarios (
     FechaNacimiento DATETIME NULL,
 	TipoUsuario INT NOT NULL
 );
- 
+GO
+
 SET DATEFORMAT 'YMD';
 INSERT INTO Usuarios (Apellido, Nombre, Email, Contraseña, TipoUsuario)
 VALUES 
 ('Administrador', 'Admin', 'administrador@email.com', 'admin123', 1)
+GO
 
 SET DATEFORMAT 'YMD';
 INSERT INTO Usuarios (Apellido, Nombre, Email, Contraseña, FechaAlta, FechaNacimiento, TipoUsuario)
 VALUES 
 ('Simpson', 'Homero', 'h.simpson@email.com', 'homer123', DEFAULT, '1980-05-12', 0)
-
-select*from Usuarios
+GO
