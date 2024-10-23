@@ -5,37 +5,7 @@
 
 
     <main>
-       <%-- <nav class="navbar-dropdown" style="background-color: #e3f2fd; padding: 0; display: flex; justify-content: center;">
-
-            <div class="btn-group">
-                <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Marcas
-                </button>
-                 <ul id="ulMarcas" class="dropdown-menu bg-light" runat="server">
-                     <!-- Desplegable de Marcas -->
-                 </ul>
-            </div>
-
-            <div class="btn-group">
-                <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Categorías
-                </button>
-                <ul id="ulCategorias" class="dropdown-menu bg-light" runat="server">
-                    <!-- elementos dinmicamente -->
-                </ul>
-            </div>
-            <div class="btn-group">
-                <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Mi Cuenta
-                </button>
-                    <ul class="dropdown-menu bg-light">
-                        <li><a class="dropdown-item" href="/Perfil">Perfil</a></li>
-                        <li><a class="dropdown-item" href="/Pedidos">Pedidos</a></li>
-                        <li><a class="dropdown-item" href="/CerrarSesion">Cerrar Sesión</a></li>
-                    </ul>
-            </div>
-        </nav>--%>
-
+      
         <div class="img-card">
             <img src="./assets/fondo.jpeg" alt="fondo" style="width: 100%; height: auto;" />
             <div class="container-btn-primavera">

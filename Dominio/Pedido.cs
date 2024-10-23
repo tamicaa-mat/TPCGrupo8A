@@ -9,11 +9,13 @@ namespace Dominio
     public class Pedido
     {
         public int ID { get; set; }
+        public string NumeroPedido { get; set; }
         public DateTime Fecha { get; set; }
-        public Cliente Cliente { get; set; }  // Asociación con la clase Cliente
-        public DetallePedido Detalle { get; set; }  // Asociado con clase DetallePedido
-        public EstadoPedido Estado {  get; set; }
-        public string MetodoPago { get; set; }// hay que definir como queda esto
+        public Cliente Cliente { get; set; }  
+        public List<Pedido> Pedidos { get; set; }
+        public DetallePedido Detalle { get; set; } 
+        public EstadoPedido Estado {  get; set; } //
+        public string MetodoPago { get; set; }// a coordinar con el vendedor, transferencia o mp
 
     }
 }
