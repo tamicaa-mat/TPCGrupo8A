@@ -59,9 +59,13 @@ textarea {
 }
 
     .btn-primavera:hover {
-       border-radius: 5px;
-        border-color: blueviolet;
+        border-radius: 5px;
+        border-color: #d95030;
     }
+
+
+
+/* INICIAR SESION */
 
 .container-inicio{
     display:flex;
@@ -106,17 +110,18 @@ textarea {
 
 .btn-iniciar {
     padding: 5px;
+    margin-top: 25px;
     text-decoration: none;
     font-weight: bold;
     color: black;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid;
     width: 100%;
 }
 
-.btn-iniciar:hover{
+.btn-iniciar:hover {
     border-color: orangered;
-    background-color: red;
+    background-color: #d95030;
     color: white;
 }
 
