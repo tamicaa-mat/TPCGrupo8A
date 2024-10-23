@@ -19,7 +19,7 @@ namespace Datos
         }
         public AccesoDatos()
         {
-            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=TPCPRUEBA; integrated security=true");
+            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=TPCGRUPO8A; integrated security=true");
             comando = new SqlCommand();
         }
         public void setearConsulta(string consulta)
