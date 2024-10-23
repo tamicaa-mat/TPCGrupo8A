@@ -36,7 +36,7 @@ namespace TPCGrupo8A
 
                 var a = new HtmlGenericControl("a");
                 a.Attributes["class"] = "dropdown-item";
-                a.Attributes["href"] = "#";
+                a.Attributes["href"] = $"productos.aspx?categoriaId={categoria.ID}";
                 a.InnerText = categoria.Nombre;
 
                 // Agregar el <a> dentro del <li>
