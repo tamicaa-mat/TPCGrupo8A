@@ -44,14 +44,6 @@
                             <asp:Label class="lbldatos" ID="lblPasswordRegistro" runat="server" Text="Contraseña: "></asp:Label>
                             <asp:TextBox class="txtdatos" ID="txtPasswordRegistro" runat="server" TextMode="Password"></asp:TextBox>
 
-                            <asp:Label class="lbldatos" ID="lblNumero" runat="server" Text="Teléfono: "></asp:Label>
-                            <asp:TextBox class="txtdatos" ID="txtTelefono" runat="server" TextMode="Number"></asp:TextBox>
-
-                            <asp:Label class="lbldatos" ID="lblDomicilio" runat="server" Text="Domicilio"></asp:Label>
-                            <asp:TextBox class="txtdatos" ID="txtDomicilio" runat="server"></asp:TextBox>
-
-                            <asp:Label class="lbldatos" ID="lblFecha" runat="server" Text="Fecha Nacimiento"></asp:Label>
-                            <asp:TextBox class="txtdatos" ID="txtFecha" runat="server" TextMode="Date"></asp:TextBox>
 
                         </div>
                     </div>
