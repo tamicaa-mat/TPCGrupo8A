@@ -16,7 +16,7 @@ namespace Negocio
             try
             {
                 dato.setearConsulta("SELECT IdUsuario, TipoUsuario " +
-                "FROM UsuarioS " +
+                "FROM Usuarios " +
                 "WHERE Email = @Email AND Contraseña = @contrasenia");
                 dato.SetearParametro("@Email", usuario.Email);
                 dato.SetearParametro("@contrasenia", usuario.Contrasenia);

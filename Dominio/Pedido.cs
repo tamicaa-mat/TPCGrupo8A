@@ -12,10 +12,8 @@ namespace Dominio
         public string NumeroPedido { get; set; }
         public DateTime Fecha { get; set; }
         public Cliente Cliente { get; set; }  
-        public List<Pedido> Pedidos { get; set; }
-        public DetallePedido Detalle { get; set; } 
-        public EstadoPedido Estado {  get; set; } //
-        public string MetodoPago { get; set; }// a coordinar con el vendedor, transferencia o mp
-
+        public List<DetallePedido> Detalles { get; set; } 
+        public EstadoPedido Estado {  get; set; } 
+        public MetodoPago MetodoPago { get; set; }
     }
 }
