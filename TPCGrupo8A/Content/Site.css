@@ -52,6 +52,7 @@ textarea {
     font-size: 25px;
     font-family:'Lucida Console';
     color: black;
+    display: flex;
     text-decoration: none;
     border: 1px solid;
     padding: 10px;
@@ -184,5 +185,25 @@ label{
     box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.5);
 }
 
-/* NAV ITEMS HEADER */
+/* CONTACTO */
 
+.container-contacto
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+formulario-1{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+formulario-2 {
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+}
