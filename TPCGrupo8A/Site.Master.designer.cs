@@ -15,6 +15,15 @@ namespace TPCGrupo8A
     {
 
         /// <summary>
+        /// Control IngresarBoton.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl IngresarBoton;
+
+        /// <summary>
         /// Control ulMarcas.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace TPCGrupo8A
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ulCategorias;
+
+        /// <summary>
+        /// Control MiCuentaMenu.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MiCuentaMenu;
 
         /// <summary>
         /// Control MainContent.
