@@ -10,6 +10,33 @@ namespace Negocio
 {
     public class UsuarioNegocio
     {
+     
+        public void RegistroUsuario(Usuario usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("INSERT INTO Usuarios(Apellido, Nombre, Email, Contraseña, TipoUsuario) " +
+                                     "VALUES(@Apellido, @Nombre, @Email, @Contraseña, @TipoUsuario)");
+
+                datos.SetearParametro("@Apellido", usuario.Apellido);
+                datos.SetearParametro("@Nombre", usuario.Nombre);
+                datos.SetearParametro("@Email", usuario.Email);
+                datos.SetearParametro("@Contraseña", usuario.Contrasenia);
+                datos.SetearParametro("@TipoUsuario", 0);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
         public bool IniciarSesion(Usuario usuario)
         {
             AccesoDatos dato = new AccesoDatos();
@@ -38,6 +65,19 @@ namespace Negocio
             {
                 dato.cerrarConexion();
             }
+
+
         }
+
+
+
+
+
     }
+
+
+
+
+
+
 }

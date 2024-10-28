@@ -32,11 +32,13 @@
                     <div class="modal-body">
 
                         <div class="container-registro">
-                            <asp:Label class="lbldatos" ID="lblNombre" runat="server" Text="Nombre: "></asp:Label>
-                            <asp:TextBox class="txtdatos" ID="txtNombre" runat="server"></asp:TextBox>
-
+                           
                             <asp:Label class="lbldatos" ID="lblApellido" runat="server" Text="Apellido: "></asp:Label>
                             <asp:TextBox class="txtdatos" ID="txtApellido" runat="server"></asp:TextBox>
+
+                             <asp:Label class="lbldatos" ID="lblNombre" runat="server" Text="Nombre: "></asp:Label>
+                             <asp:TextBox class="txtdatos" ID="txtNombre" runat="server"></asp:TextBox>
+
 
                             <asp:Label class="lbldatos" ID="lblEmailRegistro" runat="server" Text="Email: "></asp:Label>
                             <asp:TextBox class="txtdatos" ID="txtEmailRegistro" runat="server" TextMode="Email"></asp:TextBox>
@@ -48,7 +50,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-iniciar">Registrar</button>
+                      
+                     <asp:Button ID="btnRegistrar" runat="server" Text="Registrar" CssClass="btn-iniciar" OnClick="btnRegistrar_On_Click" />
+
 
                     </div>
                 </div>

@@ -25,10 +25,13 @@ namespace TPCGrupo8A
             }
         }
 
+        //aca para cargar los demas datos en el perfil de usuario
         protected void CargarPerfil()
         {
             Usuario usuario = (Usuario)Session["usuario"];
                 TextEmail.Text = usuario.Email;
+                TextNombre.Text = usuario.Nombre;
+              
         }
         protected void btnCambiarContraseniaOnClick(object sender, EventArgs e)
         {

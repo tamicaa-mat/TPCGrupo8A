@@ -23,13 +23,14 @@ namespace Dominio
         public string Contrasenia { get; set; }
         public DateTime FechaAlta { get; set; }
         public DateTime? FechaNacimiento { get; set; }
-        public TipoUsuario TipoUsuario { get; set; }
 
+        public TipoUsuario TipoUsuario { get; set; }
+       
         public Usuario() 
         { 
         
         }
-        public Usuario(string email, string contrasenia, bool administrador) 
+        public Usuario(string email,string contrasenia, bool administrador) 
         {
             Email = email;
             Contrasenia = contrasenia;
