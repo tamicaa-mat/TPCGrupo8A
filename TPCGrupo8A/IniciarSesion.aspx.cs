@@ -60,6 +60,8 @@ namespace TPCGrupo8A
 
 
                     usuarioNegocio.RegistroUsuario(usuario);
+                    Response.Redirect("RegistroExitoso.aspx?nombre=" + Server.UrlEncode(usuario.Nombre), false);
+
                 }
                 else
                 {
