@@ -71,7 +71,7 @@
 
                         <li class="nav-item"><a class="nav-link" style="background-color: white !important; border: 1px solid #ccc !important; border-radius: 5px !important; color: black !important;" runat="server" href="#contacto">Contacto</a></li>
 
-                        <li class="nav-item" style="margin-left: 5px !important;">
+                        <li class="nav-item" style="margin-left: 5px !important;" runat="server" id="IngresarBoton" visible='<%# Session["usuario"] == null %>'>
                             <a class="nav-link" style="background-color: white !important; border: 1px solid #ccc !important; border-radius: 5px !important; color: black !important;" runat="server" href="~/IniciarSesion">
                                 <i class="bi bi-person"></i>Ingresar</a>
 
@@ -100,17 +100,17 @@
                     <!-- elementos dinmicamente -->
                 </ul>
             </div>
-            <div class="btn-group">
-                <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Mi Cuenta
-                </button>
-                <ul class="dropdown-menu bg-light">
-                    <li><a class="dropdown-item" href="/Perfil">Perfil</a></li>
-                    <li><a class="dropdown-item" href="/Pedidos">Pedidos</a></li>
-                    <li><a class="dropdown-item" href="/CerrarSesion">Cerrar Sesión</a></li>
-                </ul>
-            </div>
+            <div class="btn-group" runat="server" id="MiCuentaMenu" visible='<%# Session["usuario"] != null %>'>
+        <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Mi Cuenta
+        </button>
+        <ul class="dropdown-menu bg-light">
+            <li><a class="dropdown-item" href="/Perfil">Perfil</a></li>
+            <li><a class="dropdown-item" href="/Pedidos">Pedidos</a></li>
+            <li><a class="dropdown-item" href="/CerrarSesion">Cerrar Sesión</a></li>
+        </ul>
         </div>
+     </div>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>

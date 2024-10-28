@@ -19,7 +19,10 @@ namespace TPCGrupo8A
             {
                 CargarCategorias();
                 CargarMarcas();
+                
             }
+            IngresarBoton.Visible = Session["usuario"] == null;
+            MiCuentaMenu.Visible = Session["usuario"] != null; 
         }
         private void CargarCategorias()
         {
