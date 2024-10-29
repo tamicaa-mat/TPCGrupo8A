@@ -15,7 +15,7 @@
                         <%# Eval("Descripcion") %><br />
                         Precio: $<%# Eval("Precio") %>
                     </p>
-                    <a href="RegistroCliente.aspx" class="btn btn-primary">Seleccionar</a>
+                    <a href="IniciarSesion.aspx" class="btn btn-primary">Seleccionar</a>
                 </div>
             </div>
         </ItemTemplate>
