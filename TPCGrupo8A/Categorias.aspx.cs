@@ -18,11 +18,11 @@ namespace TPCGrupo8A
             if (!IsPostBack)
             {
                 CargarCategorias();
-                Usuario usuario = Session["usuario"] as Usuario;
-                if (usuario == null || usuario.TipoUsuario != TipoUsuario.Administrador)
-                {
-                    Response.Redirect("~/Default.aspx", false);
-                }
+                //Usuario usuario = Session["usuario"] as Usuario;
+                //if (usuario == null || usuario.TipoUsuario != TipoUsuario.Administrador)
+                //{
+                //    Response.Redirect("~/Default.aspx", false);
+                //}  // lo comento para que podamos acceder a las pantallas sin logearnos, ya q solo el admin puede acceder a estas pantallas
             }
         }
         private void CargarCategorias()
@@ -38,6 +38,24 @@ namespace TPCGrupo8A
             {
 
                 throw;
+            }
+        }
+        protected void btnGuardarCategoria_OnClick(object sender, EventArgs e)
+        {
+            Categoria categoria = new Categoria();
+            try
+            {
+                Categoria nuevaCategoria = new Categoria();
+                nuevaCategoria.Nombre = txtNombreCategoria.Text;
+
+                CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                categoriaNegocio.agregar(nuevaCategoria);
+
+                CargarCategorias();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         protected void btnAgregar_OnClick(object sender, EventArgs e)
