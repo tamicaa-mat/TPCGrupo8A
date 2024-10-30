@@ -18,6 +18,11 @@ namespace TPCGrupo8A
             if (!IsPostBack)
             {
                 CargarCategorias();
+                Usuario usuario = Session["usuario"] as Usuario;
+                if (usuario == null || usuario.TipoUsuario != TipoUsuario.Administrador)
+                {
+                    Response.Redirect("~/Default.aspx", false);
+                }
             }
         }
         private void CargarCategorias()
