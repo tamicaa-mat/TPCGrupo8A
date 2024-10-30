@@ -207,3 +207,12 @@ formulario-2 {
     flex: 2;
     flex-direction: column;
 }
+
+/*_____ Pantalla Categorías _____*/
+.list-categorias {
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 1px solid #a1a1a1;
+    border-radius: 5px;
+    padding: 10px;
+}

@@ -42,20 +42,28 @@ namespace TPCGrupo8A
         }
         protected void btnGuardarCategoria_OnClick(object sender, EventArgs e)
         {
-            Categoria categoria = new Categoria();
+            Categoria nuevaCategoria = new Categoria();
+            nuevaCategoria.Nombre = txtNombreCategoria.Text;
             try
             {
-                Categoria nuevaCategoria = new Categoria();
-                nuevaCategoria.Nombre = txtNombreCategoria.Text;
-
                 CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-                categoriaNegocio.agregar(nuevaCategoria);
 
-                CargarCategorias();
+                if (!(categoriaNegocio.ExisteNombreCategoria(nuevaCategoria.Nombre)))
+                {
+                    categoriaNegocio.agregar(nuevaCategoria);
+                    CargarCategorias();
+                    lblErrorCategoria.Visible = false;
+                }
+                else
+                {
+                    lblErrorCategoria.Text = $"La categoría '{nuevaCategoria.Nombre}' ya existe, agregue otra distinta";
+                    lblErrorCategoria.Visible = true;
+                }
+                    txtNombreCategoria.Text = "";
             }
-            catch (Exception ex)
+            catch (Exception ex)                                           
             {
-                throw ex;
+                throw new Exception($"La categoría '{nuevaCategoria.Nombre}' ya existe, agregue otra distinta", ex);
             }
         }
         protected void btnAgregar_OnClick(object sender, EventArgs e)

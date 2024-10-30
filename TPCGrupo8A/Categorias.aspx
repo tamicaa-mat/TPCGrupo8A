@@ -3,12 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="container">
-    <h1 class="tex-center my-4">Categorías</h1>
+        <h1 class="tex-center my-4">Categorías</h1>
     </div>
     <div class="mb-3">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar Categoría</button>
+        <asp:Label ID="lblErrorCategoria" CssClass="text-danger" Visible="false" runat="server"></asp:Label>
     </div>
-    <%--MODAL--%>
+    <%--Modal Categoría--%>
     <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -17,10 +18,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                        <div class="mb-3">
-                            <asp:Label CssClass="form-label" ID="lblNombreCategoria" runat="server" Text="Nombre:"></asp:Label>
-                            <asp:TextBox CssClass="form-control" ID="txtNombreCategoria" runat="server" required=""></asp:TextBox> 
-                        </div>
+                    <div class="mb-3">
+                        <asp:Label CssClass="form-label" ID="lblNombreCategoria" runat="server" Text="Nombre:"></asp:Label>
+                        <asp:TextBox CssClass="form-control" ID="txtNombreCategoria" runat="server" required=""></asp:TextBox>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -29,17 +30,17 @@
             </div>
         </div>
     </div>
-
-    <asp:Repeater ID="RptCategorias" runat="server">
-        <ItemTemplate>
-            <div class="list-group">
-                <button type="button" class="list-group-item list-group-item-action">
-                    <%# Eval("Nombre") %>
-                </button>
-            </div>
-        </ItemTemplate>
-    </asp:Repeater>
-
+    <div class="list-categorias mb-3">
+        <asp:Repeater ID="RptCategorias" runat="server">
+            <ItemTemplate>
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <%# Eval("Nombre") %>
+                    </a>
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
     <div class="mt-3">
         <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn btn-primary" OnClick="btnEditar_OnClick" />
         <asp:Button ID="btnBorrar" runat="server" Text="Borrar" CssClass="btn btn-danger" OnClick="btnBorrar_OnClick" />

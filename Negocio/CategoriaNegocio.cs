@@ -82,5 +82,31 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        public bool ExisteNombreCategoria(string nombre)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            bool existeNombre = false;
+
+            try
+            {
+                datos.setearConsulta("SELECT Nombre FROM Categorias WHERE UPPER(Nombre) = UPPER(@Nombre)");
+                datos.SetearParametro("@Nombre", nombre);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    existeNombre = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"ERROR al agregar categoría");
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return existeNombre;
+        }
     }
 }
