@@ -11,70 +11,70 @@ namespace TPCGrupo8A
 {
 
 
-    public partial class SiteMaster
+    public partial class Categorias
     {
 
         /// <summary>
-        /// linkAdmin control.
+        /// lblErrorCategoria control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor linkAdmin;
+        protected global::System.Web.UI.WebControls.Label lblErrorCategoria;
 
         /// <summary>
-        /// IngresarBoton control.
+        /// lblNombreCategoria control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl IngresarBoton;
+        protected global::System.Web.UI.WebControls.Label lblNombreCategoria;
 
         /// <summary>
-        /// ulMarcas control.
+        /// txtNombreCategoria control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ulMarcas;
+        protected global::System.Web.UI.WebControls.TextBox txtNombreCategoria;
 
         /// <summary>
-        /// ulCategorias control.
+        /// btnGuardarCategoria control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ulCategorias;
+        protected global::System.Web.UI.WebControls.Button btnGuardarCategoria;
 
         /// <summary>
-        /// MiCuentaMenu control.
+        /// RptCategorias control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MiCuentaMenu;
+        protected global::System.Web.UI.WebControls.Repeater RptCategorias;
 
         /// <summary>
-        /// CerrarSesion control.
+        /// btnEditar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton CerrarSesion;
+        protected global::System.Web.UI.WebControls.Button btnEditar;
 
         /// <summary>
-        /// MainContent control.
+        /// btnBorrar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.Button btnBorrar;
     }
 }

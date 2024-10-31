@@ -100,3 +100,45 @@ INSERT INTO Usuarios (Apellido, Nombre, Email, Contraseña, FechaAlta, FechaNacim
 VALUES 
 ('Simpson', 'Homero', 'h.simpson@email.com', 'homer123', DEFAULT, '1980-05-12', 0)
 GO
+
+----nuevas tablas bd para administrador 30/10/24
+--agrego stock a tabla productos
+
+ALTER TABLE Productos
+ADD Stock INT NOT NULL DEFAULT 0;
+
+UPDATE Productos SET Stock = 7 WHERE IdProducto = 1;
+UPDATE Productos SET Stock = 12 WHERE IdProducto = 2;
+UPDATE Productos SET Stock = 5 WHERE IdProducto = 3;
+UPDATE Productos SET Stock = 10 WHERE IdProducto = 4;
+UPDATE Productos SET Stock = 3 WHERE IdProducto = 5;
+UPDATE Productos SET Stock = 15 WHERE IdProducto = 6;
+
+--agrego tabla clientes
+CREATE TABLE Clientes (
+    IdCliente INT PRIMARY KEY IDENTITY(1,1),
+	IdUsuario INT FOREIGN KEY REFERENCES Usuarios(IdUsuario),
+	Dni VARCHAR(10) NOT NULL,
+    Apellido VARCHAR(100) NOT NULL,
+    Nombre VARCHAR(100) NOT NULL,
+	Direccion VARCHAR(200) NOT NULL,
+	Provincia VARCHAR (150) NOT NULL,
+	TipoUsuario INT NOT NULL
+  
+)
+ --agrego tabla pedidos
+ CREATE TABLE Pedidos (
+    IdPedido INT PRIMARY KEY IDENTITY(1,1),
+    IdCliente INT NOT NULL FOREIGN KEY REFERENCES Clientes(IdCliente),
+    IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(IdProducto),
+    Cantidad INT NOT NULL,
+	Monto MONEY,
+    FechaPedido DATETIME NOT NULL DEFAULT GETDATE(),
+    Estado VARCHAR(50) NOT NULL
+)
+ --agrego tabla pedidos por cliente
+ CREATE TABLE PedidosPorCliente (
+  IdPedidoPorCliente INT PRIMARY KEY IDENTITY(1,1),
+  IdPedido INT FOREIGN KEY REFERENCES Pedidos(IdPedido),
+  IdCliente INT FOREIGN KEY REFERENCES Clientes(IdCliente)
+ )

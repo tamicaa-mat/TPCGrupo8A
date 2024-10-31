@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -24,11 +25,18 @@ namespace TPCGrupo8A
             try
             {
                 Usuario usuario = new Usuario(txtemail.Text, txtpassword.Text, false);
+
                 if (usuarioNegocio.IniciarSesion(usuario))
                 {
                     Session.Add("usuario", usuario);
+                    if(usuario.TipoUsuario == TipoUsuario.Administrador)
+                    {
+                        Response.Redirect("~/Administrador.aspx", false);
+                    }
+                    else
+                    {
                     Response.Redirect("~/Default.aspx", false);
-                    
+                    }
                 }
                 else
                 {
@@ -37,7 +45,6 @@ namespace TPCGrupo8A
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -60,6 +67,8 @@ namespace TPCGrupo8A
 
 
                     usuarioNegocio.RegistroUsuario(usuario);
+                    Response.Redirect("RegistroExitoso.aspx?nombre=" + Server.UrlEncode(usuario.Nombre), false);
+
                 }
                 else
                 {
@@ -179,13 +188,5 @@ namespace TPCGrupo8A
             // Si no hay errores true
             return true;
         }
-
-
-
-
-
-
-
-
     }
 }

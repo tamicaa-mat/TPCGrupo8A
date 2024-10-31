@@ -19,10 +19,34 @@ namespace TPCGrupo8A
             {
                 CargarCategorias();
                 CargarMarcas();
-                
-            }
-            IngresarBoton.Visible = Session["usuario"] == null;
+                Usuario usuario = Session["usuario"] as Usuario;
+                if (usuario == null)
+                {
+                    IngresarBoton.Visible = true;
+                    linkAdmin.Visible = false;
+                    CerrarSesion.Visible = false;
+                }
+                else
+                {
+                    IngresarBoton.Visible = false;
+                    CerrarSesion.Visible = true;
+                    //si el usuario es administrador muestra el link a administrador y si es cliente no
+                    linkAdmin.Visible = usuario.TipoUsuario == TipoUsuario.Administrador;
+                }
             MiCuentaMenu.Visible = Session["usuario"] != null; 
+            }
+        }
+
+        protected void CerrarSesion_OnClick(object sender, EventArgs e)
+        {
+            Session.Abandon();
+            if (Request.Cookies["ASP.NET_SessionId"] != null)
+            {
+                HttpCookie cookie = new HttpCookie("ASP.NET_SessionId");
+                cookie.Expires = DateTime.Now;
+                Response.Cookies.Add(cookie);
+            }
+            Response.Redirect("~/Default.aspx", false);
         }
         private void CargarCategorias()
         {

@@ -43,16 +43,14 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
-        /// agregar o eliminar categorias de la bd hay que modificarlo porque las columnas de categorias cambiaron en la bd
         public void agregar(Categoria nuevaCategoria)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("INSERT INTO Categorias (Descripcion) VALUES (@Descripcion)");
-                datos.SetearParametro("@Descripcion", nuevaCategoria.Nombre);
+                datos.setearConsulta("INSERT INTO Categorias (Nombre) VALUES (@Nombre)");
+                datos.SetearParametro("@Nombre", nuevaCategoria.Nombre);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -71,8 +69,8 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("DELETE FROM Categorias WHERE id = @id");
-                datos.SetearParametro("@id", id);
+                datos.setearConsulta("DELETE FROM Categorias WHERE IdCategoria = @id");
+                datos.SetearParametro("@IdCategoria", id);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -83,6 +81,32 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+        }
+        public bool ExisteNombreCategoria(string nombre)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            bool existeNombre = false;
+
+            try
+            {
+                datos.setearConsulta("SELECT Nombre FROM Categorias WHERE UPPER(Nombre) = UPPER(@Nombre)");
+                datos.SetearParametro("@Nombre", nombre);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    existeNombre = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"ERROR al agregar categoría");
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return existeNombre;
         }
     }
 }
