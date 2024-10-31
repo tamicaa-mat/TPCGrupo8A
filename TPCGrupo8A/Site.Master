@@ -107,7 +107,7 @@
         <ul class="dropdown-menu bg-light">
             <li><a class="dropdown-item" href="/Perfil">Perfil</a></li>
             <li><a class="dropdown-item" href="/Pedidos">Pedidos</a></li>
-            <li><a class="dropdown-item" href="/CerrarSesion">Cerrar Sesión</a></li>
+            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
         </ul>
         </div>
      </div>
