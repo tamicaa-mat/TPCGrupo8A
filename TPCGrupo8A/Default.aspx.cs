@@ -28,10 +28,10 @@ namespace TPCGrupo8A
             List<Producto> productos = new List<Producto>();
            
             string query = @"
-        SELECT TOP(@Cantidad) p.*, i.ImagenUrl 
-        FROM Productos p
-        LEFT JOIN Imagenes i ON p.IdProducto = i.IdProducto 
-        ORDER BY NEWID();"; 
+                SELECT TOP(@Cantidad) p.*, i.ImagenUrl 
+                FROM Productos p
+                LEFT JOIN Imagenes i ON p.IdProducto = i.IdProducto 
+                ORDER BY NEWID();"; 
 
             AccesoDatos accesoDatos = new AccesoDatos();
             try

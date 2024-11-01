@@ -103,6 +103,7 @@
             </div>
             <div class="btn-group" runat="server" id="MiCuentaMenu" visible='<%# Session["usuario"] != null %>'>
         <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+
             Mi Cuenta
         </button>
         <ul class="dropdown-menu bg-light">
