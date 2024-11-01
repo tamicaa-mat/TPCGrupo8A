@@ -18,8 +18,8 @@ namespace Dominio
         public float Precio { get; set; }
 
         // public List<Imagen> Imagenes { get; set; } // Lista de imágenes
-
-        public Imagen Imagen { get; set; } // UNA SOLA IMAGEN
+        //public string Imagen { get; set; } 
+       public Imagen Imagen { get; set; } // UNA SOLA IMAGEN
         public string Color { get; set; }
         public string Talle { get; set; }
     }

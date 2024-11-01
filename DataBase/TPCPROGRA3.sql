@@ -141,4 +141,4 @@ CREATE TABLE Clientes (
   IdPedidoPorCliente INT PRIMARY KEY IDENTITY(1,1),
   IdPedido INT FOREIGN KEY REFERENCES Pedidos(IdPedido),
   IdCliente INT FOREIGN KEY REFERENCES Clientes(IdCliente)
- )
+ )  
