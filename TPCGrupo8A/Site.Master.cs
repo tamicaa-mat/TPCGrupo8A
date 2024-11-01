@@ -63,7 +63,7 @@ namespace TPCGrupo8A
 
                 var a = new HtmlGenericControl("a");
                 a.Attributes["class"] = "dropdown-item";
-                a.Attributes["href"] = $"productos.aspx?categoriaId={categoria.ID}";
+                a.Attributes["href"] = $"Default.aspx?categoriaId={categoria.ID}";
                 a.InnerText = categoria.Nombre;
 
                 // Agregar el <a> dentro del <li>
@@ -88,7 +88,7 @@ namespace TPCGrupo8A
                 var a = new HtmlGenericControl("a");
                 a.Attributes["class"] = "dropdown-item";
                 // Redirigir a la página de productos pasando el ID de la marca
-                a.Attributes["href"] = $"productos.aspx?marcaId={marca.ID}";
+                a.Attributes["href"] = $"Default.aspx?marcaId={marca.ID}";
                 a.InnerText = marca.Nombre;
 
                 // Agregar el <a> dentro del <li>
