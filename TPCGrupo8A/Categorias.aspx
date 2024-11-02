@@ -1,15 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Categorias.aspx.cs" Inherits="TPCGrupo8A.Categorias" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
     <div class="container">
         <h1 class="tex-center my-4">Categorías</h1>
     </div>
     <div class="mb-3">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar Categoría</button>
-        <asp:Label ID="lblErrorCategoria" CssClass="text-danger" Visible="false" runat="server"></asp:Label>
+        <asp:Label ID="lblMensaje" runat="server" ForeColor="#cb7298" Visible="false"></asp:Label>
     </div>
-    <%--Modal Categoría--%>
+    <%-- Modal Categoría Agregar --%>
     <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -20,7 +19,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <asp:Label CssClass="form-label" ID="lblNombreCategoria" runat="server" Text="Nombre:"></asp:Label>
-                        <asp:TextBox CssClass="form-control" ID="txtNombreCategoria" runat="server" required=""></asp:TextBox>
+                        <asp:TextBox CssClass="form-control" ID="txtNombreCategoria" runat="server"></asp:TextBox>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -30,19 +29,42 @@
             </div>
         </div>
     </div>
-    <div class="list-categorias mb-3">
-        <asp:Repeater ID="RptCategorias" runat="server">
-            <ItemTemplate>
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <%# Eval("Nombre") %>
-                    </a>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>
+
+    <div class="mb-3" style="overflow-x: auto">
+        <div class="gv-container"></div>
+        <asp:GridView ID="GVCategorias" runat="server" AutoGenerateColumns="False" OnRowCommand="GVCategorias_OnRowCommand" DataKeyNames="ID" CssClass="list-categorias">
+            <Columns>
+                <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" />
+                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                <asp:ButtonField ButtonType="Button" CommandName="Seleccionar" Text="✔️" />
+            </Columns>
+        </asp:GridView>
     </div>
-    <div class="mt-3">
-        <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn btn-primary" OnClick="btnEditar_OnClick" />
-        <asp:Button ID="btnBorrar" runat="server" Text="Borrar" CssClass="btn btn-danger" OnClick="btnBorrar_OnClick" />
+    <asp:HiddenField ID="hdnCategoriaId" runat="server" />
+    <%-- Modal Editar categoría --%>
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditarLabel">Editar Categoría</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <asp:Label CssClass="form-label" ID="lblEditarCategoria" runat="server" Text="Nombre:"></asp:Label>
+                        <asp:TextBox CssClass="form-control" ID="txtNombreCategoriaEditar" onkeypress="return event.keyCode != 13;" runat="server"></asp:TextBox>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnEditarCategoria" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnEditarCategoria_OnClick" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Botones de Editar y Eliminar fuera del GridView -->
+    <div class="mb-3">
+        <button class="btn btn-primary" type="button" onclick="$('#modalEditar').modal('show');">Editar Categoría</button>
+        <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" />
     </div>
 </asp:Content>

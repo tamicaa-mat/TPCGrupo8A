@@ -210,9 +210,21 @@ formulario-2 {
 
 /*_____ Pantalla Categorías _____*/
 .list-categorias {
-    max-height: 80vh;
+    width: 100%;
     overflow-y: auto;
-    border: 1px solid #a1a1a1;
+    border: 1px solid #d77070;
     border-radius: 5px;
     padding: 10px;
+}
+
+.list-categorias tr {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #d95030;
+}
+
+.grid-container {
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1px solid #d95030;
 }

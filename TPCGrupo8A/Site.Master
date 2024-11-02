@@ -9,9 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title><%: Page.Title %> - ECommerce</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-r1nO4Hs49S1XLav+I5FexLNUxAXC5u/F6tCHaNNTwB1s5BPD9X5gHXYz8FIMc6aG" crossorigin="anonymous">
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -20,44 +19,24 @@
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-
-    <!--boostrap-->
-
-
-    <!-- Bootstrap 5.0.2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1AnmPnQu9oabyhMf05f1bfbE4bmiC4D9g8axlZZkLvV7l/AR7xS" crossorigin="anonymous">
-
-    <!-- Popper.js (sin integrity y crossorigin) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
-
-    <!-- Bootstrap 5.0.2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhG2YCEp3B8BQMB5jRpGi57RjUVO65aL7K8l+0I5yKvtZOg8ABTTE1Pi6jizo" crossorigin="anonymous"></script>
-
-
-
-
-
 </head>
 <body>
     <form runat="server">
-        <asp:ScriptManager runat="server">
-            <Scripts>
-                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
-                <%--Framework Scripts--%>
-                <asp:ScriptReference Name="MsAjaxBundle" />
-                <asp:ScriptReference Name="jquery" />
-                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
-                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
-                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
-                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
-                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
-                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
-                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
-                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
-                <asp:ScriptReference Name="WebFormsBundle" />
-                <%--Site Scripts--%>
-            </Scripts>
-        </asp:ScriptManager>
+       <asp:ScriptManager runat="server">
+    <Scripts>
+        <asp:ScriptReference Name="MsAjaxBundle" />
+        <asp:ScriptReference Name="jquery" Path="https://code.jquery.com/jquery-3.7.0.min.js" />
+        <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+        <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+        <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+        <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+        <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+        <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+        <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+        <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+        <asp:ScriptReference Name="WebFormsBundle" />
+    </Scripts>
+</asp:ScriptManager>
 
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark" style="background-color: #fa8072 !important;">
             <div class="container">
@@ -68,17 +47,14 @@
                 </button>
                 <div class="navbar-header">
                     <ul class="navbar-nav">
-
                         <li class="nav-item"><a class="nav-link" style="background-color: white !important; border: 1px solid #ccc !important; border-radius: 5px !important; color: black !important;" runat="server" href="#contacto">Contacto</a></li>
                         <%--Admin--%>
                         <li class="nav-item" ><a class="nav-link" style="background-color: white !important; border: 1px solid #ccc !important; border-radius: 5px !important; color: black !important;" id="linkAdmin" runat="server" href="~/Administrador.aspx">Administrador</a></li>
-
                         <li class="nav-item" style="margin-left: 5px !important;" runat="server" id="IngresarBoton" visible='<%# Session["usuario"] == null %>'>
                             <a class="nav-link" style="background-color: white !important; border: 1px solid #ccc !important; border-radius: 5px !important; color: black !important;" runat="server" href="~/IniciarSesion">
                                 <i class="bi bi-person"></i>Ingresar</a>
                         </li>
                     </ul>
-
                 </div>
             </div>
         </nav>
@@ -102,25 +78,18 @@
                 </ul>
             </div>
             <div class="btn-group" runat="server" id="MiCuentaMenu" visible='<%# Session["usuario"] != null %>'>
-        <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-
-            Mi Cuenta
-        </button>
+        <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">Mi Cuenta</button>
         <ul class="dropdown-menu bg-light">
             <li><a class="dropdown-item" href="/Perfil">Perfil</a></li>
             <li><a class="dropdown-item" href="/Pedidos">Pedidos</a></li>
-<<<<<<< HEAD
             <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
-=======
             <%--<li><a class="dropdown-item" href="/CerrarSesion">Cerrar Sesión</a></li>--%>
             <asp:LinkButton ID="CerrarSesion" CssClass="dropdown-item" OnClick="CerrarSesion_OnClick" runat="server">Cerrar Sesión</asp:LinkButton>
->>>>>>> 7360dd925fb14bf6bb832005e3bbd24fa29f98c9
         </ul>
         </div>
      </div>
         <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
             <hr />
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - Grupo 8A</p>
@@ -128,12 +97,14 @@
         </div>
     </form>
     <script>
-
-
 </script>
 
-    <asp:PlaceHolder runat="server">
+   <%-- <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
-    </asp:PlaceHolder>
+    </asp:PlaceHolder>--%>
+
+    <%-- jQuery para el modal categorías --%> 
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

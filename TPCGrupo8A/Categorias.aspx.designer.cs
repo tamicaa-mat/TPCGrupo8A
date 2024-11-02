@@ -15,13 +15,13 @@ namespace TPCGrupo8A
     {
 
         /// <summary>
-        /// lblErrorCategoria control.
+        /// lblMensaje control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorCategoria;
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
 
         /// <summary>
         /// lblNombreCategoria control.
@@ -51,30 +51,57 @@ namespace TPCGrupo8A
         protected global::System.Web.UI.WebControls.Button btnGuardarCategoria;
 
         /// <summary>
-        /// RptCategorias control.
+        /// GVCategorias control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater RptCategorias;
+        protected global::System.Web.UI.WebControls.GridView GVCategorias;
 
         /// <summary>
-        /// btnEditar control.
+        /// hdnCategoriaId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEditar;
+        protected global::System.Web.UI.WebControls.HiddenField hdnCategoriaId;
 
         /// <summary>
-        /// btnBorrar control.
+        /// lblEditarCategoria control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBorrar;
+        protected global::System.Web.UI.WebControls.Label lblEditarCategoria;
+
+        /// <summary>
+        /// txtNombreCategoriaEditar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNombreCategoriaEditar;
+
+        /// <summary>
+        /// btnEditarCategoria control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditarCategoria;
+
+        /// <summary>
+        /// btnEliminar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEliminar;
     }
 }

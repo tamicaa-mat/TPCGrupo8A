@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 
 namespace Negocio
 {
-
     public class CategoriaNegocio
     {
+        AccesoDatos datos;
         public List<Categoria> listar()
         {
-            List<Categoria> lista = new List<Categoria>();
             AccesoDatos datos = new AccesoDatos();
-
+            List<Categoria> lista = new List<Categoria>();
             try
             {
-
-                datos.setearConsulta("select idCategoria, Nombre from Categorias");
+                datos.setearConsulta("select IdCategoria, Nombre from Categorias");
 
                 datos.ejecutarLectura();
 
@@ -27,7 +25,7 @@ namespace Negocio
                 {
                     Categoria categoria = new Categoria();
 
-                    categoria.ID = (int)datos.Lector["idCategoria"];
+                    categoria.ID = (int)datos.Lector["IdCategoria"];
                     categoria.Nombre = datos.Lector["Nombre"].ToString();
 
                     lista.Add(categoria);
@@ -58,18 +56,34 @@ namespace Negocio
                 throw ex;
             }
             finally
+
             {
                 datos.cerrarConexion();
             }
         }
+        public void editar(Categoria categoria)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("UPDATE Categorias SET Nombre = @Nombre WHERE IdCategoria = @IdCategoria");
+                datos.SetearParametro("@Nombre", categoria.Nombre);
+                datos.SetearParametro("@IdCategoria", categoria.ID);
 
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ERROR al editar la categoria:" + ex.Message, ex);
+            }
+        }
         public void eliminar(int id)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("DELETE FROM Categorias WHERE IdCategoria = @id");
+                datos.setearConsulta("DELETE FROM Categorias WHERE IdCategoria = @IdCategoria");
                 datos.SetearParametro("@IdCategoria", id);
                 datos.ejecutarAccion();
             }
@@ -100,13 +114,29 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw new Exception($"ERROR al agregar categoría");
+                throw new Exception($"ERROR al agregar categoría", ex);
             }
             finally
             {
                 datos.cerrarConexion();
             }
             return existeNombre;
+        }
+        public Categoria ObtenerIdCategoria(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Categoria categoria = null;
+            datos.setearConsulta("SELECT IdCategoria, Nombre FROM Categorias WHERE IdCategoria = @id");
+            datos.SetearParametro("@Id", id);
+            datos.ejecutarLectura();
+
+            if (datos.Lector.Read())
+            {
+                categoria = new Categoria();
+                categoria.ID = (int)datos.Lector["IdCategoria"];
+                categoria.Nombre = datos.Lector["Nombre"].ToString();
+            }
+            return categoria;
         }
     }
 }
