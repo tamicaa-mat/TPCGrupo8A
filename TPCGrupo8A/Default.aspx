@@ -70,7 +70,17 @@
                 <a href="#" class="btn-primavera">OFERTAS DE PRIMAVERA</a>
             </div>
         </div>
-
+        <%-- btn Agregar producucto--%>
+    <% if(tipoUsuario == 1) {%>
+        <div class="container mb-3">
+            <button class="c-button">
+                <span class="c-main">
+                    <span class="c-ico"><span class="c-blur"></span><span class="ico-text">+</span></span>
+                    Agregar Producto
+                </span>
+            </button>
+        </div>
+    <%} %>
         <div class="row">
             <asp:Repeater ID="rptProductos" runat="server">
                 <ItemTemplate>

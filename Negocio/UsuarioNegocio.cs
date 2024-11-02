@@ -35,23 +35,21 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
-
         public bool IniciarSesion(Usuario usuario)
         {
-            AccesoDatos dato = new AccesoDatos();
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                dato.setearConsulta("SELECT IdUsuario, TipoUsuario " +
+                datos.setearConsulta("SELECT IdUsuario, TipoUsuario " +
                 "FROM Usuarios " +
                 "WHERE Email = @Email AND Contraseña = @contrasenia");
-                dato.SetearParametro("@Email", usuario.Email);
-                dato.SetearParametro("@contrasenia", usuario.Contrasenia);
-                dato.ejecutarLectura();
-                while (dato.Lector.Read())
+                datos.SetearParametro("@Email", usuario.Email);
+                datos.SetearParametro("@contrasenia", usuario.Contrasenia);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
                 {
-                    usuario.ID = (int)dato.Lector["IdUsuario"];
-                    usuario.TipoUsuario = (int)(dato.Lector["TipoUsuario"]) == 1 ? TipoUsuario.Administrador : TipoUsuario.Cliente;
+                    usuario.ID = (int)datos.Lector["IdUsuario"];
+                    usuario.TipoUsuario = (int)(datos.Lector["TipoUsuario"]) == 1 ? TipoUsuario.Administrador : TipoUsuario.Cliente;
                     return true;
                 }
                 return false;
@@ -63,7 +61,7 @@ namespace Negocio
             }
             finally
             {
-                dato.cerrarConexion();
+                datos.cerrarConexion();
             }
         }
     }
