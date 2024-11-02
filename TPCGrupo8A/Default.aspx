@@ -62,7 +62,18 @@
     </main>
 </asp:Content>
 --%>
+
+
+
+
+
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+
+
+
     <main>
         <div class="img-card">
             <img src="./assets/fondo.jpeg" alt="fondo" style="width: 100%; height: auto;" />
@@ -75,20 +86,19 @@
 
         <div class="row">
     <asp:Repeater ID="rptProductos" runat="server">
-        <ItemTemplate>
-            <div class="card col-md-4" style="width: 18rem; margin: 10px; border-color: gray;">
-                <div class="image-container">
-                    <img src='<%# Eval("Imagen.ImagenUrl") %>' class="card-img-top img-fluid" alt="Imagen del artículo">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title"><%# Eval("Nombre") %></h5>
-                    <p class="card-text">
-                        <%# Eval("Descripcion") %><br />
-                        Precio: $<%# Eval("Precio") %>
-                    </p>
-                </div>
-            </div>
-        </ItemTemplate>
+
+     <ItemTemplate>
+    <div class="card col-md-4" style="width: 18rem; margin: 10px; border-color: gray;">
+        <div class="image-container">
+            <img src='<%# Eval("Imagen.ImagenUrl") %>' class="card-img-top img-fluid" alt="Imagen del artículo">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"><%# Eval("Nombre") %></h5>
+            <a href="IniciarSesion.aspx" class="btn btn-primary">Seleccionar</a>
+        </div>
+    </div>
+</ItemTemplate>
+
     </asp:Repeater>
 </div>
 
