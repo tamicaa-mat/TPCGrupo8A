@@ -62,13 +62,13 @@
     </main>
 </asp:Content>
 --%>
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 56924bd95235ae20a7b06a5869c86ca906439a48
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-
-
 
     <main>
         <div class="img-card">
@@ -77,30 +77,34 @@
                 <a href="#" class="btn-primavera">OFERTAS DE PRIMAVERA</a>
             </div>
         </div>
-
-
+        <%-- btn Agregar producucto--%>
+        <% if (tipoUsuario == 1)
+            {%>
+        <div class="container mb-3">
+            <button class="c-button">
+                <span class="c-main">
+                    <span class="c-ico"><span class="c-blur"></span><span class="ico-text">+</span></span>
+                    Agregar Producto
+                </span>
+            </button>
+        </div>
+        <%} %>
 
         <div class="row">
-    <asp:Repeater ID="rptProductos" runat="server">
-
-     <ItemTemplate>
-    <div class="card col-md-4" style="width: 18rem; margin: 10px; border-color: gray;">
-        <div class="image-container">
-            <img src='<%# Eval("Imagen.ImagenUrl") %>' class="card-img-top img-fluid" alt="Imagen del artículo">
+            <asp:Repeater ID="rptProductos" runat="server">
+                <ItemTemplate>
+                    <div class="card col-md-4" style="width: 18rem; margin: 10px; border-color: gray;">
+                        <div class="image-container">
+                            <img src='<%# Eval("Imagen.ImagenUrl") %>' class="card-img-top img-fluid" alt="Imagen del artículo">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title"><%# Eval("Nombre") %></h5>
+                            <a href="IniciarSesion.aspx" class="btn btn-primary">Seleccionar</a>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
         </div>
-        <div class="card-body">
-            <h5 class="card-title"><%# Eval("Nombre") %></h5>
-            <a href="IniciarSesion.aspx" class="btn btn-primary">Seleccionar</a>
-        </div>
-    </div>
-</ItemTemplate>
-
-    </asp:Repeater>
-</div>
-
-
-
-
 
         <hr />
         <div class="container-contacto" id="contacto">

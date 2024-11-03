@@ -14,8 +14,14 @@ namespace TPCGrupo8A
 {
     public partial class _Default : Page
     {
+        public int tipoUsuario;
         protected void Page_Load(object sender, EventArgs e)
         {
+            Usuario usuario = Session["usuario"] as Usuario;
+            if (!(usuario == null))
+            {
+                tipoUsuario = (int)usuario.TipoUsuario;
+            }
             if (!IsPostBack) 
             {
                 
@@ -29,8 +35,6 @@ namespace TPCGrupo8A
                     int marcaId = int.Parse(Request.QueryString["marcaId"]);
                     CargarProductosPorMarca(marcaId);
                 }
-
-
             }
         }
 
@@ -137,28 +141,5 @@ namespace TPCGrupo8A
                 datos.cerrarConexion();
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
