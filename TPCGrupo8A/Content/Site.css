@@ -288,3 +288,106 @@ button {
     border: 1px solid rgba(26, 26, 26,0.5);
     color: rgba(255, 255, 255, 0.5);
 }
+
+/* boton editar */
+.btn-editar {
+    padding: 10px 15px;
+    border: unset;
+    border-radius: 15px;
+    color: #212121;
+    z-index: 1;
+    background: #e8e8e8;
+    position: relative;
+    font-weight: 700;
+    font-size: 1em;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+    overflow: hidden;
+}
+
+    .btn-editar::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0;
+        border-radius: 15px;
+        background-color: #212121;
+        z-index: -1;
+        -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+        box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+        transition: all 250ms
+    }
+
+    .btn-editar:hover {
+        color: #e8e8e8;
+    }
+
+        .btn-editar:hover::before {
+            width: 100%;
+        }
+
+/* boton eliminar */
+.delete-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: relative;
+}
+
+.delete-svgIcon {
+    width: 15px;
+    transition-duration: 0.3s;
+}
+
+    .delete-svgIcon path {
+        fill: white;
+    }
+
+.delete-button:hover {
+    width: 90px;
+    border-radius: 50px;
+    transition-duration: 0.3s;
+    background-color: rgb(255, 69, 69);
+    align-items: center;
+}
+
+    .delete-button:hover .delete-svgIcon {
+        width: 20px;
+        transition-duration: 0.3s;
+        transform: translateY(60%);
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+
+.delete-button::before {
+    display: none;
+    content: "Delete";
+    color: white;
+    transition-duration: 0.3s;
+    font-size: 2px;
+}
+
+.delete-button:hover::before {
+    display: block;
+    padding-right: 10px;
+    font-size: 13px;
+    opacity: 1;
+    transform: translateY(0px);
+    transition-duration: 0.3s;
+}
