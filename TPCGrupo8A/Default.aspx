@@ -1,73 +1,5 @@
 ﻿<%@ Page Title="Tienda" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TPCGrupo8A._Default" %>
 
-
-<%--<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">--%>
-
-
-<%--    <main>
-      
-        <div class="img-card">
-            <img src="./assets/fondo.jpeg" alt="fondo" style="width: 100%; height: auto;" />
-            <div class="container-btn-primavera">
-                <a href="#" class="btn-primavera">OFERTAS DE PRIMAVERA</a>
-            </div>
-        </div>
-
-        <div class="container-productos">
-            <h3 id="titulo-productos" style="text-align: center; margin-top: 25px;">-- LO NUEVO --</h3>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col">
-                        <img src="./assets/error.jpg" alt="prueba" height="205px" />
-                    </div>
-                    <div class="col">
-                        <img src="./assets/error.jpg" alt="prueba" height="205px" />
-                    </div>
-                    <div class="col">
-                        <img src="./assets/error.jpg" alt="prueba" height="205px" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr />
-        <div class="container-contacto" id="contacto">
-            <h4>CONTACTANOS</h4>
-            <div class="formulario-1">
-            <div class="mb-3">
-                <label for="inputNombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="inputNombre" placeholder="Nombre">
-            </div>
-
-            <div class="mb-3">
-                <label for="inputCelular" class="form-label">Celular</label>
-                <input type="tel" class="form-control" id="inputCelular" placeholder="">
-            </div>
-            </div>
-            <div class="formulario-2">
-            <div class="mb-3">
-                <label for="inputCorreo" class="form-label">Correo</label>
-                <input type="email" class="form-control" id="inputCorreo" placeholder="nombre@ejemplo.com">
-            </div>
-
-            <div class="mb-3">
-                <label for="inputMensaje" class="form-label">Mensaje</label>
-                <textarea class="form-control" id="inputMensaje" rows="3" placeholder="Escribe tu mensaje aquí"></textarea>
-            </div>
-            </div>
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Enviar</button>
-            </div>
-            
-        </div>
-    </main>
-</asp:Content>
---%>
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 56924bd95235ae20a7b06a5869c86ca906439a48
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <main>
@@ -105,24 +37,21 @@
                             <% }
                                 else
                                 { %>
-                            <div class="container d-flex justify-content-between ">
-                                <button class="btn-editar">Editar</button>
-                                <asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("ID") %>' OnCommand="btnEliminar_Command" class="delete-button" Text="Eliminar" />
-                               <%--<button class="delete-button" id="btnEliminar" CommandArgument='<%# Eval("ID") %>' OnCommand="btnEliminar_Command">
-                                <svg class="delete-svgIcon" viewBox="0 0 448 512">
-                                    <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
-                                </svg>
-                            </button>--%>
-
-
-                            </div>
+                                <div class="container d-flex justify-content-between ">
+                                    <button class="btn-editar">Editar</button>
+                                    <asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("ID") %>' OnCommand="btnEliminar_Command" class="delete-button" Text="Eliminar" />
+                                   <%--<button class="delete-button" id="btnEliminar" CommandArgument='<%# Eval("ID") %>' OnCommand="btnEliminar_Command">
+                                    <svg class="delete-svgIcon" viewBox="0 0 448 512">
+                                        <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+                                    </svg>
+                                </button>--%>
+                                </div>
                             <%  } %>
                         </div>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
         </div>
-
         <div class="container-contacto" id="contacto">
             <h4>CONTACTANOS</h4>
             <div class="formulario-1">
@@ -150,8 +79,6 @@
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </div>
-
         </div>
     </main>
 </asp:Content>
-

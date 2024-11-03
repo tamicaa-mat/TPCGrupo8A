@@ -24,12 +24,8 @@ namespace TPCGrupo8A
             }
             if (!IsPostBack) 
             {
-<<<<<<< HEAD
-                
-=======
                 CargarProductos();
                 //CargarProductosAleatorios();
->>>>>>> 28ac5871a8555484efd38f46daf9647919cd9cc8
                 if (Request.QueryString["categoriaId"] != null)
                 {
                     int categoriaId = int.Parse(Request.QueryString["categoriaId"]);
@@ -42,10 +38,6 @@ namespace TPCGrupo8A
                 }
             }
         }
-<<<<<<< HEAD
-
-       
-=======
         private void CargarProductos()
         {
             ProductoNegocio productoNegocio = new ProductoNegocio();
@@ -112,7 +104,6 @@ namespace TPCGrupo8A
         //        rptProductos.DataSource = productos;
         //        rptProductos.DataBind();
         //    }
->>>>>>> 28ac5871a8555484efd38f46daf9647919cd9cc8
 
         private void CargarProductosPorCategoria(int categoriaId)
         {
