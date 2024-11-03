@@ -16,7 +16,7 @@
             <button class="c-button">
                 <span class="c-main">
                     <span class="c-ico"><span class="c-blur"></span><span class="ico-text">+</span></span>
-                    Agregar
+                    Agregar Producto
                 </span>
             </button>
         </div>
