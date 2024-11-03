@@ -71,7 +71,8 @@ CREATE TABLE Pedidos (
 	Monto MONEY,
     FechaPedido DATETIME NOT NULL DEFAULT GETDATE(),
     Estado VARCHAR(50) NOT NULL
-
+);
+GO
 
 CREATE TABLE PedidosPorCliente (
     IdPedidoPorCliente INT PRIMARY KEY IDENTITY(1,1),
@@ -79,7 +80,6 @@ CREATE TABLE PedidosPorCliente (
     IdCliente INT FOREIGN KEY REFERENCES Clientes(IdCliente)
 );  
 GO
->>>>>>> 28ac5871a8555484efd38f46daf9647919cd9cc8
 
 CREATE TRIGGER EliminarProductoYRelaciones ON Productos
 INSTEAD OF DELETE
@@ -103,12 +103,12 @@ BEGIN
             COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH
->>>>>>> 28ac5871a8555484efd38f46daf9647919cd9cc8
         IF @@TRANCOUNT > 0
             ROLLBACK TRANSACTION;
         PRINT 'Error: Ocurrió un problema al eliminar el producto y sus imágenes.';
     END CATCH
-
+END;
+GO
 
 CREATE PROCEDURE EliminacionLogicaProducto @idProducto INT
 AS 
@@ -188,4 +188,3 @@ UPDATE Productos SET Stock = 10 WHERE IdProducto = 4;
 UPDATE Productos SET Stock = 3 WHERE IdProducto = 5;
 UPDATE Productos SET Stock = 15 WHERE IdProducto = 6;
 GO
->>>>>>> 28ac5871a8555484efd38f46daf9647919cd9cc8
