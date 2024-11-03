@@ -48,9 +48,9 @@ namespace TPCGrupo8A
             }
             Response.Redirect("~/Default.aspx", false);
         }
-        private void CargarCategorias()
+        public void CargarCategorias()
         {
-
+            ulCategorias.Controls.Clear();
             CategoriaNegocio cateNegocio = new CategoriaNegocio();
             AccesoDatos accesoDatos = new AccesoDatos();
 
@@ -74,7 +74,7 @@ namespace TPCGrupo8A
             }
         }
 
-        private void CargarMarcas()
+        public void CargarMarcas()
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             AccesoDatos accesoDatos = new AccesoDatos();

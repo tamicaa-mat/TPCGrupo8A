@@ -133,6 +133,7 @@
     <Content Include="Administrador.aspx" />
     <Content Include="Marcas.aspx" />
     <Content Include="Categorias.aspx" />
+    <Content Include="FormularioProductosAM.aspx" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -277,6 +278,13 @@
     </Compile>
     <Compile Include="Categorias.aspx.designer.cs">
       <DependentUpon>Categorias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioProductosAM.aspx.cs">
+      <DependentUpon>FormularioProductosAM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioProductosAM.aspx.designer.cs">
+      <DependentUpon>FormularioProductosAM.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

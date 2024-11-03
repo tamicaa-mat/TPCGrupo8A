@@ -15,22 +15,18 @@ namespace TPCGrupo8A
         {
             if (!IsPostBack)
             {
-                if (Request.QueryString["categoriaId"] != null)
+                if (Request.QueryString["IdCategoria"] != null)
                 {
                     int categoriaId = int.Parse(Request.QueryString["categoriaId"]);
                     CargarProductosPorCategoria(categoriaId);
                 }
-                else if (Request.QueryString["marcaId"] != null)
+                else if (Request.QueryString["IdMarca"] != null)
                 {
-                    int marcaId = int.Parse(Request.QueryString["marcaId"]);
+                    int marcaId = int.Parse(Request.QueryString["IdMarca"]);
                     CargarProductosPorMarca(marcaId); // Llama a la función de cargar productos por marca
                 }
             }
         }
-
-       
-
-
         private void CargarProductosPorCategoria(int categoriaId)
         {
             List<Producto> listaProductos = new List<Producto>();
@@ -53,19 +49,16 @@ namespace TPCGrupo8A
                         ID = (int)datos.Lector["IdProducto"],
                         Nombre = datos.Lector["Nombre"].ToString(),
                         Descripcion = datos.Lector["Descripcion"].ToString(),
-                        Precio = (float)(decimal)datos.Lector["Precio"],
-                        Imagen = new Imagen() 
+                        Precio = (float)(decimal)datos.Lector["Precio"]
                     };
-
                     if (!(datos.Lector["ImagenUrl"] is DBNull))
                     {
-                        producto.Imagen.ImagenUrl = datos.Lector["ImagenUrl"].ToString();
+                        producto.Imagenes.Add(new Imagen(datos.Lector["ImagenUrl"].ToString()));
                     }
                     else
                     {
-                        producto.Imagen.ImagenUrl = "https://path/to/default/image.jpg";
+                        producto.Imagenes.Add(new Imagen("https://path/to/default/image.jpg"));
                     }
-
                     listaProductos.Add(producto);
                 }
 
@@ -104,19 +97,16 @@ namespace TPCGrupo8A
                         ID = (int)datos.Lector["IdProducto"],
                         Nombre = datos.Lector["Nombre"].ToString(),
                         Descripcion = datos.Lector["Descripcion"].ToString(),
-                        Precio = (float)(decimal)datos.Lector["Precio"],
-                        Imagen = new Imagen()
+                        Precio = (float)(decimal)datos.Lector["Precio"]
                     };
-
                     if (!(datos.Lector["ImagenUrl"] is DBNull))
                     {
-                        producto.Imagen.ImagenUrl = datos.Lector["ImagenUrl"].ToString();
+                        producto.Imagenes.Add(new Imagen(datos.Lector["ImagenUrl"].ToString()));
                     }
                     else
                     {
-                        producto.Imagen.ImagenUrl = "https://path/to/default/image.jpg";
+                        producto.Imagenes.Add(new Imagen("https://path/to/default/image.jpg"));
                     }
-
                     listaProductos.Add(producto);
                 }
 
@@ -132,20 +122,5 @@ namespace TPCGrupo8A
                 datos.cerrarConexion();
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
