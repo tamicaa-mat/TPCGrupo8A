@@ -188,3 +188,37 @@ UPDATE Productos SET Stock = 10 WHERE IdProducto = 4;
 UPDATE Productos SET Stock = 3 WHERE IdProducto = 5;
 UPDATE Productos SET Stock = 15 WHERE IdProducto = 6;
 GO
+
+---------------------------03/11------------
+INSERT INTO Productos(Codigo, Nombre, Descripcion, Precio, IdCategoria, IdMarca,Stock)
+VALUES 
+('REM003','Remera Lisa',' Verde Cuello Redondo',$23663,1,1,10),
+('REM004','Remera Naranja','Remera naranja,cuello redondo, algodón',$56000,1,2,5),
+('CAM003','Camisa','Camisa de algodón 100%, blanca rayas negras',$63000,2,1,3),
+('CAM004','Camisa','Camisa de licra 10% y algodón 90% rosa',$23663,2,1,4),
+('PAN003','Pantalon','Pantalón jogger azul algodón,bolsillos y cordón',$86000,3,2,6),
+('PAN004','Pantalon','Pantalón jogger gris claro,bolsillos y cordón',$95660,3,2,2),
+('REM005','Remera Lisa','Cuello Redondo, algodon 90%',$23663,1,3,5),
+('REM006','Remera Lacoste','Nueva Temporada',$126000,1,3,6),
+('CAM005','Camisa Lacoste','Camisa de algodon ',$33000,2,3,2),
+('CAM006','Camisa Lacoste','Camisa cuadrille de invierno',$23663,2,3,3),
+('PAN005','Pantalon','Pantalon algodon verde',$81200,3,3,9),
+('PAN006','Pantalon','Bolsillos con cierre y botones',$156560,3,3,4)
+GO
+INSERT INTO Imagenes (IdProducto, ImagenUrl)
+VALUES 
+(7, 'https://http2.mlstatic.com/D_NQ_NP_869993-MLA50771783931_072022-O.webp'),  
+(8, 'https://http2.mlstatic.com/D_NQ_NP_712215-MLA50787394463_072022-O.webp'),
+(9, 'https://http2.mlstatic.com/D_NQ_NP_880439-MLA79794285038_102024-O.webp'),
+(10, 'https://http2.mlstatic.com/D_NQ_NP_681299-MLA72721107221_112023-O.webp'),
+(11, 'https://http2.mlstatic.com/D_NQ_NP_975990-MLA69552048974_052023-O.webp'),
+(12, 'https://http2.mlstatic.com/D_NQ_NP_634469-MLA77029249022_062024-O.webp'),
+(13, 'https://http2.mlstatic.com/D_NQ_NP_984496-MLA43491010868_092020-O.webp'),
+(14, 'https://http2.mlstatic.com/D_NQ_NP_654564-MLA43486966389_092020-O.webp'),
+(15, 'https://http2.mlstatic.com/D_NQ_NP_633055-MLA43150078496_082020-O.webp'),
+(16, 'https://http2.mlstatic.com/D_NQ_NP_640105-MLA43149870463_082020-O.webp'),
+(17, 'https://http2.mlstatic.com/D_NQ_NP_634003-MLA80174982005_102024-O.webp'),
+(18, 'https://http2.mlstatic.com/D_NQ_NP_634469-MLA77029249022_062024-O.webp')
+
+ALTER TABLE Clientes
+ADD Telefono VARCHAR(20) NOT NULL DEFAULT 'Sin especificar'
