@@ -2,6 +2,7 @@
 using Dominio;
 using Negocio;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,8 +24,13 @@ namespace TPCGrupo8A
             }
             if (!IsPostBack)
             {
-                CargarCategorias();
                 CargarMarcas();
+                CargarCategorias();
+                if (Session["ID"] != null)
+                {
+                    int idProducto = (int)Session["ID"];
+                    CargarProductos(idProducto);
+                }
             }
         }
         public void CargarMarcas()
@@ -95,6 +101,7 @@ namespace TPCGrupo8A
         {
             Producto producto = new Producto(); 
             ProductoNegocio productoNegocio = new ProductoNegocio();
+            
 
             producto.Codigo = txtCodigo.Text;
             producto.Nombre = txtNombre.Text;
@@ -114,13 +121,33 @@ namespace TPCGrupo8A
             //producto.Imagenes = txtImagenUrl.Text;
             producto.Stock = int.Parse(txtStock.Text);
 
-            if (producto.ID != 0)
+            if (Session["ID"] != null)
             {
+                producto.ID = (int)Session["ID"];
                 productoNegocio.editar(producto);
             }
             else
             {
                 productoNegocio.agregar(producto);
+            }
+            Session["ID"] = null;
+        }
+        private void CargarProductos(int idProducto)
+        {
+            ProductoNegocio productoNegocio = new ProductoNegocio();
+            Producto producto = productoNegocio.ObtenerIdProducto(idProducto);
+             
+            if(producto != null)
+            {
+                txtCodigo.Text = producto.Codigo != null ? producto.Codigo.ToString() : "";
+                txtNombre.Text = producto.Nombre;
+                txtDescripcion.Text = producto.Descripcion;
+                txtPrecio.Text = producto.Precio.ToString();
+                txtStock.Text = producto.Stock.ToString();
+                if(producto.Marca != null)
+                ddlMarcas.SelectedValue = producto.Marca.ID.ToString();
+                if(producto.Categoria != null)
+                ddlCategorias.SelectedValue = producto.Categoria.ID.ToString();
             }
         }
     }

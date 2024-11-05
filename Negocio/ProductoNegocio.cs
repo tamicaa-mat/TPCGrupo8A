@@ -125,8 +125,16 @@ namespace Negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta("UPDATE Productos SET Nombre = @Nombre WHERE IdProducto = @IdProducto");
+                datos.setearConsulta("UPDATE Productos SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, " +
+                                     "Precio  = @Precio, Stock = @Stock, IdMarca = @IdMarca, IdCategoria = @IdCategoria " +
+                                     "WHERE IdProducto = @IdProducto");
+                datos.SetearParametro("@Codigo", producto.Codigo);
                 datos.SetearParametro("@Nombre", producto.Nombre);
+                datos.SetearParametro("@Descripcion", producto.Descripcion);
+                datos.SetearParametro("@Precio", producto.Precio);
+                datos.SetearParametro("@Stock", producto.Stock);
+                datos.SetearParametro("@IdMarca", producto.Marca.ID);
+                datos.SetearParametro("@IdCategoria", producto.Categoria.ID);
                 datos.SetearParametro("@IdProducto", producto.ID);
 
                 datos.ejecutarAccion();
@@ -142,7 +150,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("EXEC EliminacionLogicaProducto @idProducto = @idProducto");
+                datos.setearConsulta("EXEC EliminacionLogicaProducto @idProducto = @idProducto"); //eliminación logica
                 datos.SetearParametro("@idProducto", id);
                 datos.ejecutarAccion();
             }
@@ -162,7 +170,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("SELECT Nombre FROM Productos WHERE UPPER(Nombre) = UPPER(@Nombre)");
+                datos.setearConsulta("SELECT Nombre FROM Productos WHERE UPPER(Nombre) = UPPER(@Nombre)"); //Usar UPPER para que no haya diferencia entre mayus y minus Reme = REME
                 datos.SetearParametro("@Nombre", nombre);
                 datos.ejecutarLectura();
 
@@ -185,15 +193,38 @@ namespace Negocio
         {
             AccesoDatos datos = new AccesoDatos();
             Producto producto = null;
-            datos.setearConsulta("SELECT IdProducto, Nombre FROM Productos WHERE IdProducto = @id");
-            datos.SetearParametro("@Id", id);
+            datos.setearConsulta("SELECT P.IdProducto, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.Stock, " +
+                                 "M.IdMarca, M.Nombre AS Marca, C.IdCategoria, C.Nombre AS Categoria " +
+                                 "FROM Productos P " +
+                                 "LEFT JOIN Marcas M ON P.IdMarca = M.IdMarca " +
+                                 "LEFT JOIN Categorias C ON P.IdCategoria = C.IdCategoria " +
+                                 "WHERE P.IdProducto = @IdProducto");
+
+            datos.SetearParametro("@IdProducto", id);
             datos.ejecutarLectura();
 
             if (datos.Lector.Read())
             {
                 producto = new Producto();
                 producto.ID = (int)datos.Lector["IdProducto"];
+                producto.Codigo = datos.Lector["Codigo"].ToString();
                 producto.Nombre = datos.Lector["Nombre"].ToString();
+                producto.Descripcion = datos.Lector["Descripcion"].ToString();
+                producto.Precio = (float)(decimal)datos.Lector["Precio"];
+                producto.Stock = (int)datos.Lector["Stock"];
+
+                if (datos.Lector["IdMarca"] != DBNull.Value)
+                {
+                    producto.Marca = new Marca();
+                    producto.Marca.ID = (int)datos.Lector["IdMarca"];
+                    producto.Marca.Nombre = datos.Lector["Marca"].ToString();
+                }
+                if (datos.Lector["IdCategoria"] != DBNull.Value)
+                {
+                    producto.Categoria = new Categoria();
+                    producto.Categoria.ID = (int)datos.Lector["IdCategoria"];
+                    producto.Categoria.Nombre = datos.Lector["Categoria"].ToString();
+                }
             }
             return producto;
         }

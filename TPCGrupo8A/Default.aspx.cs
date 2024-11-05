@@ -219,5 +219,22 @@ namespace TPCGrupo8A
                 throw;
             }
         }
+        protected void btnEditar_Command(object obj, CommandEventArgs e)
+        {
+            try
+            {
+                if(e.CommandName != null)
+                {
+                    int idProducto = Convert.ToInt32(e.CommandArgument);
+                    Session["ID"] = idProducto;
+                    Response.Redirect("FormularioProductosAM.aspx", false);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
