@@ -13,12 +13,12 @@
         <% if (tipoUsuario == 1)
             {%>
         <div class="container mb-3">
-            <button class="c-button">
+            <a href="FormularioProductosAM.aspx" style="text-decoration:none" class="c-button">
                 <span class="c-main">
                     <span class="c-ico"><span class="c-blur"></span><span class="ico-text">+</span></span>
                     Agregar Producto
                 </span>
-            </button>
+            </a>
         </div>
         <% } %>
 
@@ -38,7 +38,7 @@
                                 else
                                 { %>
                                 <div class="container d-flex justify-content-between ">
-                                    <button class="btn-editar">Editar</button>
+                                    <button class="btn-editar" ><a style="text-decoration:none" href="FormularioProductosAM.aspx">Editar</a></button>
                                     <asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("ID") %>' OnCommand="btnEliminar_Command" class="delete-button" Text="Eliminar" />
                                    <%--<button class="delete-button" id="btnEliminar" CommandArgument='<%# Eval("ID") %>' OnCommand="btnEliminar_Command">
                                     <svg class="delete-svgIcon" viewBox="0 0 448 512">

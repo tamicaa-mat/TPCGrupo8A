@@ -55,10 +55,6 @@
     }
 </style>
 
-
-
-
-
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>

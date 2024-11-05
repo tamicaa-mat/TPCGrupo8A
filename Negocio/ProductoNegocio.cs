@@ -65,14 +65,30 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-        public void agregar(Producto nuevaProducto)
+        public void agregar(Producto productoNuevo)
         {
             AccesoDatos datos = new AccesoDatos();
-
+            agregarProducto(productoNuevo);
+            //int idProducto = datos.ObtenerIdArticulo(productoNuevo.Codigo);
+            //foreach(var imagen in productoNuevo.Imagenes)
+            //{
+            //    agregarImagenUrl(idProducto, imagen.ImagenUrl);
+            //}
+        }
+        public void agregarProducto(Producto productoNuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO Productos (Nombre) VALUES (@Nombre)");
-                datos.SetearParametro("@Nombre", nuevaProducto.Nombre);
+                datos.setearConsulta("INSERT INTO Productos (Codigo, Nombre, Descripcion, IdCategoria, IdMarca, Stock, Precio) " +
+                                     "VALUES (@Codigo, @Nombre, @Descripcion, @IdCategoria, @IdMarca, @Stock, @Precio);");
+                datos.SetearParametro("@Codigo", productoNuevo.Codigo);
+                datos.SetearParametro("@Nombre", productoNuevo.Nombre);
+                datos.SetearParametro("@Descripcion", productoNuevo.Descripcion);
+                datos.SetearParametro("@IdCategoria", productoNuevo.Categoria.ID);
+                datos.SetearParametro("@IdMarca", productoNuevo.Marca.ID);
+                datos.SetearParametro("@Stock", productoNuevo.Stock);
+                datos.SetearParametro("@Precio", productoNuevo.Precio);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -80,7 +96,26 @@ namespace Negocio
                 throw ex;
             }
             finally
-
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void agregarImagenUrl(int idProducto, string Imagen)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("INSERT INTO Imagenes (IdProducto, ImagenUrl) " +
+                                     "VALUES (@IdProducto, @ImagenUrl)");
+                datos.SetearParametro("@IdProducto", idProducto);
+                datos.SetearParametro("@ImagenUrl", Imagen);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
             {
                 datos.cerrarConexion();
             }

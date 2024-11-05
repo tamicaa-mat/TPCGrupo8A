@@ -14,7 +14,9 @@ namespace Dominio
         public string Descripcion { get; set; }
         public Categoria Categoria { get; set; }
         public Marca Marca { get; set; }
+        public int Stock { get; set; }
         public float Precio { get; set; }
+        public float Estado { get; set; }
 
         public List<Imagen> Imagenes { get; set; } // Lista de imágenes
                                                    //public string Imagen { get; set; } 
