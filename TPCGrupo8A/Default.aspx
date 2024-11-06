@@ -17,32 +17,55 @@
         </div>
         <% } %>
 
-        <div class="row">
-            <asp:Repeater ID="rptProductos" runat="server">
-                <ItemTemplate>
-                    <div class="card col-md-4" style="width: 18rem; margin: 10px; border-color: gray; height: 18rem;">
-                        <div class="image-container" style="margin-bottom: 30px;">
-                            <img src='<%# Eval("Imagenes[0].ImagenUrl") %>' class="card-img-top img-fluid" alt="Imagen del artículo">
+     <div class="row">
+    <asp:Repeater ID="rptProductos" runat="server">
+        <ItemTemplate>
+            <!-- Tarjeta de producto individual -->
+            <div class="card col-md-4" style="width: 18rem; margin: 10px; border-color: gray; height: 18rem;">
+                <div class="image-container" style="margin-bottom: 30px;">
+                   
+                    <img src='<%# Eval("Imagenes[0].ImagenUrl", "{0}") %>' class="card-img-top img-fluid" alt="Imagen del artículo">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"><%# Eval("Nombre") %></h5>
+                    
+                    <%-- Verifica el tipo de usuario  --%>
+                    <% if (tipoUsuario != 1) { %>
+                      
+                        <asp:LinkButton ID="btnSeleccionar" runat="server" CssClass="btn-iniciar" 
+                            CommandArgument='<%# Eval("ID") %>' OnClick="btnSeleccionar_Click">Seleccionar</asp:LinkButton>
+                    <% } else { %>
+                      
+                        <div class="container d-flex justify-content-between">
+                            <asp:Button CssClass="btn-editar" ID="btnEditar" runat="server" CommandArgument='<%# Eval("ID") %>' 
+                                OnCommand="btnEditar_Command" Text="Editar" />
+                            <asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("ID") %>' 
+                                OnCommand="btnEliminar_Command" CssClass="delete-button" Text="Eliminar" />
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title"><%# Eval("Nombre") %></h5>
-                            <% if (tipoUsuario != 1)
-                                {%>
-                            <a href="IniciarSesion.aspx" class="btn-iniciar">Seleccionar</a>
-                            <% }
-                                else
-                                { %>
-                                <div class="container d-flex justify-content-between ">
-                                    <asp:Button CssClass="btn-editar" ID="btnEditar"  runat="server" CommandArgument='<%# Eval("ID") %>' OnCommand="btnEditar_Command"  Text="Editar" />
-                                    <asp:Button ID="btnEliminar" runat="server" CommandArgument='<%# Eval("ID") %>' OnCommand="btnEliminar_Command" CssClass="delete-button" Text="Eliminar" />
-                                  
-                                </div>
-                            <%  } %>
-                        </div>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
-        </div>
+                    <% } %>
+                </div>
+            </div>
+        </ItemTemplate>
+    </asp:Repeater>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="container-contacto" id="contacto">
             <h4>CONTACTANOS</h4>
             <div class="formulario-1">

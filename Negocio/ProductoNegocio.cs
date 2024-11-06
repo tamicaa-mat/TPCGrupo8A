@@ -189,44 +189,179 @@ namespace Negocio
             }
             return existeNombre;
         }
-        public Producto ObtenerIdProducto(int id)
+        //public Producto ObtenerIdProducto(int id)
+        //{
+        //    AccesoDatos datos = new AccesoDatos();
+        //    Producto producto = null;
+        //    datos.setearConsulta("SELECT P.IdProducto, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.Stock, " +
+        //                         "M.IdMarca, M.Nombre AS Marca, C.IdCategoria, C.Nombre AS Categoria " +
+        //                         "FROM Productos P " +
+        //                         "LEFT JOIN Marcas M ON P.IdMarca = M.IdMarca " +
+        //                         "LEFT JOIN Categorias C ON P.IdCategoria = C.IdCategoria " +
+        //                         "WHERE P.IdProducto = @IdProducto");
+
+        //    datos.SetearParametro("@IdProducto", id);
+        //    datos.ejecutarLectura();
+
+        //    if (datos.Lector.Read())
+        //    {
+        //        producto = new Producto();
+        //        producto.ID = (int)datos.Lector["IdProducto"];
+        //        producto.Codigo = datos.Lector["Codigo"].ToString();
+        //        producto.Nombre = datos.Lector["Nombre"].ToString();
+        //        producto.Descripcion = datos.Lector["Descripcion"].ToString();
+        //        producto.Precio = (float)(decimal)datos.Lector["Precio"];
+        //        producto.Stock = (int)datos.Lector["Stock"];
+
+        //        if (datos.Lector["IdMarca"] != DBNull.Value)
+        //        {
+        //            producto.Marca = new Marca();
+        //            producto.Marca.ID = (int)datos.Lector["IdMarca"];
+        //            producto.Marca.Nombre = datos.Lector["Marca"].ToString();
+        //        }
+        //        if (datos.Lector["IdCategoria"] != DBNull.Value)
+        //        {
+        //            producto.Categoria = new Categoria();
+        //            producto.Categoria.ID = (int)datos.Lector["IdCategoria"];
+        //            producto.Categoria.Nombre = datos.Lector["Categoria"].ToString();
+        //        }
+        //    }
+        //    return producto;
+        //}
+
+        public Producto PrimerArticulo()
         {
             AccesoDatos datos = new AccesoDatos();
-            Producto producto = null;
-            datos.setearConsulta("SELECT P.IdProducto, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.Stock, " +
-                                 "M.IdMarca, M.Nombre AS Marca, C.IdCategoria, C.Nombre AS Categoria " +
-                                 "FROM Productos P " +
-                                 "LEFT JOIN Marcas M ON P.IdMarca = M.IdMarca " +
-                                 "LEFT JOIN Categorias C ON P.IdCategoria = C.IdCategoria " +
-                                 "WHERE P.IdProducto = @IdProducto");
-
-            datos.SetearParametro("@IdProducto", id);
+            datos.setearConsulta(@"SELECT TOP 1 A.Nombre, A.Descripcion, 
+                             MIN(I.ImagenUrl) AS ImagenUrl, 
+                             A.Precio
+                             FROM Productos A
+                             LEFT JOIN IMAGENES I ON A.IdProducto = I.IdProducto
+                             GROUP BY A.Nombre, A.Descripcion, A.Precio");
             datos.ejecutarLectura();
 
             if (datos.Lector.Read())
             {
-                producto = new Producto();
-                producto.ID = (int)datos.Lector["IdProducto"];
-                producto.Codigo = datos.Lector["Codigo"].ToString();
-                producto.Nombre = datos.Lector["Nombre"].ToString();
-                producto.Descripcion = datos.Lector["Descripcion"].ToString();
-                producto.Precio = (float)(decimal)datos.Lector["Precio"];
-                producto.Stock = (int)datos.Lector["Stock"];
+                Producto aux = new Producto();
+                aux.Nombre = datos.Lector["Nombre"].ToString();
+                aux.Descripcion = datos.Lector["Descripcion"].ToString();
 
-                if (datos.Lector["IdMarca"] != DBNull.Value)
+               
+                if (aux.Imagenes == null)
+                    aux.Imagenes = new List<Imagen>();
+
+                if (!(datos.Lector["ImagenUrl"] is DBNull))
                 {
-                    producto.Marca = new Marca();
-                    producto.Marca.ID = (int)datos.Lector["IdMarca"];
-                    producto.Marca.Nombre = datos.Lector["Marca"].ToString();
+                    aux.Imagenes.Add(new Imagen(datos.Lector["ImagenUrl"].ToString()));
                 }
-                if (datos.Lector["IdCategoria"] != DBNull.Value)
+                else
                 {
-                    producto.Categoria = new Categoria();
-                    producto.Categoria.ID = (int)datos.Lector["IdCategoria"];
-                    producto.Categoria.Nombre = datos.Lector["Categoria"].ToString();
+                    aux.Imagenes.Add(new Imagen("https://media.istockphoto.com/id/1128826884/es/vector/ning%C3%BAn-s%C3%ADmbolo-de-vector-de-imagen-falta-icono-disponible-no-hay-galer%C3%ADa-para-este-momento.jpg?s=612x612&w=0&k=20&c=9vnjI4XI3XQC0VHfuDePO7vNJE7WDM8uzQmZJ1SnQgk="));
                 }
+
+                aux.Precio = (float)(decimal)datos.Lector["Precio"];
+                return aux;
+            }
+            return null;
+        }
+
+        public Producto ObtenerArticuloId(int idArticulo)
+        {
+            Producto articulo = null;
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta((@"SELECT A.IdProducto, A.Nombre, A.Descripcion, A.Precio 
+                               FROM Productos A 
+                               WHERE A.IdProducto = @Id"));
+                datos.SetearParametro("@Id", idArticulo);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Producto art = new Producto();
+                    art.ID= (int)datos.Lector["IdProducto"];
+                    art.Nombre = datos.Lector["Nombre"].ToString();
+                    art.Descripcion = datos.Lector["Descripcion"].ToString();
+                    art.Precio = (float)(decimal)datos.Lector["Precio"];
+                    articulo = art;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return articulo;
+        }
+
+        public Producto ObtenerIdProducto(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Producto producto = null;
+            try
+            {
+                datos.setearConsulta("SELECT P.IdProducto, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.Stock, " +
+                                     "M.IdMarca, M.Nombre AS Marca, C.IdCategoria, C.Nombre AS Categoria " +
+                                     "FROM Productos P " +
+                                     "LEFT JOIN Marcas M ON P.IdMarca = M.IdMarca " +
+                                     "LEFT JOIN Categorias C ON P.IdCategoria = C.IdCategoria " +
+                                     "WHERE P.IdProducto = @IdProducto");
+                datos.SetearParametro("@IdProducto", id);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    producto = new Producto
+                    {
+                        ID = (int)datos.Lector["IdProducto"],
+                        Codigo = datos.Lector["Codigo"].ToString(),
+                        Nombre = datos.Lector["Nombre"].ToString(),
+                        Descripcion = datos.Lector["Descripcion"].ToString(),
+                        Precio = (float)(decimal)datos.Lector["Precio"],
+                        Stock = (int)datos.Lector["Stock"]
+                    };
+
+                    if (datos.Lector["IdMarca"] != DBNull.Value)
+                    {
+                        producto.Marca = new Marca
+                        {
+                            ID = (int)datos.Lector["IdMarca"],
+                            Nombre = datos.Lector["Marca"].ToString()
+                        };
+                    }
+
+                    if (datos.Lector["IdCategoria"] != DBNull.Value)
+                    {
+                        producto.Categoria = new Categoria
+                        {
+                            ID = (int)datos.Lector["IdCategoria"],
+                            Nombre = datos.Lector["Categoria"].ToString()
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener el producto: " + ex.Message);
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
             return producto;
         }
+
+
+
+
+
+
+
     }
 }
