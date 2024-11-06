@@ -21,14 +21,14 @@
             <asp:Repeater ID="rptProductos" runat="server">
                 <ItemTemplate>
                     <div class="card col-md-4" style="width: 18rem; margin: 10px; border-color: gray; height: 18rem;">
-                        <div class="image-container" style="margin-bottom: 30px;">
+                        <div class="image-container shadow" style="margin-bottom: 30px;">
                             <img src='<%# Eval("Imagenes[0].ImagenUrl") %>' class="card-img-top img-fluid" alt="Imagen del artículo">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title"><%# Eval("Nombre") %></h5>
                             <% if (tipoUsuario != 1)
                                 {%>
-                            <a href="IniciarSesion.aspx" class="btn-iniciar">Seleccionar</a>
+                            <a href="IniciarSesion.aspx" class="animated-button">Seleccionar</a>
                             <% }
                                 else
                                 { %>
