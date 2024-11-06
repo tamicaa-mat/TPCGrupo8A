@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="Iniciar Sesion" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="IniciarSesion.aspx.cs" Inherits="TPCGrupo8A.IniciarSesion" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
+    
     <main>
+    
         <div class="container-inicio">
             <h3 class="h3-inicio">Ingresar</h3>
 

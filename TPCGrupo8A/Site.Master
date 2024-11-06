@@ -13,47 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-r1nO4Hs49S1XLav+I5FexLNUxAXC5u/F6tCHaNNTwB1s5BPD9X5gHXYz8FIMc6aG" crossorigin="anonymous">
    
     
-     <style>
-      /* <!-- para las card imagenes -->*/
-  
-    .image-container {
-        width: 100%;
-        height: 0;
-        padding-top: 56.25%; 
-        position: relative;
-        overflow: hidden;
-        background-color: #f0f0f0; 
-    }
 
-    .image-container img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain; 
-    }
-    .carrito-container {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-    .carrito-header {
-        font-weight: bold;
-        font-size: 1.2em;
-    }
-    .carrito-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 0;
-    }
-    .carrito-total {
-        font-weight: bold;
-        font-size: 1.2em;
-        text-align: right;
-    }
-</style>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -90,21 +50,30 @@
                 </button>
                 <div class="navbar-header">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" style="background-color: white !important; border: 1px solid #ccc !important; border-radius: 5px !important; color: black !important;" runat="server" href="#contacto">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link animated-button"  runat="server" href="#contacto">Contacto</a></li>
                         <%--Admin--%>
-                        <li class="nav-item" ><a class="nav-link" style="background-color: white !important; border: 1px solid #ccc !important; border-radius: 5px !important; color: black !important;" id="linkAdmin" runat="server" href="~/Administrador.aspx">Administrador</a></li>
+                        <li class="nav-item" ><a class="nav-link animated-button"  id="linkAdmin" runat="server" href="~/Administrador.aspx">Administrador</a></li>
                         <li class="nav-item" style="margin-left: 5px !important;" runat="server" id="IngresarBoton" visible='<%# Session["usuario"] == null %>'>
-                            <a class="nav-link" style="background-color: white !important; border: 1px solid #ccc !important; border-radius: 5px !important; color: black !important;" runat="server" href="~/IniciarSesion">
+                            <a class="nav-link animated-button"  runat="server" href="~/IniciarSesion">
                                 <i class="bi bi-person"></i>Ingresar</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <div class="navbar-dropdown" style="background-color: #e3f2fd; padding: 0; display: flex; justify-content: center;">
+
+
+        
+
+
+
+
+
+
+        <div class="navbar-dropdown" style="background-color: black; padding: 0; display: flex; justify-content: center;">
 
             <div class="btn-group">
-                <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="dropdown-nav"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Marcas
                 </button>
                 <ul id="ulMarcas" class="dropdown-menu bg-light" runat="server">
@@ -113,7 +82,7 @@
             </div>
 
             <div class="btn-group">
-                <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="dropdown-nav" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Categorías
                 </button>
                 <ul id="ulCategorias" class="dropdown-menu bg-light" runat="server">
@@ -121,7 +90,7 @@
                 </ul>
             </div>
             <div class="btn-group" runat="server" id="MiCuentaMenu" visible='<%# Session["usuario"] != null %>'>
-        <button class="dropdown-toggle text-light" style="background-color: #273746" type="button" data-bs-toggle="dropdown" aria-expanded="false">Mi Cuenta</button>
+        <button class="dropdown-nav" type="button" data-bs-toggle="dropdown" aria-expanded="false">Mi Cuenta</button>
         <ul class="dropdown-menu bg-light">
             <li><a class="dropdown-item" href="/Perfil">Perfil</a></li>
             <li><a class="dropdown-item" href="/Pedidos">Pedidos</a></li>

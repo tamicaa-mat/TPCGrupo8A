@@ -5,7 +5,7 @@
      <h1 class="tex-center my-4">Marcas</h1>
  </div>
  <div class="mb-3">
-     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar Marca</button>
+     <button type="button" class="btn-iniciar" style="max-width: 200px" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar Marca</button>
      <asp:Label ID="lblMensaje" runat="server" ForeColor="#cb7298" Visible="false"></asp:Label>
  </div>
  <%-- Modal Marca Agregar --%>
@@ -51,8 +51,8 @@
              </div>
              <div class="modal-body">
                  <div class="mb-3">
-                     <asp:Label CssClass="form-label" ID="lblEditarMarca" runat="server" Text="Nombre:"></asp:Label>
-                     <asp:TextBox CssClass="form-control" ID="txtNombreMarcaEditar" onkeypress="return event.keyCode != 13;" runat="server"></asp:TextBox>
+                     <asp:Label CssClass="lbldatos" ID="lblEditarMarca" runat="server" Text="Nombre:"></asp:Label>
+                     <asp:TextBox CssClass="txtdatos" ID="txtNombreMarcaEditar" onkeypress="return event.keyCode != 13;" runat="server"></asp:TextBox>
                  </div>
              </div>
              <div class="modal-footer">
@@ -64,7 +64,7 @@
  </div>
  <!-- Botones de Editar y Eliminar fuera del GridView -->
  <div class="mb-3">
-     <button class="btn btn-primary" type="button" onclick="$('#modalEditar').modal('show');">Editar Marca</button>
+     <button class="animated-button" type="button" onclick="$('#modalEditar').modal('show');">Editar Marca</button>
      <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" />
  </div>
 </asp:Content>
