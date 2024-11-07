@@ -80,6 +80,70 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        //public List<Imagen> imagenesxProducto(int idProducto)
+        //{
+        //    List<Imagen> imagenes = new List<Imagen>();
+        //    AccesoDatos datos = new AccesoDatos();
+
+        //    try
+        //    {
+        //        datos.setearConsulta("SELECT IdImagen, IdProducto, ImagenUrl FROM Imagenes WHERE IdProducto = @IdProducto");
+        //        datos.SetearParametro("@IdProducto", idProducto);
+        //        datos.ejecutarLectura();
+
+        //        while (datos.Lector.Read())
+        //        {
+        //            Imagen imagen = new Imagen();
+        //            imagen.Id = (int)datos.Lector["IdImagen"];
+        //            imagen.ImagenUrl = datos.Lector["ImagenUrl"].ToString();
+        //            imagenes.Add(imagen);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarConexion();
+        //    }
+        //    return imagenes;
+        //}
+
+
+        //public List<Imagen> imagenesxArticulo(int idArticulo)
+        //{
+        //    List<Imagen> imagenes = new List<Imagen>();
+        //    AccesoDatos datos = new AccesoDatos();
+
+        //    try
+        //    {
+        //        datos.setearConsulta("SELECT IdProducto, ImagenUrl FROM IMAGENES WHERE IdProducto = @IdProducto");
+        //        datos.SetearParametro("@IdProducto", idArticulo);
+        //        datos.ejecutarLectura();
+
+        //        while (datos.Lector.Read())
+        //        {
+        //            Imagen imagen = new Imagen();
+        //            // Asegúrate de que el campo que estás leyendo existe en la consulta
+        //            imagen.Id = (int)datos.Lector["IdProducto"]; // Cambiado de "IdImagen" a "IdProducto"
+        //            imagen.ImagenUrl = datos.Lector["ImagenUrl"].ToString();
+        //            imagenes.Add(imagen);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarConexion();
+        //    }
+        //    return imagenes;
+        //}
+
+
+
         public List<Imagen> imagenesxProducto(int idProducto)
         {
             List<Imagen> imagenes = new List<Imagen>();
@@ -95,13 +159,14 @@ namespace Negocio
                 {
                     Imagen imagen = new Imagen();
                     imagen.Id = (int)datos.Lector["IdImagen"];
+                    imagen.IdProducto = (int)datos.Lector["IdProducto"];
                     imagen.ImagenUrl = datos.Lector["ImagenUrl"].ToString();
                     imagenes.Add(imagen);
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine("Error: " + ex.Message);
             }
             finally
             {
@@ -109,5 +174,31 @@ namespace Negocio
             }
             return imagenes;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

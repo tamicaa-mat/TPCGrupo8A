@@ -74,6 +74,13 @@ namespace Datos
             {
                 conexion.Open();
                 return comando.ExecuteScalar();
+                setearConsulta("SELECT Id FROM Productos WHERE Codigo = @Codigo");
+                SetearParametro("@Codigo", codigo);
+                ejecutarLectura();
+                if (Lector.Read())
+                {
+                    id = (int)(Lector["Id"]);
+                }
             }
             catch (Exception ex)
             {
@@ -113,7 +120,7 @@ namespace Datos
             try
             {
 
-                datos.setearConsulta("SELECT Codigo FROM ARTICULOS WHERE Codigo = @codigo");
+                datos.setearConsulta("SELECT Codigo FROM Productos WHERE Codigo = @codigo");
                 datos.comando.Parameters.Clear();
                 datos.comando.Parameters.AddWithValue("@codigo", codigo);
 
