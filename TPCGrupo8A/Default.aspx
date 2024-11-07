@@ -22,7 +22,7 @@
         <ItemTemplate>
             <!-- Tarjeta de producto individual -->
             <div class="card col-md-4" style="width: 18rem; margin: 10px; border-color: gray; height: 18rem;">
-                <div class="image-container" style="margin-bottom: 30px;">
+                <div class="image-container shadow" style="margin-bottom: 30px;">
                    
                     <img src='<%# Eval("Imagenes[0].ImagenUrl", "{0}") %>' class="card-img-top img-fluid" alt="Imagen del artículo">
                 </div>
@@ -32,7 +32,7 @@
                     <%-- Verifica el tipo de usuario  --%>
                     <% if (tipoUsuario != 1) { %>
                       
-                        <asp:LinkButton ID="btnSeleccionar" runat="server" CssClass="btn-iniciar" 
+                        <asp:LinkButton ID="btnSeleccionar" runat="server" CssClass="animated-button" 
                             CommandArgument='<%# Eval("ID") %>' OnClick="btnSeleccionar_Click">Seleccionar</asp:LinkButton>
                     <% } else { %>
                       
@@ -71,27 +71,27 @@
             <div class="formulario-1">
                 <div class="mb-3">
                     <label for="inputNombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="inputNombre" placeholder="Nombre">
+                    <input type="text" class="txtdatos" id="inputNombre" placeholder="Nombre">
                 </div>
 
                 <div class="mb-3">
                     <label for="inputCelular" class="form-label">Celular</label>
-                    <input type="tel" class="form-control" id="inputCelular" placeholder="">
+                    <input type="tel" class="txtdatos" id="inputCelular" placeholder="">
                 </div>
             </div>
             <div class="formulario-2">
                 <div class="mb-3">
-                    <label for="inputCorreo" class="form-label">Correo</label>
-                    <input type="email" class="form-control" id="inputCorreo" placeholder="nombre@ejemplo.com">
+                    <label for="inputCorreo" class="form-label lbldatos">Correo</label>
+                    <input type="email" class="txtdatos" id="inputCorreo" placeholder="nombre@ejemplo.com">
                 </div>
 
                 <div class="mb-3">
-                    <label for="inputMensaje" class="form-label">Mensaje</label>
-                    <textarea class="form-control" id="inputMensaje" rows="3" placeholder="Escribe tu mensaje aquí"></textarea>
+                    <label for="inputMensaje" class="form-label lbldatos">Mensaje</label>
+                    <textarea class=" txtdatos" id="inputMensaje" rows="3" placeholder="Escribe tu mensaje aquí"></textarea>
                 </div>
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="button">Enviar</button>
             </div>
         </div>
     </main>
