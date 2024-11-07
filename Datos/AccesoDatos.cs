@@ -68,38 +68,41 @@ namespace Datos
         {
             comando.Parameters.AddWithValue(nombre, valor);
         }
-        public int ObtenerIdArticulo(string codigo) //Permite obtener el nuevo codigo id de articulo
+        public object ejecutarEscalar()
         {
-            int id = 0;
             try
             {
-                setearConsulta("SELECT Id FROM ARTICULOS WHERE Codigo = @Codigo");
-                SetearParametro("@Codigo", codigo);
-                ejecutarLectura();
-                if (Lector.Read())
-                {
-                    id = (int)(Lector["Id"]);
-                }
+                conexion.Open();
+                return comando.ExecuteScalar();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            finally
-            {
-                cerrarConexion();
-            }
-            return id;
-
-
         }
-
-      
-
-
-
-
-
+        //public int ObtenerIdProducto(string codigo) //Permite obtener el nuevo codigo id de articulo
+        //{
+        //    int id = 0;
+        //    try
+        //    {
+        //        setearConsulta("SELECT Id FROM Productos WHERE Codigo = @Codigo");
+        //        SetearParametro("@Codigo", codigo);
+        //        ejecutarLectura();
+        //        if (Lector.Read())
+        //        {
+        //            id = (int)(Lector["IdProducto"]);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        cerrarConexion();
+        //    }
+        //    return id;
+        //}
         //..................................................validar.........................................................
 
         public bool ExisteCodigoArticulo(string codigo)

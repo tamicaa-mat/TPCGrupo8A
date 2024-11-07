@@ -67,13 +67,13 @@ namespace Negocio
         }
         public void agregar(Producto productoNuevo)
         {
-            AccesoDatos datos = new AccesoDatos();
             agregarProducto(productoNuevo);
-            //int idProducto = datos.ObtenerIdArticulo(productoNuevo.Codigo);
-            //foreach(var imagen in productoNuevo.Imagenes)
-            //{
-            //    agregarImagenUrl(idProducto, imagen.ImagenUrl);
-            //}
+            //productoNuevo.ID = idProducto;
+            int idProducto = Convert.ToInt32(ObtenerIdProducto(productoNuevo.ID));
+            foreach (var imagen in productoNuevo.Imagenes)
+            {
+                agregarImagenUrl(idProducto, imagen.ImagenUrl);
+            }
         }
         public void agregarProducto(Producto productoNuevo)
         {
@@ -90,6 +90,7 @@ namespace Negocio
                 datos.SetearParametro("@Stock", productoNuevo.Stock);
                 datos.SetearParametro("@Precio", productoNuevo.Precio);
                 datos.ejecutarAccion();
+            
             }
             catch (Exception ex)
             {
@@ -193,37 +194,47 @@ namespace Negocio
         {
             AccesoDatos datos = new AccesoDatos();
             Producto producto = null;
-            datos.setearConsulta("SELECT P.IdProducto, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.Stock, " +
-                                 "M.IdMarca, M.Nombre AS Marca, C.IdCategoria, C.Nombre AS Categoria " +
-                                 "FROM Productos P " +
-                                 "LEFT JOIN Marcas M ON P.IdMarca = M.IdMarca " +
-                                 "LEFT JOIN Categorias C ON P.IdCategoria = C.IdCategoria " +
-                                 "WHERE P.IdProducto = @IdProducto");
-
-            datos.SetearParametro("@IdProducto", id);
-            datos.ejecutarLectura();
-
-            if (datos.Lector.Read())
+            try
             {
-                producto = new Producto();
-                producto.ID = (int)datos.Lector["IdProducto"];
-                producto.Codigo = datos.Lector["Codigo"].ToString();
-                producto.Nombre = datos.Lector["Nombre"].ToString();
-                producto.Descripcion = datos.Lector["Descripcion"].ToString();
-                producto.Precio = (float)(decimal)datos.Lector["Precio"];
-                producto.Stock = (int)datos.Lector["Stock"];
+                datos.setearConsulta("SELECT P.IdProducto, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.Stock, " +
+                                "M.IdMarca, M.Nombre AS Marca, C.IdCategoria, C.Nombre AS Categoria " +
+                                "FROM Productos P " +
+                                "LEFT JOIN Marcas M ON P.IdMarca = M.IdMarca " +
+                                "LEFT JOIN Categorias C ON P.IdCategoria = C.IdCategoria " +
+                                "WHERE P.IdProducto = @IdProducto");
 
-                if (datos.Lector["IdMarca"] != DBNull.Value)
+                datos.SetearParametro("@IdProducto", id);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
                 {
-                    producto.Marca = new Marca();
-                    producto.Marca.ID = (int)datos.Lector["IdMarca"];
-                    producto.Marca.Nombre = datos.Lector["Marca"].ToString();
+                    producto = new Producto();
+                    producto.ID = (int)datos.Lector["IdProducto"];
+                    producto.Codigo = datos.Lector["Codigo"].ToString();
+                    producto.Nombre = datos.Lector["Nombre"].ToString();
+                    producto.Descripcion = datos.Lector["Descripcion"].ToString();
+                    producto.Precio = (float)(decimal)datos.Lector["Precio"];
+                    producto.Stock = (int)datos.Lector["Stock"];
+
+                    if (datos.Lector["IdMarca"] != DBNull.Value)
+                    {
+                        producto.Marca = new Marca();
+                        producto.Marca.ID = (int)datos.Lector["IdMarca"];
+                        producto.Marca.Nombre = datos.Lector["Marca"].ToString();
+                    }
+                    if (datos.Lector["IdCategoria"] != DBNull.Value)
+                    {
+                        producto.Categoria = new Categoria();
+                        producto.Categoria.ID = (int)datos.Lector["IdCategoria"];
+                        producto.Categoria.Nombre = datos.Lector["Categoria"].ToString();
+                    }
                 }
-                if (datos.Lector["IdCategoria"] != DBNull.Value)
+            }
+            catch (Exception ex)
+            {
+                if (producto == null)
                 {
-                    producto.Categoria = new Categoria();
-                    producto.Categoria.ID = (int)datos.Lector["IdCategoria"];
-                    producto.Categoria.Nombre = datos.Lector["Categoria"].ToString();
+                    throw new Exception("El producto no se encontró.", ex);
                 }
             }
             return producto;

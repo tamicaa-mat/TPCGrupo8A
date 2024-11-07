@@ -28,8 +28,22 @@ namespace TPCGrupo8A
                 CargarCategorias();
                 if (Session["ID"] != null)
                 {
-                    int idProducto = (int)Session["ID"];
-                    CargarProductos(idProducto);
+                    int idProducto = 0;
+                    try
+                    {
+                        idProducto = (int)Session["ID"];
+                        CargarProductos(idProducto);
+                        CargarImagenes(idProducto);
+                        pnlImagenes.Visible = true; //si hay id del producto podra agregar y ver las imgs
+                    }
+                    catch (FormatException)
+                    {
+                        pnlImagenes.Visible = false; 
+                    }
+                }
+                else
+                {
+                    pnlImagenes.Visible = false;
                 }
             }
         }
@@ -82,21 +96,7 @@ namespace TPCGrupo8A
             }
         }
 
-        // En proceso!, para poder agregar las imagenes primero debe exitir el producto
-        //protected void btnAgregarImagen_Click(object sender, EventArgs e)
-        //{
-        //    if (!string.IsNullOrWhiteSpace(txtImagenUrl.Text))
-        //    {
-        //        Imagen imagen = new Imagen();
-        //        imagen.ImagenUrl = txtImagenUrl.Text; 
-
-        //    }
-        //}
-        //private void CargarImagenes()
-        //{
-        //    ImagenNegocio imagenNegocio = new ImagenNegocio();
-        //    Imagen imagenes = imagenNegocio.listar(); Necesita antes conocer el producto
-        //}
+      
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             Producto producto = new Producto(); 
@@ -125,12 +125,17 @@ namespace TPCGrupo8A
             {
                 producto.ID = (int)Session["ID"];
                 productoNegocio.editar(producto);
+                Session["ID"] = "";
             }
             else
             {
                 productoNegocio.agregar(producto);
+                //Session["ID"] = Convert.ToInt32(productoNegocio.ObtenerIdProducto(producto.ID));
+                //if (Session["ID"] != null)
+                //{
+                //    pnlImagenes.Visible = true;
+                //}
             }
-            Session["ID"] = null;
         }
         private void CargarProductos(int idProducto)
         {
@@ -148,6 +153,53 @@ namespace TPCGrupo8A
                 ddlMarcas.SelectedValue = producto.Marca.ID.ToString();
                 if(producto.Categoria != null)
                 ddlCategorias.SelectedValue = producto.Categoria.ID.ToString();
+            }
+        }
+        private void CargarImagenes(int idProducto)
+        {
+            ImagenNegocio imagenNegocio = new ImagenNegocio();
+            List<Imagen> imagenes = imagenNegocio.imagenesxProducto(idProducto);
+
+            if(imagenes != null && imagenes.Count > 0)
+            {
+                rptImagenes.DataSource = imagenes;
+                rptImagenes.DataBind();
+            }
+        }
+        protected void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            if (Session["ID"] != null)
+            {
+                int idProducto = (int)Session["ID"];
+                string imagenUrl = txtImagenUrl.Text;
+                if (!string.IsNullOrEmpty(imagenUrl))
+                {
+                    Imagen imagenNueva = new Imagen();
+                    imagenNueva.IdProducto = idProducto;
+                    imagenNueva.ImagenUrl = imagenUrl;  
+                
+                    ImagenNegocio imagenNegocio = new ImagenNegocio();
+                    imagenNegocio.agregar(imagenNueva);
+
+                    txtImagenUrl.Text = "";
+                    CargarImagenes(idProducto);
+                }
+            }
+        }
+        protected void btnEliminarImagen_Command(object sender, CommandEventArgs e)
+        {
+            try
+            {
+                ImagenNegocio imagenNegocio= new ImagenNegocio();
+                int idImagen = Convert.ToInt32(e.CommandArgument);
+                imagenNegocio.eliminar(idImagen);
+                int idProducto = (int)Session["ID"];
+                CargarImagenes(idProducto);
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }
