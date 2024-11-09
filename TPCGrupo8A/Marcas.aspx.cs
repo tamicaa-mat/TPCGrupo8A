@@ -40,26 +40,31 @@ namespace TPCGrupo8A
                 throw;
             }
         }
-        protected void GVMarca_OnRowCommand(object sender, GridViewCommandEventArgs e)
+
+        protected void GVMarca_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.CommandName == "Seleccionar")
+            if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                int index = Convert.ToInt32(e.CommandArgument);//obtengo el indice de la fila selleccionada
-                GridViewRow row = GVMarca.Rows[index];
-
-                int idMarca = Convert.ToInt32(GVMarca.DataKeys[index].Value);
-                hdnMarcaId.Value = idMarca.ToString();//guarda el id para luego utilizarlo 
-
-                MarcaNegocio marcaNegocio = new MarcaNegocio();
-                Marca marca = marcaNegocio.ObtenerIdMarca(idMarca);//obtiene el ID 
-
-                if (marca != null)
+                // Obtener el valor de Estado para la fila actual
+                var estado = DataBinder.Eval(e.Row.DataItem, "Estado");
+                if (estado != null && !(bool)estado) // Si Estado es falso
                 {
-                    txtNombreMarcaEditar.Text = marca.Nombre;
+                    // Acceder al botón en la celda correspondiente y mostrarlo
+                    var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
+                    btnHabilitar.Visible = true;
                 }
-                ScriptManager.RegisterStartupScript(this, GetType(), "ShowModalEditar", "$('#modalEditar').modal('show');", true);//abre el modal
+                else
+                {
+                    // Si Estado es verdadero, ocultar el botón de habilitación
+                    var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
+                    btnHabilitar.Visible = false;
+                }
             }
         }
+
+
+
+
         protected void btnGuardarMarca_OnClick(object sender, EventArgs e)
         {
             try
@@ -142,5 +147,46 @@ namespace TPCGrupo8A
                 throw ex;
             }
         }
+
+        //8/11
+        protected void GVMarca_OnRowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            // Verifica si el comando es "Habilitar"
+            if (e.CommandName == "Habilitar")
+            {
+                // Obtiene el índice de la fila
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = GVMarca.Rows[rowIndex];
+
+                // Obtiene el ID de la marca desde la clave de datos
+                int marcaId = Convert.ToInt32(GVMarca.DataKeys[rowIndex].Value);
+
+                // Aquí puedes realizar la lógica de habilitación
+                MarcaNegocio marcaNegocio = new MarcaNegocio();
+                var marca = marcaNegocio.ObtenerIdMarca(marcaId); // Método para obtener la marca por ID
+                if (marca != null && !marca.Estado)
+                {
+                    // Lógica para habilitar la marca
+                    marca.Estado = true;
+                    marcaNegocio.editar(marca);
+
+                    // Recargar las marcas en el GridView
+                    CargarMarcas();
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

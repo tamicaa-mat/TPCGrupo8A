@@ -17,17 +17,19 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta(@"SELECT  P.IdProducto, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.Stock, I.ImagenUrl, M.IdMarca, M.Nombre AS Marca, C.IdCategoria, C.Nombre AS Categoria
-                                     FROM Productos P
-                                     LEFT JOIN  (SELECT IdProducto, ImagenUrl
-                                                FROM Imagenes 
-                                                WHERE IdImagen IN (SELECT MIN(IdImagen) 
-                                                FROM Imagenes 
-                                                GROUP BY IdProducto)) I 
-                                    ON P.IdProducto = I.IdProducto
-                                    JOIN Marcas M ON P.IdMarca = M.IdMarca
-                                    JOIN Categorias C ON P.IdCategoria = C.IdCategoria
-                                    WHERE Estado = 1;");
+
+                datos.setearConsulta(@"SELECT P.IdProducto, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.Stock, I.ImagenUrl, M.IdMarca, M.Nombre AS Marca, C.IdCategoria, C.Nombre AS Categoria
+                       FROM Productos P
+                       LEFT JOIN (SELECT IdProducto, ImagenUrl
+                                  FROM Imagenes 
+                                  WHERE IdImagen IN (SELECT MIN(IdImagen) 
+                                  FROM Imagenes 
+                                  GROUP BY IdProducto)) I 
+                       ON P.IdProducto = I.IdProducto
+                       JOIN Marcas M ON P.IdMarca = M.IdMarca
+                       JOIN Categorias C ON P.IdCategoria = C.IdCategoria
+                       WHERE P.Estado = 1;");
+
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())

@@ -27,5 +27,7 @@ namespace Dominio
         {
             return Nombre;
         }
+
+        public bool Estado { get; set; }
     }
 }

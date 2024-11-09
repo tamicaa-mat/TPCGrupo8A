@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Tienda" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TPCGrupo8A._Default" %>
+﻿ <%@ Page Title="Tienda" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TPCGrupo8A._Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -48,21 +48,6 @@
         </ItemTemplate>
     </asp:Repeater>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

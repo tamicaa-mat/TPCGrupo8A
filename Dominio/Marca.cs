@@ -25,5 +25,27 @@ namespace Dominio
         {
             return Nombre;
         }
+
+        // 8/11//////////////////////////////////
+        public bool Estado { get; set; }
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

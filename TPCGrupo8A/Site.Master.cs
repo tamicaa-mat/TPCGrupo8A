@@ -91,11 +91,19 @@ namespace TPCGrupo8A
                 a.Attributes["href"] = $"Default.aspx?marcaId={marca.ID}";
                 a.InnerText = marca.Nombre;
 
-                // Agregar el <a> dentro del <li>
-                li.Controls.Add(a);
+                if (marca.Estado == true)
+                {
 
-                // Agregar el <li> a la lista del menú (control <ul>)
-                ulMarcas.Controls.Add(li);  // 'ulMarcas' es el ID del <ul> en el HTML
+                    // Agregar el <a> dentro del <li>
+                    li.Controls.Add(a);
+                    // Agregar el <li> a la lista del menú (control <ul>)
+                    ulMarcas.Controls.Add(li);  // 'ulMarcas' es el ID del <ul> en el HTML
+
+                }
+             
+
+
+
             }
         }
     }

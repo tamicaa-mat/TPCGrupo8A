@@ -69,7 +69,7 @@ namespace TPCGrupo8A
                 nuevaCategoria.Nombre = txtNombreCategoria.Text;
 
                 CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-                if (categoriaNegocio.ExisteNombreCategoria(nuevaCategoria.Nombre))
+                if (categoriaNegocio.ExisteNombreCategoria(nuevaCategoria.Nombre)) 
                 {
                     lblMensaje.Text = "La categoría: " + nuevaCategoria.Nombre + " ya existe";
                     lblMensaje.Visible = true;

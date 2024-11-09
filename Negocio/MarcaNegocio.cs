@@ -18,18 +18,21 @@ namespace Negocio
             try
             {
 
-                datos.setearConsulta("select idMarca, Nombre from Marcas");
+                datos.setearConsulta("select idMarca, Estado, Nombre from Marcas");
 
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Marca marca = new Marca();
-
+                    marca.Estado = (bool)datos.Lector["Estado"];
                     marca.ID = (int)datos.Lector["idMarca"];
                     marca.Nombre = datos.Lector["Nombre"].ToString();
 
+                    
                     lista.Add(marca);
+
+                    
                 }
                 return lista;
             }
@@ -49,7 +52,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO Marcas (Nombre) VALUES (@Nombre)");
+                datos.setearConsulta("INSERT INTO Marcas (Nombre, Estado) VALUES (@Nombre,'1')");
                 datos.SetearParametro("@Nombre", nuevaMarca.Nombre);
                 datos.ejecutarAccion();
             }
@@ -62,14 +65,16 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
         public void editar(Marca marca)
         {
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta("UPDATE Marcas SET Nombre = @Nombre WHERE IdMarca = @IdMarca");
+                datos.setearConsulta("UPDATE Marcas SET Nombre = @Nombre, Estado = @Estado WHERE IdMarca = @IdMarca");
                 datos.SetearParametro("@Nombre", marca.Nombre);
                 datos.SetearParametro("@IdMarca", marca.ID);
+                datos.SetearParametro("@Estado", marca.Estado);
 
                 datos.ejecutarAccion();
             }
@@ -78,13 +83,15 @@ namespace Negocio
                 throw new Exception("ERROR al editar la marca:" + ex.Message, ex);
             }
         }
+     
         public void eliminar(int id)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("DELETE FROM Marcas WHERE IdMarca = @IdMarca");
+                // Llama al procedimiento almacenado en lugar de la sentencia DELETE
+                datos.setearConsulta("EXEC SP_EliminacionLogicaMarcas @IDMARCA = @IdMarca");
                 datos.SetearParametro("@IdMarca", id);
                 datos.ejecutarAccion();
             }
@@ -97,6 +104,8 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+
         public bool ExisteNombreMarca(string nombre)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -139,22 +148,7 @@ namespace Negocio
             }
             return marca;
         }
-        public Categoria ObtenerIdCategoria(int id)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            Categoria categoria = null;
-            datos.setearConsulta("SELECT IdCategoria, Nombre FROM Categorias WHERE IdCategoria = @id");
-            datos.SetearParametro("@Id", id);
-            datos.ejecutarLectura();
-
-            if (datos.Lector.Read())
-            {
-                categoria = new Categoria();
-                categoria.ID = (int)datos.Lector["IdCategoria"];
-                categoria.Nombre = datos.Lector["Nombre"].ToString();
-            }
-            return categoria;
-        }
+       
     }
 }
 
