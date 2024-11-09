@@ -29,10 +29,11 @@ namespace TPCGrupo8A
         }
         private void CargarCategorias()
         {
+            
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-            //List<Categoria> categorias = categoriaNegocio.listar();
             try
             {
+                // Cargar todas las categorías (sin filtrar por estado)
                 GVCategorias.DataSource = categoriaNegocio.listar();
                 GVCategorias.DataBind();
             }
@@ -40,27 +41,41 @@ namespace TPCGrupo8A
             {
                 throw;
             }
+
+
+
         }
-        protected void GVCategorias_OnRowCommand(object sender, GridViewCommandEventArgs e)
+
+
+
+        protected void GVCategorias_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.CommandName == "Seleccionar")
+            if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                int index = Convert.ToInt32(e.CommandArgument);//obtengo el indice de la fila selleccionada
-                GridViewRow row = GVCategorias.Rows[index];
+                // Obtener el valor de Estado de la categoría actual
+                var estado = DataBinder.Eval(e.Row.DataItem, "Estado");
 
-                int idCategoria = Convert.ToInt32(GVCategorias.DataKeys[index].Value);
-                hdnCategoriaId.Value = idCategoria.ToString();//guarda el id para luego utilizarlo 
-
-                CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-                Categoria categoria = categoriaNegocio.ObtenerIdCategoria(idCategoria);//obtiene el ID 
-
-                if (categoria != null)
+               
+                if (estado != null && !(bool)estado) 
                 {
-                    txtNombreCategoriaEditar.Text = categoria.Nombre;
+                   
+                    var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
+                    btnHabilitar.Visible = true; // Mostrar el botón "Habilitar"
                 }
-                ScriptManager.RegisterStartupScript(this, GetType(), "ShowModalEditar", "$('#modalEditar').modal('show');", true);//abre el modal
+                else
+                {
+                    
+                    var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
+                    btnHabilitar.Visible = false;
+                }
             }
         }
+
+
+
+
+
+
         protected void btnGuardarCategoria_OnClick(object sender, EventArgs e)
         {
             try
@@ -69,7 +84,7 @@ namespace TPCGrupo8A
                 nuevaCategoria.Nombre = txtNombreCategoria.Text;
 
                 CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-                if (categoriaNegocio.ExisteNombreCategoria(nuevaCategoria.Nombre)) 
+                if (categoriaNegocio.ExisteNombreCategoria(nuevaCategoria.Nombre))
                 {
                     lblMensaje.Text = "La categoría: " + nuevaCategoria.Nombre + " ya existe";
                     lblMensaje.Visible = true;
@@ -123,7 +138,10 @@ namespace TPCGrupo8A
                 throw new Exception("ERROR no se pudo agregar la categoría", ex);
             }
         }
-        protected void btnEliminar_Click(object sender, EventArgs e)
+   
+
+
+        protected void btnEliminar_OnClick(object sender, EventArgs e)
         {
             try
             {
@@ -133,15 +151,59 @@ namespace TPCGrupo8A
                     lblMensaje.Visible = true;
                     return;
                 }
-                int idCategoria = Convert.ToInt32(hdnCategoriaId.Value);//Tengo el ID con el HiddenField
+                int idCategoria = Convert.ToInt32(hdnCategoriaId.Value); // Obtener el ID con el HiddenField
                 CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-                categoriaNegocio.eliminar(idCategoria);
-                CargarCategorias();
+                categoriaNegocio.eliminar(idCategoria); // Eliminar la categoría 
+                CargarCategorias(); // Recargar el GridView
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+
+
+
+        protected void GVCategorias_OnRowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Seleccionar")
+            {
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = GVCategorias.Rows[rowIndex];
+                int categoriaId = Convert.ToInt32(GVCategorias.DataKeys[rowIndex].Value);
+
+                hdnCategoriaId.Value = categoriaId.ToString(); // Asigna el ID seleccionado al HiddenField
+                txtNombreCategoriaEditar.Text = row.Cells[1].Text; // Muestra el nombre de la categoría seleccionada
+            }
+            else if (e.CommandName == "Habilitar")
+            {
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = GVCategorias.Rows[rowIndex];
+                int categoriaId = Convert.ToInt32(GVCategorias.DataKeys[rowIndex].Value);
+
+               
+                CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                var categoria = categoriaNegocio.ObtenerIdCategoria(categoriaId);
+                if (categoria != null && !categoria.Estado)
+                {
+                    categoria.Estado = true;
+                    categoriaNegocio.editar(categoria); 
+                    CargarCategorias(); 
+                }
+            }
+
+        }
+
+
+
+
+
+
     }
+
+
 }
+
+
+
+

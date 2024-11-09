@@ -90,7 +90,7 @@ namespace Negocio
 
             try
             {
-                // Llama al procedimiento almacenado en lugar de la sentencia DELETE
+               
                 datos.setearConsulta("EXEC SP_EliminacionLogicaMarcas @IDMARCA = @IdMarca");
                 datos.SetearParametro("@IdMarca", id);
                 datos.ejecutarAccion();

@@ -45,17 +45,17 @@ namespace TPCGrupo8A
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                // Obtener el valor de Estado para la fila actual
+                
                 var estado = DataBinder.Eval(e.Row.DataItem, "Estado");
                 if (estado != null && !(bool)estado) // Si Estado es falso
                 {
-                    // Acceder al botón en la celda correspondiente y mostrarlo
+                    
                     var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
                     btnHabilitar.Visible = true;
                 }
                 else
                 {
-                    // Si Estado es verdadero, ocultar el botón de habilitación
+                    
                     var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
                     btnHabilitar.Visible = false;
                 }

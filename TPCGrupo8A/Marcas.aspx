@@ -24,7 +24,7 @@
              </div>
              <div class="modal-footer">
                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <%--     COPIO 8/11--%>
+           
                  <asp:Button ID="btnGuardarMarca" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardarMarca_OnClick" />
 
              </div>
@@ -35,14 +35,7 @@
  <div class="mb-3" style="overflow-x: auto">
      <div class="gv-container"></div>
 
-    <%-- <asp:GridView ID="GVMarca" runat="server" AutoGenerateColumns="False" OnRowCommand="GVMarca_OnRowCommand" DataKeyNames="ID" CssClass="list-categorias"> 
-         <Columns>
-             <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" />
-             <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-             <asp:ButtonField ButtonType="Button" CommandName="Seleccionar" Text="✔️" />
-             <asp:ButtonField ButtonType="Button"  class=""  CommandName="Habilitar" Text="Habilitar" />
-         </Columns>
-     </asp:GridView>--%>
+  
 
  <asp:GridView ID="GVMarca" runat="server" AutoGenerateColumns="False" 
               OnRowCommand="GVMarca_OnRowCommand" 

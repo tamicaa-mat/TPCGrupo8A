@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Negocio
 {
@@ -23,16 +24,15 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     Categoria categoria = new Categoria();
+                    categoria.Nombre = datos.Lector["Nombre"].ToString();
                     categoria.Estado = (bool)datos.Lector["Estado"];
                     categoria.ID = (int)datos.Lector["IdCategoria"];
-                    categoria.Nombre = datos.Lector["Nombre"].ToString();
 
-                    if (categoria.Estado == true)
-                    {
+                  
 
                     lista.Add(categoria);
 
-                    }
+                    
                 }
                 return lista;
             }
@@ -74,10 +74,10 @@ namespace Negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta("UPDATE Categorias SET Nombre = @Nombre WHERE IdCategoria = @IdCategoria");
+                datos.setearConsulta("UPDATE Categorias SET Nombre = @Nombre, Estado = @Estado WHERE IdCategoria = @IdCategoria");
                 datos.SetearParametro("@Nombre", categoria.Nombre);
                 datos.SetearParametro("@IdCategoria", categoria.ID);
-
+                datos.SetearParametro("@Estado", categoria.Estado);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -92,8 +92,8 @@ namespace Negocio
             try
             {
               
-                datos.setearConsulta("EXEC SP_EliminacionLogicaCategorias @IDCATEGORIA");
-                datos.SetearParametro("@IDCATEGORIA", id);
+                datos.setearConsulta("EXEC SP_EliminacionLogicaCategorias @IDCATEGORIA= @IdCategoria");
+                datos.SetearParametro("@IdCategoria", id);
                 datos.ejecutarAccion();
 
             }

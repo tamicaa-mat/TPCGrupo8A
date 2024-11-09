@@ -66,11 +66,14 @@ namespace TPCGrupo8A
                 a.Attributes["href"] = $"Default.aspx?categoriaId={categoria.ID}";
                 a.InnerText = categoria.Nombre;
 
-                // Agregar el <a> dentro del <li>
-                li.Controls.Add(a);
+                if (categoria.Estado == true)
+                {
+                    // Agregar el <a> dentro del <li>
+                    li.Controls.Add(a);
+                    // Agregar el <li> a la lista del menú (control <ul>)
+                    ulCategorias.Controls.Add(li);  // 'ulCategorias' es el ID del <ul> en el HTML
 
-                // Agregar el <li> a la lista del menú (control <ul>)
-                ulCategorias.Controls.Add(li);  // 'ulCategorias' es el ID del <ul> en el HTML
+                }
             }
         }
 

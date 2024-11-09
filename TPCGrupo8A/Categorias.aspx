@@ -31,16 +31,25 @@
     </div>
 
 
-    <div class="mb-3" style="overflow-x: auto">
-        <div class="gv-container"></div>
-        <asp:GridView ID="GVCategorias" runat="server" AutoGenerateColumns="False" OnRowCommand="GVCategorias_OnRowCommand" DataKeyNames="ID" CssClass="list-categorias">
-            <Columns>
-                <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" />
-                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                <asp:ButtonField ButtonType="Button" CommandName="Seleccionar" Text="✔️" />
-            </Columns>
-        </asp:GridView>
-    </div>
+
+     <div class="mb-3" style="overflow-x: auto">
+     <div class="gv-container"></div>
+
+  
+
+ <asp:GridView ID="GVCategorias" runat="server" AutoGenerateColumns="False" 
+              OnRowCommand="GVCategorias_OnRowCommand" 
+              OnRowDataBound="GVCategorias_RowDataBound" 
+              DataKeyNames="ID" CssClass="list-categorias">
+    <Columns>
+        <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" />
+        <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+        <asp:ButtonField ButtonType="Button" CommandName="Seleccionar" Text="✔️" />
+       
+        <asp:ButtonField ButtonType="Button" CommandName="Habilitar" Text="Habilitar" />
+    </Columns>
+</asp:GridView>
+         </div>
 
 
 
@@ -69,6 +78,6 @@
     <!-- Botones de Editar y Eliminar fuera del GridView -->
     <div class="mb-3">
         <button class="animated-button" type="button" onclick="$('#modalEditar').modal('show');">Editar Categoría</button>
-        <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" />
+        <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_OnClick" />
     </div>
 </asp:Content>
