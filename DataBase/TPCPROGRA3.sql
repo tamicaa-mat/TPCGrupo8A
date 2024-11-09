@@ -205,6 +205,7 @@ VALUES
 ('PAN005','Pantalon','Pantalon algodon verde',$81200,3,3,9),
 ('PAN006','Pantalon','Bolsillos con cierre y botones',$156560,3,3,4)
 GO
+
 INSERT INTO Imagenes (IdProducto, ImagenUrl)
 VALUES 
 (7, 'https://http2.mlstatic.com/D_NQ_NP_869993-MLA50771783931_072022-O.webp'),  
@@ -219,16 +220,19 @@ VALUES
 (16, 'https://http2.mlstatic.com/D_NQ_NP_640105-MLA43149870463_082020-O.webp'),
 (17, 'https://http2.mlstatic.com/D_NQ_NP_634003-MLA80174982005_102024-O.webp'),
 (18, 'https://http2.mlstatic.com/D_NQ_NP_634469-MLA77029249022_062024-O.webp')
+GO
 
 ALTER TABLE Clientes
 ADD Telefono VARCHAR(20) NOT NULL DEFAULT 'Sin especificar'
+GO
  -----------------------------8/11 ----------------------------
 ALTER TABLE Marcas
 ADD Estado BIT  NOT NULL DEFAULT '1'
+GO
 
 ALTER TABLE Categorias
 ADD Estado BIT  NOT NULL DEFAULT '1'
-
+GO
 
 ---------------------PARA ELIMINAR MARCAS Y AGREGAR--------------------
 CREATE PROCEDURE SP_EliminacionLogicaMarcas(@IDMARCA INT)
@@ -285,7 +289,7 @@ SELECT @IDMARCAAGREGADA=IdMarca FROM INSERTED
             WHERE IdMarca = @IDMARCAAGREGADA;
 
 END
-
+GO
   
 CREATE TRIGGER Al_Eliminar_Marca ON Marcas
 AFTER INSERT 
@@ -301,7 +305,7 @@ SELECT @IDMARCAAGREGADA=IdMarca FROM INSERTED
             WHERE IdMarca = @IDMARCAAGREGADA;
 
 END
-
+GO
 
 -------------------------PARA ELIMINAR Y AGREGAR CATEGORIAS----------------------------
 
@@ -359,7 +363,7 @@ SELECT @IDCATEGORIAAGREGADA=IdCategoria FROM INSERTED
             WHERE IdCategoria= @IDCATEGORIAAGREGADA;
 
 END
-
+GO
   
 CREATE TRIGGER Al_Eliminar_Categoria ON Categorias
 AFTER INSERT 
@@ -375,4 +379,4 @@ SELECT @IDCATEGORIAAGREGADA=IdCategoria FROM INSERTED
             WHERE IdCategoria = @IDCATEGORIAAGREGADA;
 
 END
-
+GO
