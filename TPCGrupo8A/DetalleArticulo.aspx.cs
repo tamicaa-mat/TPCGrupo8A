@@ -25,14 +25,14 @@ namespace TPCGrupo8A
                 {
                     AccesoDatos datos = new AccesoDatos();
                     ProductoNegocio articuloNegocio = new ProductoNegocio();
-                    Producto articulo = articuloNegocio.PrimerArticulo();
+                    //Producto articulo = articuloNegocio.PrimerArticulo();
 
-                    if (articulo != null)
-                        idArticulo = articulo.ID;
-                    else
-                    {
-                        //FALTAAAAAAAAAAA pantalla de "Error no se encontro producto para mostrar" 
-                    }
+                    //if (articulo != null)
+                    //    idArticulo = articulo.ID;
+                    //else
+                    //{
+                    //    //FALTAAAAAAAAAAA pantalla de "Error no se encontro producto para mostrar" 
+                    //}
                 }
                 cargaImagenes(idArticulo);
                 cargaInformacionArticulo(idArticulo);

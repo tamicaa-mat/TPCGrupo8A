@@ -40,50 +40,26 @@
             </asp:DropDownList>
             <asp:TextBox ID="txtCategoria" runat="server" CssClass="form-control" Placeholder="Seleccione una Categoría" ReadOnly="True" />
         </div>
-
-        <%-- Imagenes EN PROCESO--%>
-        <%--<asp:Label ID="lblImagenUrl" runat="server" Text="Ingrese el URL de la imagen:" CssClass="form-label"></asp:Label>
-        <asp:TextBox ID="txtImagenUrl" runat="server" CssClass="form-control" Placeholder="URL de la imagen" />
-        <asp:Button ID="btnAgregarImagen" runat="server" Text="Agregar Imagen" CssClass="btn btn-primary" OnClick="btnAgregarImagen_Click" />--%>
-
         <div class="mb-3">
             <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" CssClass="btnGuardar" />
         </div>
-        <%-- mostrar las imágenes en formato de cards, ya que en las cards se podran no solo agregar sino tambien eliminar imgs //btn eliminarImg en proceso
-     <%--   <asp:Repeater ID="rptImagenes" runat="server">
-            <ItemTemplate>
-                <div class="card" style="width: 10rem; margin: 5px;">
-                    <img src='<%# Eval("ImagenUrl") %>' class="card-img-top" alt="Imagen">
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>--%>
-            
-        <%--<section class="container g-md-3">
-            <div class="form">
-                <asp:Label CssClass="form-label" ID="lblCodigo" runat="server" Text="Codigo:"></asp:Label>
-                <asp:TextBox ID="txtCodigoProducto" runat="server" CssClass="input" placeholder="Código del Producto"></asp:TextBox>                
-                <span class="input-border"></span>
-            </div>
-            <div class="form">
-                <asp:Label CssClass="form-label" ID="lblNombre" runat="server" Text="Nombre:"></asp:Label>
-               <asp:TextBox ID="txtNombre" runat="server" CssClass="input"  placeholder="Nombre"></asp:TextBox>
-                <span class="input-border"></span>
-            </div>
-            <div class="form">
-                <asp:Label CssClass="form-label" ID="lblDescripcion" runat="server" Text="Descripción:"></asp:Label>
-               <asp:TextBox ID="txtDescripcion" runat="server" CssClass="input"  placeholder="Despcipción"></asp:TextBox>
-                <span class="input-border"></span>
-            </div>
-            <div class="form">
-                <asp:Label CssClass="form-label" ID="lblPrecio" runat="server" Text="Precio:"></asp:Label>
-                <input type="number" placeholder="Precio" step="0.01" min="0" class="input">
-            </div>
-            <div class="form">
-                 <div class="number-left"></div>
-                    <asp:Label CssClass="form-label" ID="Label1" runat="server" Text="Precio:"></asp:Label>
-                    <input type="number" name="number" class="input number-quantity">
-                  <div class="number-right"></div>
-            </div>
-        </section>--%>
+
+        <%-- Imagenes EN PROCESO--%>
+        <asp:Panel ID="pnlImagenes" runat="server" Visible="false">
+            <h3>Imágenes del Producto</h3>
+
+            <asp:TextBox ID="txtImagenUrl" runat="server" Placeholder="URL de la imagen" />
+            <asp:Button ID="btnAgregarImagen" runat="server" Text="Agregar Imagen" OnClick="btnAgregarImagen_Click" />
+            <asp:Repeater ID="rptImagenes" runat="server">
+                <ItemTemplate>
+                    <div class="card" style="width: 150px; display: inline-block; margin: 10px;">
+                        <asp:Image ID="imgProducto" runat="server" ImageUrl='<%# Eval("ImagenUrl") %>' CssClass="card-img-top" Width="100%" />
+                        <div class="card-body">
+                            <asp:Button ID="btnEliminarImagen" runat="server" Text="Eliminar" CssClass="btn btn-danger btn-sm"  CommandName="EliminarImagen" CommandArgument='<%# Eval("Id") %>' OnCommand="btnEliminarImagen_Command" />
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+        </asp:Panel>
     </main>
 </asp:Content>

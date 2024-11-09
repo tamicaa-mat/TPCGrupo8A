@@ -69,13 +69,13 @@ namespace Negocio
         }
         public void agregar(Producto productoNuevo)
         {
-            AccesoDatos datos = new AccesoDatos();
             agregarProducto(productoNuevo);
-            //int idProducto = datos.ObtenerIdArticulo(productoNuevo.Codigo);
-            //foreach(var imagen in productoNuevo.Imagenes)
-            //{
-            //    agregarImagenUrl(idProducto, imagen.ImagenUrl);
-            //}
+            //productoNuevo.ID = idProducto;
+            int idProducto = Convert.ToInt32(ObtenerIdProducto(productoNuevo.ID));
+            foreach (var imagen in productoNuevo.Imagenes)
+            {
+                agregarImagenUrl(idProducto, imagen.ImagenUrl);
+            }
         }
         public void agregarProducto(Producto productoNuevo)
         {
@@ -92,6 +92,7 @@ namespace Negocio
                 datos.SetearParametro("@Stock", productoNuevo.Stock);
                 datos.SetearParametro("@Precio", productoNuevo.Precio);
                 datos.ejecutarAccion();
+            
             }
             catch (Exception ex)
             {
@@ -231,41 +232,86 @@ namespace Negocio
         //    return producto;
         //}
 
-        public Producto PrimerArticulo()
-        {
-            AccesoDatos datos = new AccesoDatos();
-            datos.setearConsulta(@"SELECT TOP 1 A.Nombre, A.Descripcion, 
-                             MIN(I.ImagenUrl) AS ImagenUrl, 
-                             A.Precio
-                             FROM Productos A
-                             LEFT JOIN IMAGENES I ON A.IdProducto = I.IdProducto
-                             GROUP BY A.Nombre, A.Descripcion, A.Precio");
-            datos.ejecutarLectura();
+//        public Producto PrimerArticulo()
+//        {
+//            AccesoDatos datos = new AccesoDatos();
 
-            if (datos.Lector.Read())
-            {
-                Producto aux = new Producto();
-                aux.Nombre = datos.Lector["Nombre"].ToString();
-                aux.Descripcion = datos.Lector["Descripcion"].ToString();
+//            Producto producto = null;
+//            try
+//            {
+//                datos.setearConsulta("SELECT P.IdProducto, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.Stock, " +
+//                                "M.IdMarca, M.Nombre AS Marca, C.IdCategoria, C.Nombre AS Categoria " +
+//                                "FROM Productos P " +
+//                                "LEFT JOIN Marcas M ON P.IdMarca = M.IdMarca " +
+//                                "LEFT JOIN Categorias C ON P.IdCategoria = C.IdCategoria " +
+//                                "WHERE P.IdProducto = @IdProducto");
+
+//                datos.SetearParametro("@IdProducto", id);
+//                datos.ejecutarLectura();
+
+//                if (datos.Lector.Read())
+//                {
+//                    producto = new Producto();
+//                    producto.ID = (int)datos.Lector["IdProducto"];
+//                    producto.Codigo = datos.Lector["Codigo"].ToString();
+//                    producto.Nombre = datos.Lector["Nombre"].ToString();
+//                    producto.Descripcion = datos.Lector["Descripcion"].ToString();
+//                    producto.Precio = (float)(decimal)datos.Lector["Precio"];
+//                    producto.Stock = (int)datos.Lector["Stock"];
+
+//                    if (datos.Lector["IdMarca"] != DBNull.Value)
+//                    {
+//                        producto.Marca = new Marca();
+//                        producto.Marca.ID = (int)datos.Lector["IdMarca"];
+//                        producto.Marca.Nombre = datos.Lector["Marca"].ToString();
+//                    }
+//                    if (datos.Lector["IdCategoria"] != DBNull.Value)
+//                    {
+//                        producto.Categoria = new Categoria();
+//                        producto.Categoria.ID = (int)datos.Lector["IdCategoria"];
+//                        producto.Categoria.Nombre = datos.Lector["Categoria"].ToString();
+//                    }
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                if (producto == null)
+//                {
+//                    throw new Exception("El producto no se encontró.", ex);
+//
+//            datos.setearConsulta(@"SELECT TOP 1 A.Nombre, A.Descripcion, 
+//                             MIN(I.ImagenUrl) AS ImagenUrl, 
+//                             A.Precio
+//                             FROM Productos A
+//                             LEFT JOIN IMAGENES I ON A.IdProducto = I.IdProducto
+//                             GROUP BY A.Nombre, A.Descripcion, A.Precio");
+//            datos.ejecutarLectura();
+
+//            if (datos.Lector.Read())
+//            {
+//                Producto aux = new Producto();
+//                aux.Nombre = datos.Lector["Nombre"].ToString();
+//                aux.Descripcion = datos.Lector["Descripcion"].ToString();
 
                
-                if (aux.Imagenes == null)
-                    aux.Imagenes = new List<Imagen>();
+//                if (aux.Imagenes == null)
+//                    aux.Imagenes = new List<Imagen>();
 
-                if (!(datos.Lector["ImagenUrl"] is DBNull))
-                {
-                    aux.Imagenes.Add(new Imagen(datos.Lector["ImagenUrl"].ToString()));
-                }
-                else
-                {
-                    aux.Imagenes.Add(new Imagen("https://media.istockphoto.com/id/1128826884/es/vector/ning%C3%BAn-s%C3%ADmbolo-de-vector-de-imagen-falta-icono-disponible-no-hay-galer%C3%ADa-para-este-momento.jpg?s=612x612&w=0&k=20&c=9vnjI4XI3XQC0VHfuDePO7vNJE7WDM8uzQmZJ1SnQgk="));
-                }
+//                if (!(datos.Lector["ImagenUrl"] is DBNull))
+//                {
+//                    aux.Imagenes.Add(new Imagen(datos.Lector["ImagenUrl"].ToString()));
+//                }
+//                else
+//                {
+//                    aux.Imagenes.Add(new Imagen("https://media.istockphoto.com/id/1128826884/es/vector/ning%C3%BAn-s%C3%ADmbolo-de-vector-de-imagen-falta-icono-disponible-no-hay-galer%C3%ADa-para-este-momento.jpg?s=612x612&w=0&k=20&c=9vnjI4XI3XQC0VHfuDePO7vNJE7WDM8uzQmZJ1SnQgk="));
+//
+//                }
 
-                aux.Precio = (float)(decimal)datos.Lector["Precio"];
-                return aux;
-            }
-            return null;
-        }
+//                aux.Precio = (float)(decimal)datos.Lector["Precio"];
+//                return aux;
+//            }
+//            return null;
+//        }
 
         public Producto ObtenerArticuloId(int idArticulo)
         {

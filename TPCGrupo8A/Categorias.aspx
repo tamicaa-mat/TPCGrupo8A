@@ -5,7 +5,7 @@
         <h1 class="tex-center my-4">Categorías</h1>
     </div>
     <div class="mb-3">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar Categoría</button>
+        <button type="button" class="btn-iniciar" style="max-width: 200px" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar Categoría</button>
         <asp:Label ID="lblMensaje" runat="server" ForeColor="#cb7298" Visible="false"></asp:Label>
     </div>
     <%-- Modal Categoría Agregar --%>
@@ -64,7 +64,7 @@
     </div>
     <!-- Botones de Editar y Eliminar fuera del GridView -->
     <div class="mb-3">
-        <button class="btn btn-primary" type="button" onclick="$('#modalEditar').modal('show');">Editar Categoría</button>
+        <button class="animated-button" type="button" onclick="$('#modalEditar').modal('show');">Editar Categoría</button>
         <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" />
     </div>
 </asp:Content>
