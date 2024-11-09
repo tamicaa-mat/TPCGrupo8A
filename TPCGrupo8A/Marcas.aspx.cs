@@ -148,29 +148,34 @@ namespace TPCGrupo8A
             }
         }
 
-        //8/11
+        //8/11 para el boton habilitar y seleccionar de marcas
         protected void GVMarca_OnRowCommand(object sender, GridViewCommandEventArgs e)
         {
-            // Verifica si el comando es "Habilitar"
-            if (e.CommandName == "Habilitar")
+           
+            if (e.CommandName == "Seleccionar")
             {
-                // Obtiene el índice de la fila
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
                 GridViewRow row = GVMarca.Rows[rowIndex];
-
-                // Obtiene el ID de la marca desde la clave de datos
                 int marcaId = Convert.ToInt32(GVMarca.DataKeys[rowIndex].Value);
 
-                // Aquí puedes realizar la lógica de habilitación
+                hdnMarcaId.Value = marcaId.ToString(); // Asigna el ID seleccionado al HiddenField
+                txtNombreMarcaEditar.Text = row.Cells[1].Text; // Muestra el nombre de la marca seleccionada
+
+               
+            }
+            
+            else if (e.CommandName == "Habilitar")
+            {
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = GVMarca.Rows[rowIndex];
+                int marcaId = Convert.ToInt32(GVMarca.DataKeys[rowIndex].Value);
+
                 MarcaNegocio marcaNegocio = new MarcaNegocio();
-                var marca = marcaNegocio.ObtenerIdMarca(marcaId); // Método para obtener la marca por ID
+                var marca = marcaNegocio.ObtenerIdMarca(marcaId);
                 if (marca != null && !marca.Estado)
                 {
-                    // Lógica para habilitar la marca
                     marca.Estado = true;
                     marcaNegocio.editar(marca);
-
-                    // Recargar las marcas en el GridView
                     CargarMarcas();
                 }
             }
@@ -179,14 +184,19 @@ namespace TPCGrupo8A
 
 
 
-
-
-
-
-
-
-
-
-
+       
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
