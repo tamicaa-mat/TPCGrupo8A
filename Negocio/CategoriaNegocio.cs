@@ -57,7 +57,8 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al agregar la categoría. Verifique los datos e intente nuevamente.", ex);
+           
             }
             finally
 
@@ -65,6 +66,9 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+
+
         public void editar(Categoria categoria)
         {
             try
@@ -87,9 +91,11 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("EXEC FROM SP_EliminacionLogicaCategorias");
-                datos.SetearParametro("@IdCategoria", id);
+              
+                datos.setearConsulta("EXEC SP_EliminacionLogicaCategorias @IDCATEGORIA");
+                datos.SetearParametro("@IDCATEGORIA", id);
                 datos.ejecutarAccion();
+
             }
             catch (Exception ex)
             {
@@ -100,6 +106,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
         public bool ExisteNombreCategoria(string nombre)
         {
             AccesoDatos datos = new AccesoDatos();

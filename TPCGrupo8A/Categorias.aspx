@@ -30,6 +30,7 @@
         </div>
     </div>
 
+
     <div class="mb-3" style="overflow-x: auto">
         <div class="gv-container"></div>
         <asp:GridView ID="GVCategorias" runat="server" AutoGenerateColumns="False" OnRowCommand="GVCategorias_OnRowCommand" DataKeyNames="ID" CssClass="list-categorias">
@@ -40,6 +41,9 @@
             </Columns>
         </asp:GridView>
     </div>
+
+
+
     <asp:HiddenField ID="hdnCategoriaId" runat="server" />
     <%-- Modal Editar categoría --%>
     <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
