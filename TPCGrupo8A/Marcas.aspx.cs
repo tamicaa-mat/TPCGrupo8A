@@ -39,6 +39,12 @@ namespace TPCGrupo8A
             {
                 throw;
             }
+            var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
+            }
         }
 
         protected void GVMarca_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -61,10 +67,6 @@ namespace TPCGrupo8A
                 }
             }
         }
-
-
-
-
         protected void btnGuardarMarca_OnClick(object sender, EventArgs e)
         {
             try
@@ -160,10 +162,7 @@ namespace TPCGrupo8A
 
                 hdnMarcaId.Value = marcaId.ToString(); // Asigna el ID seleccionado al HiddenField
                 txtNombreMarcaEditar.Text = row.Cells[1].Text; // Muestra el nombre de la marca seleccionada
-
-               
             }
-            
             else if (e.CommandName == "Habilitar")
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
@@ -179,24 +178,12 @@ namespace TPCGrupo8A
                     CargarMarcas();
                 }
             }
+            var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
+            }
         }
-
-
-
-
-       
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

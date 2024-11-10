@@ -53,8 +53,6 @@ namespace TPCGrupo8A
             ulCategorias.Controls.Clear();
             CategoriaNegocio cateNegocio = new CategoriaNegocio();
             AccesoDatos accesoDatos = new AccesoDatos();
-
-
             List<Categoria> categorias = cateNegocio.listar();
 
             foreach (var categoria in categorias)
@@ -79,9 +77,9 @@ namespace TPCGrupo8A
 
         public void CargarMarcas()
         {
+            ulMarcas.Controls.Clear();
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             AccesoDatos accesoDatos = new AccesoDatos();
-
             List<Marca> marcas = marcaNegocio.listar();
 
             foreach (var marca in marcas)
@@ -103,10 +101,6 @@ namespace TPCGrupo8A
                     ulMarcas.Controls.Add(li);  // 'ulMarcas' es el ID del <ul> en el HTML
 
                 }
-             
-
-
-
             }
         }
     }

@@ -41,13 +41,13 @@ namespace TPCGrupo8A
             {
                 throw;
             }
-
-
-
+            var siteMaster = (SiteMaster)this.Master;
+            if(siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
+            }
         }
-
-
-
         protected void GVCategorias_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -70,12 +70,6 @@ namespace TPCGrupo8A
                 }
             }
         }
-
-
-
-
-
-
         protected void btnGuardarCategoria_OnClick(object sender, EventArgs e)
         {
             try
@@ -138,9 +132,6 @@ namespace TPCGrupo8A
                 throw new Exception("ERROR no se pudo agregar la categoría", ex);
             }
         }
-   
-
-
         protected void btnEliminar_OnClick(object sender, EventArgs e)
         {
             try
@@ -161,9 +152,6 @@ namespace TPCGrupo8A
                 throw ex;
             }
         }
-
-
-
         protected void GVCategorias_OnRowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Seleccionar")
@@ -191,19 +179,12 @@ namespace TPCGrupo8A
                     CargarCategorias(); 
                 }
             }
-
+            var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
+            }
         }
-
-
-
-
-
-
     }
-
-
 }
-
-
-
-

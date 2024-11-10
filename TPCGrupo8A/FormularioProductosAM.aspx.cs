@@ -59,6 +59,12 @@ namespace TPCGrupo8A
             {
                 ddlMarcas.Items.Add(new ListItem(marca.Nombre, marca.ID.ToString()));
             }
+            var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
+            }
         }
         protected void ddlMarcas_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -69,6 +75,12 @@ namespace TPCGrupo8A
             else
             {
                 txtMarca.Text = "";
+            }
+            var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
             }
         }
         public void CargarCategorias()
@@ -83,6 +95,12 @@ namespace TPCGrupo8A
             {
                 ddlCategorias.Items.Add(new ListItem(categoria.Nombre, categoria.ID.ToString()));
             }
+            var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
+            }
         }
         protected void ddlCategorias_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -93,6 +111,12 @@ namespace TPCGrupo8A
             else
             {
                 txtCategoria.Text = "";
+            }
+            var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
             }
         }
 
@@ -136,6 +160,12 @@ namespace TPCGrupo8A
                 //    pnlImagenes.Visible = true;
                 //}
             }
+            var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
+            }
         }
         private void CargarProductos(int idProducto)
         {
@@ -154,6 +184,12 @@ namespace TPCGrupo8A
                 if(producto.Categoria != null)
                 ddlCategorias.SelectedValue = producto.Categoria.ID.ToString();
             }
+            var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
+            }
         }
         private void CargarImagenes(int idProducto)
         {
@@ -164,6 +200,12 @@ namespace TPCGrupo8A
             {
                 rptImagenes.DataSource = imagenes;
                 rptImagenes.DataBind();
+            }
+            var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
             }
         }
         protected void btnAgregarImagen_Click(object sender, EventArgs e)
@@ -185,6 +227,12 @@ namespace TPCGrupo8A
                     CargarImagenes(idProducto);
                 }
             }
+            var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
+            }
         }
         protected void btnEliminarImagen_Command(object sender, CommandEventArgs e)
         {
@@ -200,6 +248,12 @@ namespace TPCGrupo8A
             {
 
                 throw;
+            }
+            var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                siteMaster.CargarCategorias();
+                siteMaster.CargarMarcas();
             }
         }
     }
