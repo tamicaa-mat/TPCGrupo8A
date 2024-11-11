@@ -192,5 +192,34 @@ namespace TPCGrupo8A
             Session["ID"] = idSeleccionado;
             Response.Redirect("DetalleArticulo.aspx", false);
         }
+
+        protected void btnEnviar_Click(object sender, EventArgs e)
+        {
+            EmailServices emailServices = new EmailServices();
+
+            // Usa el correo de contacto como remitente y el correo destino es el fijo
+            string correoContacto = txtCorreoContacto.Text;
+            string nombre = txtNombreContacto.Text;
+            string mensaje = $"Mensaje de {nombre}\nCelular: {txtCelularContacto.Text}\n\nMensaje:\n{txtMensajeContacto.Text}";
+
+            // Envía el correo al destinatario fijo
+            emailServices.armarCorreo("pruebaproyectocuatrimestral@gmail.com", "Contacto", mensaje, correoContacto);
+            try
+            {
+                emailServices.enviarEmail();
+                // Mensaje de éxito
+                lblMensaje.Text = "¡Tu mensaje ha sido enviado con éxito!";
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
+            }
+            catch (Exception ex)
+            {
+                // Mensaje de error
+                lblMensaje.Text = "Hubo un error al enviar tu mensaje. Por favor intenta de nuevo.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+            }
+            lblMensaje.Visible = true;
+        }
+
+
     }
 }

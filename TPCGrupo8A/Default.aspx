@@ -55,28 +55,32 @@
             <h4>CONTACTANOS</h4>
             <div class="formulario-1">
                 <div class="mb-3">
-                    <label for="inputNombre" class="form-label">Nombre</label>
-                    <input type="text" class="txtdatos" id="inputNombre" placeholder="Nombre">
+                    <asp:Label ID="lblNombreContacto" runat="server" Text="Nombre" CssClass="form-label"></asp:Label>
+                    <asp:TextBox ID="txtNombreContacto" runat="server" CssClass="txtdatos"></asp:TextBox>
+                    
                 </div>
 
                 <div class="mb-3">
-                    <label for="inputCelular" class="form-label">Celular</label>
-                    <input type="tel" class="txtdatos" id="inputCelular" placeholder="">
+                    <asp:Label ID="lblCelularContacto" runat="server" Text="Celular" CssClass="form-label"></asp:Label>
+                    <asp:TextBox ID="txtCelularContacto" runat="server" CssClass="txtdatos"></asp:TextBox>
+
                 </div>
             </div>
             <div class="formulario-2">
                 <div class="mb-3">
-                    <label for="inputCorreo" class="form-label lbldatos">Correo</label>
-                    <input type="email" class="txtdatos" id="inputCorreo" placeholder="nombre@ejemplo.com">
+                    <asp:Label ID="lblCorreoContacto" runat="server" Text="Correo" CssClass="form-label"></asp:Label>
+                    <asp:TextBox ID="txtCorreoContacto" runat="server" CssClass="txtdatos"></asp:TextBox>
+                    
                 </div>
 
                 <div class="mb-3">
-                    <label for="inputMensaje" class="form-label lbldatos">Mensaje</label>
-                    <textarea class=" txtdatos" id="inputMensaje" rows="3" placeholder="Escribe tu mensaje aquí"></textarea>
+                    <asp:Label ID="lblMensajeContacto" runat="server" Text="Mensaje" CssClass="form-label"></asp:Label>
+                    <asp:TextBox ID="txtMensajeContacto" textMode="MultiLine" runat ="server" CssClass="txtdatos" placeholder="Escriba su mensaje aquí"></asp:TextBox>
                 </div>
             </div>
             <div class="mb-3">
-                <button type="submit" class="button">Enviar</button>
+               <asp:Button ID="btnEnviar" CssClass="animated-button" runat="server" Text="Enviar" OnClick="btnEnviar_Click"/>
+                <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje-estado" Visible="false"></asp:Label>
             </div>
         </div>
     </main>
