@@ -1,8 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DetalleArticulo.aspx.cs" Inherits="TPCGrupo8A.DetalleArticulo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-
-
      <div class="container">
       <h1 id="tituloDetalles">INFORMACIÓN DEL ARTÍCULO</h1>
       <div class="row">
@@ -18,12 +15,12 @@
                           </ItemTemplate>
                       </asp:Repeater>
                   </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev" style="background-color:transparent">
+                      <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color:black"></span>
                       <span class="visually-hidden">Previous</span>
                   </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next" style="background-color:transparent">
+                      <span class="carousel-control-next-icon" aria-hidden="true" style="background-color:black"></span>
                       <span class="visually-hidden">Next</span>
                   </button>
               </div>

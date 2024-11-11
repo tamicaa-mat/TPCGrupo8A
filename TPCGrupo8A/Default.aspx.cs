@@ -40,19 +40,11 @@ namespace TPCGrupo8A
         }
         private void CargarProductos()
         {
-          
             ProductoNegocio productoNegocio = new ProductoNegocio();
             List<Producto> listaArticulos = productoNegocio.Listar();
             rptProductos.DataSource = listaArticulos;
             rptProductos.DataBind();
-
-
         }
-       
-
-
-
-
         private void CargarProductosPorCategoria(int categoriaId)
         {
             List<Producto> listaProductos = new List<Producto>();
@@ -60,10 +52,14 @@ namespace TPCGrupo8A
 
             try
             {
-                datos.setearConsulta("SELECT p.IdProducto, p.Nombre, p.Descripcion, p.Precio, i.ImagenUrl" +
-                    " FROM Productos p" +
-                    " LEFT JOIN Imagenes i ON p.IdProducto = i.IdProducto" +
-                    " WHERE p.IdCategoria = @IdCategoria AND Estado = 1;");
+                datos.setearConsulta(@"SELECT P.IdProducto, P.Nombre, P.Descripcion, P.Precio, I.ImagenUrl
+                                     FROM Productos P
+                                     LEFT JOIN (SELECT IdProducto, ImagenUrl
+                                         FROM Imagenes
+                                         WHERE IdImagen IN (SELECT MIN(IdImagen)
+                                             FROM Imagenes
+                                             GROUP BY IdProducto)) I ON P.IdProducto = I.IdProducto
+                                     WHERE P.IdCategoria = @IdCategoria AND P.Estado = 1;");
 
                 datos.SetearParametro("@IdCategoria", categoriaId);
                 datos.ejecutarLectura();
@@ -107,10 +103,14 @@ namespace TPCGrupo8A
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT p.IdProducto, p.Nombre, p.Descripcion, p.Precio, i.ImagenUrl" +
-                    " FROM Productos p" +
-                    " LEFT JOIN Imagenes i ON p.IdProducto = i.IdProducto" +
-                    " WHERE p.IdMarca = @IdMarca and Estado = 1;");
+                datos.setearConsulta(@"SELECT P.IdProducto, P.Nombre, P.Descripcion, P.Precio, I.ImagenUrl
+                                    FROM Productos P
+                                    LEFT JOIN (SELECT IdProducto, ImagenUrl
+                                        FROM Imagenes
+                                        WHERE IdImagen IN (SELECT MIN(IdImagen)
+                                            FROM Imagenes
+                                            GROUP BY IdProducto)) I ON P.IdProducto = I.IdProducto
+                                    WHERE P.IdMarca = @IdMarca AND P.Estado = 1;");
 
                 datos.SetearParametro("@IdMarca", marcaId);
                 datos.ejecutarLectura();
@@ -192,9 +192,5 @@ namespace TPCGrupo8A
             Session["ID"] = idSeleccionado;
             Response.Redirect("DetalleArticulo.aspx", false);
         }
-
-
-
-
     }
 }
