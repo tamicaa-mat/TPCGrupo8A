@@ -48,7 +48,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("INSERT INTO Imagenes(IdProducto, ImagenUrl) VALUES (@IdProducto, @ImagenUrl)");
-                datos.SetearParametro("@idProducto", nuevaImagen.IdProducto);
+                datos.SetearParametro("@IdProducto", nuevaImagen.IdProducto);
                 datos.SetearParametro("@ImagenUrl", nuevaImagen.ImagenUrl);
                 datos.ejecutarAccion();
             }
@@ -80,6 +80,37 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        public List<Imagen> imagenesxProducto(int idProducto)
+        {
+            List<Imagen> imagenes = new List<Imagen>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT IdImagen, IdProducto, ImagenUrl FROM Imagenes WHERE IdProducto = @IdProducto");
+                datos.SetearParametro("@IdProducto", idProducto);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Imagen imagen = new Imagen();
+                    imagen.Id = (int)datos.Lector["IdImagen"];
+                    imagen.IdProducto = (int)datos.Lector["IdProducto"];
+                    imagen.ImagenUrl = datos.Lector["ImagenUrl"].ToString();
+                    imagenes.Add(imagen);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return imagenes;
+        }
+
         //public List<Imagen> imagenesxProducto(int idProducto)
         //{
         //    List<Imagen> imagenes = new List<Imagen>();
@@ -141,64 +172,5 @@ namespace Negocio
         //    }
         //    return imagenes;
         //}
-
-
-
-        public List<Imagen> imagenesxProducto(int idProducto)
-        {
-            List<Imagen> imagenes = new List<Imagen>();
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearConsulta("SELECT IdImagen, IdProducto, ImagenUrl FROM Imagenes WHERE IdProducto = @IdProducto");
-                datos.SetearParametro("@IdProducto", idProducto);
-                datos.ejecutarLectura();
-
-                while (datos.Lector.Read())
-                {
-                    Imagen imagen = new Imagen();
-                    imagen.Id = (int)datos.Lector["IdImagen"];
-                    imagen.IdProducto = (int)datos.Lector["IdProducto"];
-                    imagen.ImagenUrl = datos.Lector["ImagenUrl"].ToString();
-                    imagenes.Add(imagen);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-            return imagenes;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

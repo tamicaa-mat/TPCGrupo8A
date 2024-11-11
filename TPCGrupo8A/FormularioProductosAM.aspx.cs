@@ -28,10 +28,9 @@ namespace TPCGrupo8A
                 CargarCategorias();
                 if (Session["ID"] != null)
                 {
-                    int idProducto = 0;
                     try
                     {
-                        idProducto = (int)Session["ID"];
+                        int idProducto = (int)Session["ID"];
                         CargarProductos(idProducto);
                         CargarImagenes(idProducto);
                         pnlImagenes.Visible = true; //si hay id del producto podra agregar y ver las imgs
@@ -149,16 +148,14 @@ namespace TPCGrupo8A
             {
                 producto.ID = (int)Session["ID"];
                 productoNegocio.editar(producto);
+                pnlImagenes.Visible = true;
                 Session["ID"] = "";
             }
             else
             {
                 productoNegocio.agregar(producto);
-                //Session["ID"] = Convert.ToInt32(productoNegocio.ObtenerIdProducto(producto.ID));
-                //if (Session["ID"] != null)
-                //{
-                //    pnlImagenes.Visible = true;
-                //}
+                Session["ID"] = (int)productoNegocio.ObtenerUltimoIdProducto();
+                pnlImagenes.Visible = true;
             }
             var siteMaster = (SiteMaster)this.Master;
             if (siteMaster != null)
@@ -233,6 +230,7 @@ namespace TPCGrupo8A
                 siteMaster.CargarCategorias();
                 siteMaster.CargarMarcas();
             }
+            //Session["ID"] = null;
         }
         protected void btnEliminarImagen_Command(object sender, CommandEventArgs e)
         {

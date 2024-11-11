@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <main class="container">
         <div>
-            <h1>Poductos</h1>
+            <h1>Productos</h1>
         </div>
         <div class="mb-3">
             <asp:Label CssClass="form-label" ID="lblCodigo" runat="server" Text="Codigo:"></asp:Label>
@@ -48,7 +48,7 @@
         <asp:Panel ID="pnlImagenes" runat="server" Visible="false">
             <h3>Imágenes del Producto</h3>
 
-            <asp:TextBox ID="txtImagenUrl" runat="server" Placeholder="URL de la imagen" />
+            <asp:TextBox ID="txtImagenUrl" runat="server" Placeholder="URL de la imagen" CssClass="form-control"/>
             <asp:Button ID="btnAgregarImagen" runat="server" Text="Agregar Imagen" OnClick="btnAgregarImagen_Click" />
             <asp:Repeater ID="rptImagenes" runat="server">
                 <ItemTemplate>
