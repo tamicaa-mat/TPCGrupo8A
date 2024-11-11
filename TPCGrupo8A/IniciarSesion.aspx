@@ -23,7 +23,7 @@
             </div>
         </div>
         <!-- Estructura de la ventana modal -->
-        <div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+        <div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistroLabel" data-bs-backdrop="static" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -35,24 +35,24 @@
                         <div class="container-registro">
                            
                             <asp:Label class="lbldatos" ID="lblApellido" runat="server" Text="Apellido: "></asp:Label>
-                            <asp:TextBox class="txtdatos" ID="txtApellido" runat="server"></asp:TextBox>
+                            <asp:TextBox class="txtdatos" ID="txtApellido" runat="server"  onkeypress="return event.keyCode != 13;"></asp:TextBox>
 
                              <asp:Label class="lbldatos" ID="lblNombre" runat="server" Text="Nombre: "></asp:Label>
-                             <asp:TextBox class="txtdatos" ID="txtNombre" runat="server"></asp:TextBox>
+                             <asp:TextBox class="txtdatos" ID="txtNombre" runat="server"  onkeypress="return event.keyCode != 13;"></asp:TextBox>
 
 
                             <asp:Label class="lbldatos" ID="lblEmailRegistro" runat="server" Text="Email: "></asp:Label>
-                            <asp:TextBox class="txtdatos" ID="txtEmailRegistro" runat="server" TextMode="Email"></asp:TextBox>
+                            <asp:TextBox class="txtdatos" ID="txtEmailRegistro" runat="server" TextMode="Email"  onkeypress="return event.keyCode != 13;"></asp:TextBox>
 
-                            <asp:Label class="lbldatos" ID="lblPasswordRegistro" runat="server" Text="Contraseña: "></asp:Label>
-                            <asp:TextBox class="txtdatos" ID="txtPasswordRegistro" runat="server" TextMode="Password"></asp:TextBox>
+                            <asp:Label class="lbldatos" ID="lblPasswordRegistro" runat="server" Text="Contraseña:"></asp:Label>
+                            <asp:TextBox class="txtdatos" ID="txtPasswordRegistro" runat="server" TextMode="Password"  onkeypress="return event.keyCode != 13;"></asp:TextBox>
 
 
                         </div>
                     </div>
                     <div class="modal-footer">
                       
-                     <asp:Button ID="btnRegistrar" runat="server" Text="Registrar" CssClass="btn-iniciar" OnClick="btnRegistrar_On_Click" />
+                     <asp:Button ID="btnRegistrar" runat="server" Text="Registrar" CssClass="btn-iniciar" onkeypress="return event.keyCode != 13;" OnClick="btnRegistrar_On_Click" />
 
 
                     </div>
