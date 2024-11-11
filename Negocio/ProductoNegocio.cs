@@ -71,7 +71,7 @@ namespace Negocio
         {
             agregarProducto(productoNuevo);
             //productoNuevo.ID = idProducto;
-            AccesoDatos datos = new AccesoDatos();  
+            AccesoDatos datos = new AccesoDatos();
             int idProducto = (int)datos.ObtenerIdProducto(productoNuevo.Codigo);
             foreach (var imagen in productoNuevo.Imagenes)
             {
@@ -347,7 +347,7 @@ namespace Negocio
                 if (datos.Lector.Read())
                 {
                     Producto art = new Producto();
-                    art.ID= (int)datos.Lector["IdProducto"];
+                    art.ID = (int)datos.Lector["IdProducto"];
                     art.Nombre = datos.Lector["Nombre"].ToString();
                     art.Descripcion = datos.Lector["Descripcion"].ToString();
                     art.Precio = (float)(decimal)datos.Lector["Precio"];
@@ -357,6 +357,38 @@ namespace Negocio
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return articulo;
+        }
+
+        public Producto ObtenerArticuloPorCodigo(string codigo)
+        {
+            Producto articulo = null;
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta(@"SELECT A.IdProducto, A.Nombre, A.Descripcion, A.Precio 
+                               FROM Productos A 
+                               WHERE A.Codigo = @Codigo");
+                datos.SetearParametro("@Codigo", codigo);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    articulo = new Producto();
+                    articulo.ID = (int)datos.Lector["IdProducto"];
+                    articulo.Nombre = datos.Lector["Nombre"].ToString();
+                    articulo.Descripcion = datos.Lector["Descripcion"].ToString();
+                    articulo.Precio = (float)(decimal)datos.Lector["Precio"];
+                }
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
             finally

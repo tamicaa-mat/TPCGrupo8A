@@ -126,10 +126,14 @@ namespace TPCGrupo8A
             ProductoNegocio productoNegocio = new ProductoNegocio();
             
 
+
             producto.Codigo = txtCodigo.Text;
             producto.Nombre = txtNombre.Text;
             producto.Descripcion = txtDescripcion.Text;
             
+
+            
+
             producto.Marca = new Marca();
             if(ddlMarcas != null)
             {
@@ -143,6 +147,12 @@ namespace TPCGrupo8A
             producto.Precio = (float)decimal.Parse(txtPrecio.Text);
             //producto.Imagenes = txtImagenUrl.Text;
             producto.Stock = int.Parse(txtStock.Text);
+
+            if (!VerificarSiExiste(producto))
+            {
+                return;
+            }
+
 
             if (Session["ID"] != null)
             {
@@ -253,6 +263,43 @@ namespace TPCGrupo8A
                 siteMaster.CargarCategorias();
                 siteMaster.CargarMarcas();
             }
+        }
+
+        public bool VerificarSiExiste(Producto producto)
+        {
+
+            lblErrorCodigo.Visible = false;
+            lblErrorStock.Visible = true;
+            lblErrorPrecio.Visible = false;
+            ProductoNegocio productoNegocio = new ProductoNegocio();
+
+            // Verificar si el código ya existe en la base de datos
+            if (productoNegocio.ObtenerArticuloPorCodigo(producto.Codigo) != null)
+            {
+                lblErrorCodigo.Text = "El código ya existe.";
+                lblErrorCodigo.Visible = true;
+                
+                return false;
+            }
+            
+            if(producto.Stock <= 0)
+            {
+                lblErrorStock.Text = "El stock no puede ser negativo.";
+                lblErrorStock.Visible = true;
+                return false;
+            }
+
+            
+            if (producto.Precio <= 0)
+            {
+                lblErrorPrecio.Text = "El precio no puede ser negativo. ";
+                lblErrorPrecio.Visible = true;
+
+                return false; 
+            }
+
+
+            return true;
         }
     }
 }

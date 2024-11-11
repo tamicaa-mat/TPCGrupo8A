@@ -8,6 +8,7 @@
         <div class="mb-3">
             <asp:Label CssClass="form-label" ID="lblCodigo" runat="server" Text="Codigo:"></asp:Label>
             <asp:TextBox CssClass="form-control" ID="txtCodigo" runat="server" placeholder="Código del Producto"></asp:TextBox>
+            <asp:Label ID="lblErrorCodigo" runat="server" Forecolor="red" Visible="false"></asp:Label>
         </div>
         <div class="mb-3">
             <asp:Label CssClass="form-label" ID="lblNombre" runat="server" Text="Nombre:"></asp:Label>
@@ -21,10 +22,13 @@
             <span class="input-group-text">$</span>
             <asp:TextBox CssClass="form-control" ID="txtPrecio" runat="server" TextMode="Number"></asp:TextBox>
             <span class="input-group-text">.00</span>
+            <asp:Label ID="lblErrorPrecio" runat="server" Forecolor="red" Visible="false"></asp:Label>
         </div>
+        
         <div class="input-group mb-3">
             <asp:Label ID="lblStock" runat="server" Text="Stock:"></asp:Label>
-            <asp:TextBox ID="txtStock" runat="server" TextMode="Number" Min="0" Step="1"></asp:TextBox>
+            <asp:TextBox ID="txtStock" runat="server" TextMode="Number"  Step="1"></asp:TextBox>
+            <asp:Label ID="lblErrorStock" runat="server" Forecolor="red" visible="false"></asp:Label>
         </div>
         <!-- Desplegable de Marcas -->
         <div class="btn-group mb-3">
