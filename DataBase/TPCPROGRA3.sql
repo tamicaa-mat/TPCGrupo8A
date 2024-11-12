@@ -289,23 +289,6 @@ SELECT @IDMARCAAGREGADA=IdMarca FROM INSERTED
             WHERE IdMarca = @IDMARCAAGREGADA;
 
 END
-GO
-  
-CREATE TRIGGER Al_Eliminar_Marca ON Marcas
-AFTER INSERT 
-AS
-BEGIN
-
-DECLARE @IDMARCAAGREGADA INT;
-
-SELECT @IDMARCAAGREGADA=IdMarca FROM INSERTED
-
- UPDATE Marcas 
-            SET Estado = 1  
-            WHERE IdMarca = @IDMARCAAGREGADA;
-
-END
-GO
 
 -------------------------PARA ELIMINAR Y AGREGAR CATEGORIAS----------------------------
 
@@ -348,7 +331,7 @@ GO
 
 
 
-CREATE TRIGGER Al_Agregar_Categoria ON Categorias
+ALTER TRIGGER Al_Agregar_Categoria ON Categorias
 
 AFTER INSERT 
 AS
@@ -365,18 +348,3 @@ SELECT @IDCATEGORIAAGREGADA=IdCategoria FROM INSERTED
 END
 GO
   
-CREATE TRIGGER Al_Eliminar_Categoria ON Categorias
-AFTER INSERT 
-AS
-BEGIN
-
-DECLARE @IDCATEGORIAAGREGADA INT;
-
-SELECT @IDCATEGORIAAGREGADA=IdCategoria FROM INSERTED
-
- UPDATE Categorias 
-            SET Estado = 1  
-            WHERE IdCategoria = @IDCATEGORIAAGREGADA;
-
-END
-GO
