@@ -24,8 +24,9 @@ namespace TPCGrupo8A
             UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
             try
             {
-                Usuario usuario = new Usuario(txtemail.Text, txtpassword.Text, false);
-
+                Usuario usuario = new Usuario();
+                usuario.Email = txtemail.Text;
+                usuario.Contrasenia = txtpassword.Text;
                 if (usuarioNegocio.IniciarSesion(usuario))
                 {
                     Session.Add("usuario", usuario);

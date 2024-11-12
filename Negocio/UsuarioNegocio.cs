@@ -40,7 +40,7 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT IdUsuario, TipoUsuario " +
+                datos.setearConsulta("SELECT IdUsuario, Apellido, Nombre, Email,  TipoUsuario " +
                 "FROM Usuarios " +
                 "WHERE Email = @Email AND Contraseña = @contrasenia");
                 datos.SetearParametro("@Email", usuario.Email);
@@ -50,6 +50,8 @@ namespace Negocio
                 {
                     usuario.ID = (int)datos.Lector["IdUsuario"];
                     usuario.TipoUsuario = (int)(datos.Lector["TipoUsuario"]) == 1 ? TipoUsuario.Administrador : TipoUsuario.Cliente;
+                    usuario.Apellido = datos.Lector["Apellido"].ToString();
+                    usuario.Nombre = datos.Lector["Nombre"].ToString();
                     return true;
                 }
                 return false;

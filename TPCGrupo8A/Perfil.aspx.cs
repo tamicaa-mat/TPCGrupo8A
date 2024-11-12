@@ -29,9 +29,11 @@ namespace TPCGrupo8A
         protected void CargarPerfil()
         {
             Usuario usuario = (Usuario)Session["usuario"];
-                TextEmail.Text = usuario.Email;
-                TextNombre.Text = usuario.Nombre;
-              
+            TextEmail.Text = usuario.Email;
+            TextApellido.Text = usuario.Apellido;
+            TextNombre.Text = usuario.Nombre;
+            //TextFechaNacimiento.Text = usuario.FechaNacimiento.GetValueOrDefault(usuario.FechaNacimient);
+
         }
         protected void btnCambiarContraseniaOnClick(object sender, EventArgs e)
         {

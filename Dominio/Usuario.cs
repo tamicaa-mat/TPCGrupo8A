@@ -30,9 +30,12 @@ namespace Dominio
         { 
         
         }
-        public Usuario(string email,string contrasenia, bool administrador) 
+        public Usuario(string email,string contrasenia, string apellido, string nombre, DateTime fechaNacimiento, bool administrador) 
         {
             Email = email;
+            Apellido = apellido;
+            Nombre = nombre;
+            FechaNacimiento = fechaNacimiento;
             Contrasenia = contrasenia;
             TipoUsuario = administrador ? TipoUsuario.Administrador : TipoUsuario.Cliente;
         }
