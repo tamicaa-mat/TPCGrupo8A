@@ -130,9 +130,9 @@ namespace TPCGrupo8A
             producto.Codigo = txtCodigo.Text;
             producto.Nombre = txtNombre.Text;
             producto.Descripcion = txtDescripcion.Text;
-            
+            lblExito.Visible = false;
 
-            
+
 
             producto.Marca = new Marca();
             if(ddlMarcas != null)
@@ -153,6 +153,9 @@ namespace TPCGrupo8A
                 return;
             }
 
+            lblExito.Text = "ARTICULO AGREGADO ÉXITOSAMENTE";
+            lblExito.Visible = true;
+            lblExito.ForeColor = System.Drawing.Color.Green;
 
             if (Session["ID"] != null)
             {
@@ -173,6 +176,8 @@ namespace TPCGrupo8A
                 siteMaster.CargarCategorias();
                 siteMaster.CargarMarcas();
             }
+
+
         }
         private void CargarProductos(int idProducto)
         {

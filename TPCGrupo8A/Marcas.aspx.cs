@@ -73,7 +73,7 @@ namespace TPCGrupo8A
             {
                 Marca nuevaMarca = new Marca();
                 nuevaMarca.Nombre = txtNombreMarca.Text;
-
+                lblExito.Visible = false;
                 MarcaNegocio marcaNegocio = new MarcaNegocio();
                 if (marcaNegocio.ExisteNombreMarca(nuevaMarca.Nombre))
                 {
@@ -83,9 +83,13 @@ namespace TPCGrupo8A
                     throw new Exception("La marca: " + nuevaMarca.Nombre + " ya existe");
                 }
                 hdnMarcaId.Value = "";
+                lblExito.Text = "Marca agregada con éxito";
+                lblExito.ForeColor = System.Drawing.Color.Green;
+                lblExito.Visible = true;
                 marcaNegocio.agregar(nuevaMarca);
-                CargarMarcas();
 
+                CargarMarcas();
+                
                 txtNombreMarca.Text = "";
                 ScriptManager.RegisterStartupScript(this, GetType(), "HideModalAgregar", "var modalAgregar = " +
                     "bootstrap.Modal.getInstance(document.getElementById('modalAgregar')); if(modalAgregar) { modalAgregar.hide(); }", true);//Cierra el modal de Agregar
@@ -99,6 +103,8 @@ namespace TPCGrupo8A
         {
             try
             {
+                lblExito.Visible = false;
+                lblMensaje.Visible = false;
                 if (string.IsNullOrEmpty(hdnMarcaId.Value))
                 {
                     lblMensaje.Text = "Por favor, selecciona una marca para editar.";
@@ -133,6 +139,9 @@ namespace TPCGrupo8A
         {
             try
             {
+                lblExito.Visible = false;
+                lblMensaje.Visible = false;
+
                 if (string.IsNullOrEmpty(hdnMarcaId.Value))
                 {
                     lblMensaje.Text = "Por favor, selecciona una marca para eliminar.";

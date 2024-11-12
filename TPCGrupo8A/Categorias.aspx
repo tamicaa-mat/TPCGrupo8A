@@ -7,6 +7,8 @@
     <div class="mb-3">
         <button type="button" class="btn-iniciar" style="max-width: 200px" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar Categoría</button>
         <asp:Label ID="lblMensaje" runat="server" ForeColor="#cb7298" Visible="false"></asp:Label>
+        <asp:Label ID="lblExito" runat="server" visible="false"></asp:Label>
+
     </div>
     <%-- Modal Categoría Agregar --%>
     <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">

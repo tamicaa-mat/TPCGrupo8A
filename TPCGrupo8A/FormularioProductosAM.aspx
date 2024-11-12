@@ -47,7 +47,7 @@
         <div class="mb-3">
             <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" CssClass="btn-iniciar" />
         </div>
-
+        <asp:Label ID="lblExito" runat="server" visible="false"></asp:Label>
         <%-- Imagenes EN PROCESO--%>
         <asp:Panel ID="pnlImagenes" runat="server" Visible="false">
             <h3>Imágenes del Producto</h3>

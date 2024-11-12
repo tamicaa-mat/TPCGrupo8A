@@ -74,6 +74,7 @@ namespace TPCGrupo8A
         {
             try
             {
+                lblExito.Visible = false;
                 Categoria nuevaCategoria = new Categoria();
                 nuevaCategoria.Nombre = txtNombreCategoria.Text;
 
@@ -88,10 +89,14 @@ namespace TPCGrupo8A
                 hdnCategoriaId.Value = "";
                 categoriaNegocio.agregar(nuevaCategoria);
                 CargarCategorias();
-
+                lblExito.Text = "CATEGORIA AGREGADA ÉXITOSAMENTE";
+                lblExito.Visible = true;
+                lblExito.ForeColor = System.Drawing.Color.Green;
+                
                 txtNombreCategoria.Text = "";
                 ScriptManager.RegisterStartupScript(this, GetType(), "HideModalAgregar", "var modalAgregar = " +
                     "bootstrap.Modal.getInstance(document.getElementById('modalAgregar')); if(modalAgregar) { modalAgregar.hide(); }", true);//Cierra el modal de Agregar
+
             }
             catch (Exception ex)
             {
@@ -102,6 +107,8 @@ namespace TPCGrupo8A
         {
             try
             {
+                lblExito.Visible = false;
+                lblMensaje.Visible = false;
                 if (string.IsNullOrEmpty(hdnCategoriaId.Value))
                 {
                     lblMensaje.Text = "Por favor, selecciona una categoría para editar.";
@@ -136,6 +143,8 @@ namespace TPCGrupo8A
         {
             try
             {
+                lblExito.Visible = false;
+                lblMensaje.Visible = false;
                 if (string.IsNullOrEmpty(hdnCategoriaId.Value))
                 {
                     lblMensaje.Text = "Por favor, selecciona una categoría para eliminar.";
