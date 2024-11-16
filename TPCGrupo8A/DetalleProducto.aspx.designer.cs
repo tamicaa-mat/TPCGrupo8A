@@ -11,7 +11,7 @@ namespace TPCGrupo8A
 {
 
 
-    public partial class DetalleArticulo
+    public partial class DetalleProducto
     {
 
         /// <summary>

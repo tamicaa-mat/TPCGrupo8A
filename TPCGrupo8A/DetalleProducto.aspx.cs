@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace TPCGrupo8A
 {
-    public partial class DetalleArticulo : System.Web.UI.Page
+    public partial class DetalleProducto : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -103,7 +103,7 @@ namespace TPCGrupo8A
             cargaInformacionArticulo(idSeleccionado);
             cargaOtrosArticulos(idSeleccionado);
             Session["ID"] = idSeleccionado;
-            Response.Redirect("DetalleArticulo.aspx", false);
+            Response.Redirect("DetalleProducto.aspx", false);
         }
 
 

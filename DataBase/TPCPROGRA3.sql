@@ -81,6 +81,21 @@ CREATE TABLE PedidosPorCliente (
 );  
 GO
 
+CREATE TABLE Carrito (
+    IdCarrito INT PRIMARY KEY IDENTITY(1,1),
+    IdCliente INT NOT NULL FOREIGN KEY REFERENCES Clientes(IdCliente)
+);
+GO
+
+CREATE TABLE DetallesCarrito (
+    IdDetalle INT PRIMARY KEY IDENTITY(1,1),
+    IdCarrito INT NOT NULL FOREIGN KEY REFERENCES Carrito(IdCarrito),
+    IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(IdProducto),
+    Cantidad INT NOT NULL,
+    Precio DECIMAL(18,2) NOT NULL
+);
+GO
+
 CREATE TRIGGER EliminarProductoYRelaciones ON Productos
 INSTEAD OF DELETE
 AS
@@ -125,6 +140,124 @@ BEGIN
 END;
 GO
 
+ALTER TABLE Clientes
+ADD Telefono VARCHAR(20) NOT NULL DEFAULT 'Sin especificar'
+GO
+ -----------------------------8/11 ----------------------------
+ALTER TABLE Marcas
+ADD Estado BIT  NOT NULL DEFAULT '1'
+GO
+
+ALTER TABLE Categorias
+ADD Estado BIT  NOT NULL DEFAULT '1'
+GO
+
+---------------------PARA ELIMINAR MARCAS Y AGREGAR--------------------
+CREATE PROCEDURE SP_EliminacionLogicaMarcas(@IDMARCA INT)
+AS
+BEGIN
+    BEGIN TRY 
+        BEGIN TRANSACTION
+
+        -- Verificar si la marca con el ID proporcionado existe
+        IF EXISTS(SELECT 1 FROM Marcas WHERE IdMarca = @IDMARCA)
+        BEGIN
+            -- Actualizar el estado de la marca para realizar la eliminación lógica
+            UPDATE Marcas 
+            SET Estado = 0  
+            WHERE IdMarca = @IDMARCA;
+
+            PRINT 'Marca eliminada lógicamente con éxito.';
+        END
+        ELSE
+        BEGIN
+            PRINT 'ERROR: No hay una marca asociada a ese ID';
+        END
+
+        -- Confirmar la transacción si no hubo problemas
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH 
+        -- Deshacer la transacción en caso de error y levantar un error personalizado
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+
+        RAISERROR ('ERROR: No se pudo eliminar la marca', 16, 1);
+    END CATCH
+END;
+GO
+
+--------------trigger para insertar una marca y poner el estado en 1
+ 
+CREATE TRIGGER Al_Agregar_Marca ON Marcas
+
+AFTER INSERT 
+AS
+BEGIN
+
+DECLARE @IDMARCAAGREGADA INT;
+
+SELECT @IDMARCAAGREGADA=IdMarca FROM INSERTED
+
+ UPDATE Marcas 
+            SET Estado = 1  
+            WHERE IdMarca = @IDMARCAAGREGADA;
+
+END
+GO
+-------------------------PARA ELIMINAR Y AGREGAR CATEGORIAS----------------------------
+
+CREATE PROCEDURE SP_EliminacionLogicaCategorias(@IDCATEGORIA INT)
+AS
+BEGIN
+    BEGIN TRY 
+        BEGIN TRANSACTION
+
+        -- Verificar si la marca con el ID proporcionado existe
+        IF EXISTS(SELECT 1 FROM Categorias WHERE IdCategoria = @IDCATEGORIA)
+        BEGIN
+            -- Actualizar el estado de la marca para realizar la eliminación lógica
+            UPDATE Categorias 
+            SET Estado = 0  
+            WHERE IdCategoria = @IDCATEGORIA;
+
+            PRINT 'Categoria eliminada lógicamente con éxito.';
+        END
+        ELSE
+        BEGIN
+            PRINT 'ERROR: No hay una Categoria asociada a ese ID';
+        END
+
+        -- Confirmar la transacción si no hubo problemas
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH 
+        -- Deshacer la transacción en caso de error y levantar un error personalizado
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+
+        RAISERROR ('ERROR: No se pudo eliminar la Categoria', 16, 1);
+    END CATCH
+END;
+GO
+
+CREATE TRIGGER Al_Agregar_Categoria ON Categorias
+
+AFTER INSERT 
+AS
+BEGIN
+
+DECLARE @IDCATEGORIAAGREGADA INT;
+
+SELECT @IDCATEGORIAAGREGADA=IdCategoria FROM INSERTED
+
+ UPDATE Categorias 
+            SET Estado = 1  
+            WHERE IdCategoria= @IDCATEGORIAAGREGADA;
+
+END
+GO
+  
 INSERT INTO Categorias (Nombre)
 VALUES 
     ('Remeras'),
@@ -222,129 +355,3 @@ VALUES
 (18, 'https://http2.mlstatic.com/D_NQ_NP_634469-MLA77029249022_062024-O.webp')
 GO
 
-ALTER TABLE Clientes
-ADD Telefono VARCHAR(20) NOT NULL DEFAULT 'Sin especificar'
-GO
- -----------------------------8/11 ----------------------------
-ALTER TABLE Marcas
-ADD Estado BIT  NOT NULL DEFAULT '1'
-GO
-
-ALTER TABLE Categorias
-ADD Estado BIT  NOT NULL DEFAULT '1'
-GO
-
----------------------PARA ELIMINAR MARCAS Y AGREGAR--------------------
-CREATE PROCEDURE SP_EliminacionLogicaMarcas(@IDMARCA INT)
-AS
-BEGIN
-    BEGIN TRY 
-        BEGIN TRANSACTION
-
-        -- Verificar si la marca con el ID proporcionado existe
-        IF EXISTS(SELECT 1 FROM Marcas WHERE IdMarca = @IDMARCA)
-        BEGIN
-            -- Actualizar el estado de la marca para realizar la eliminación lógica
-            UPDATE Marcas 
-            SET Estado = 0  
-            WHERE IdMarca = @IDMARCA;
-
-            PRINT 'Marca eliminada lógicamente con éxito.';
-        END
-        ELSE
-        BEGIN
-            PRINT 'ERROR: No hay una marca asociada a ese ID';
-        END
-
-        -- Confirmar la transacción si no hubo problemas
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH 
-        -- Deshacer la transacción en caso de error y levantar un error personalizado
-        IF @@TRANCOUNT > 0
-            ROLLBACK TRANSACTION;
-
-        RAISERROR ('ERROR: No se pudo eliminar la marca', 16, 1);
-    END CATCH
-END;
-GO
-
-
-
---------------trigger para insertar una marca y poner el estado en 1
-
-  
-CREATE TRIGGER Al_Agregar_Marca ON Marcas
-
-AFTER INSERT 
-AS
-BEGIN
-
-DECLARE @IDMARCAAGREGADA INT;
-
-SELECT @IDMARCAAGREGADA=IdMarca FROM INSERTED
-
- UPDATE Marcas 
-            SET Estado = 1  
-            WHERE IdMarca = @IDMARCAAGREGADA;
-
-END
-
--------------------------PARA ELIMINAR Y AGREGAR CATEGORIAS----------------------------
-
-
-
-CREATE PROCEDURE SP_EliminacionLogicaCategorias(@IDCATEGORIA INT)
-AS
-BEGIN
-    BEGIN TRY 
-        BEGIN TRANSACTION
-
-        -- Verificar si la marca con el ID proporcionado existe
-        IF EXISTS(SELECT 1 FROM Categorias WHERE IdCategoria = @IDCATEGORIA)
-        BEGIN
-            -- Actualizar el estado de la marca para realizar la eliminación lógica
-            UPDATE Categorias 
-            SET Estado = 0  
-            WHERE IdCategoria = @IDCATEGORIA;
-
-            PRINT 'Categoria eliminada lógicamente con éxito.';
-        END
-        ELSE
-        BEGIN
-            PRINT 'ERROR: No hay una Categoria asociada a ese ID';
-        END
-
-        -- Confirmar la transacción si no hubo problemas
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH 
-        -- Deshacer la transacción en caso de error y levantar un error personalizado
-        IF @@TRANCOUNT > 0
-            ROLLBACK TRANSACTION;
-
-        RAISERROR ('ERROR: No se pudo eliminar la Categoria', 16, 1);
-    END CATCH
-END;
-GO
-
-
-
-
-ALTER TRIGGER Al_Agregar_Categoria ON Categorias
-
-AFTER INSERT 
-AS
-BEGIN
-
-DECLARE @IDCATEGORIAAGREGADA INT;
-
-SELECT @IDCATEGORIAAGREGADA=IdCategoria FROM INSERTED
-
- UPDATE Categorias 
-            SET Estado = 1  
-            WHERE IdCategoria= @IDCATEGORIAAGREGADA;
-
-END
-GO
-  

@@ -8,9 +8,15 @@ namespace Dominio
 {
     public class DetallePedido
     {
-        public int ID {  get; set; }
         public Producto Producto { get; set; }
         public int Cantidad { get; set; }
-
+        public float PrecioUnitario { get; set; }
+        public float Total
+        {
+            get
+            {
+                return PrecioUnitario * Cantidad;
+            }
+        }
     }
 }

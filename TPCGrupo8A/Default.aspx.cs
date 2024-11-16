@@ -190,7 +190,7 @@ namespace TPCGrupo8A
             string btn = ((LinkButton)sender).CommandArgument;
             int idSeleccionado = int.Parse(btn);
             Session["ID"] = idSeleccionado;
-            Response.Redirect("DetalleArticulo.aspx", false);
+            Response.Redirect("DetalleProducto.aspx", false);
         }
 
         protected void btnEnviar_Click(object sender, EventArgs e)
