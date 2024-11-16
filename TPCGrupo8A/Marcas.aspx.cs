@@ -51,17 +51,17 @@ namespace TPCGrupo8A
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                
+
                 var estado = DataBinder.Eval(e.Row.DataItem, "Estado");
                 if (estado != null && !(bool)estado) // Si Estado es falso
                 {
-                    
+
                     var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
                     btnHabilitar.Visible = true;
                 }
                 else
                 {
-                    
+
                     var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
                     btnHabilitar.Visible = false;
                 }
@@ -89,7 +89,7 @@ namespace TPCGrupo8A
                 marcaNegocio.agregar(nuevaMarca);
 
                 CargarMarcas();
-                
+
                 txtNombreMarca.Text = "";
                 ScriptManager.RegisterStartupScript(this, GetType(), "HideModalAgregar", "var modalAgregar = " +
                     "bootstrap.Modal.getInstance(document.getElementById('modalAgregar')); if(modalAgregar) { modalAgregar.hide(); }", true);//Cierra el modal de Agregar
@@ -162,11 +162,16 @@ namespace TPCGrupo8A
         //8/11 para el boton habilitar y seleccionar de marcas
         protected void GVMarca_OnRowCommand(object sender, GridViewCommandEventArgs e)
         {
-           
+
             if (e.CommandName == "Seleccionar")
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
+                foreach (GridViewRow row1 in GVMarca.Rows) //Limpia la row una vez que es seleccionada
+                {
+                    row1.CssClass = "";
+                }
                 GridViewRow row = GVMarca.Rows[rowIndex];
+                row.CssClass = "selected-row"; //Aplica el style de la clase 
                 int marcaId = Convert.ToInt32(GVMarca.DataKeys[rowIndex].Value);
 
                 hdnMarcaId.Value = marcaId.ToString(); // Asigna el ID seleccionado al HiddenField

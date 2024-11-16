@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Categorias.aspx.cs" Inherits="TPCGrupo8A.Categorias" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
     <div class="container">
         <h1 class="tex-center my-4">Categorías</h1>
     </div>
@@ -32,12 +33,8 @@
         </div>
     </div>
 
-
-
      <div class="mb-3" style="overflow-x: auto">
      <div class="gv-container"></div>
-
-  
 
  <asp:GridView ID="GVCategorias" runat="server" AutoGenerateColumns="False" 
               OnRowCommand="GVCategorias_OnRowCommand" 
@@ -46,15 +43,18 @@
     <Columns>
         <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" />
         <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-        <asp:ButtonField ButtonType="Button" CommandName="Seleccionar" Text="✔️" />
-       
+        <%--<asp:ButtonField ButtonType="Button" CommandName="Seleccionar" Text="✔️" />--%>
+        <asp:TemplateField>
+            <ItemTemplate>
+                <asp:Button ID="btnSeleccionar" runat="server" CommandName="Seleccionar" 
+                            CommandArgument='<%# Container.DataItemIndex %>' Text="✓" 
+                            CssClass="btn-transparente" />
+            </ItemTemplate>
+        </asp:TemplateField>        
         <asp:ButtonField ButtonType="Button" CommandName="Habilitar" Text="Habilitar" />
     </Columns>
 </asp:GridView>
          </div>
-
-
-
     <asp:HiddenField ID="hdnCategoriaId" runat="server" />
     <%-- Modal Editar categoría --%>
     <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -82,4 +82,5 @@
         <button class="animated-button" type="button" onclick="$('#modalEditar').modal('show');">Editar Categoría</button>
         <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_OnClick" />
     </div>
+
 </asp:Content>

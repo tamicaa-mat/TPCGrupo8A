@@ -29,7 +29,7 @@ namespace TPCGrupo8A
         }
         private void CargarCategorias()
         {
-            
+
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
             try
             {
@@ -42,7 +42,7 @@ namespace TPCGrupo8A
                 throw;
             }
             var siteMaster = (SiteMaster)this.Master;
-            if(siteMaster != null)
+            if (siteMaster != null)
             {
                 siteMaster.CargarCategorias();
                 siteMaster.CargarMarcas();
@@ -55,16 +55,16 @@ namespace TPCGrupo8A
                 // Obtener el valor de Estado de la categoría actual
                 var estado = DataBinder.Eval(e.Row.DataItem, "Estado");
 
-               
-                if (estado != null && !(bool)estado) 
+
+                if (estado != null && !(bool)estado)
                 {
-                   
+
                     var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
                     btnHabilitar.Visible = true; // Mostrar el botón "Habilitar"
                 }
                 else
                 {
-                    
+
                     var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
                     btnHabilitar.Visible = false;
                 }
@@ -92,7 +92,7 @@ namespace TPCGrupo8A
                 lblExito.Text = "CATEGORIA AGREGADA ÉXITOSAMENTE";
                 lblExito.Visible = true;
                 lblExito.ForeColor = System.Drawing.Color.Green;
-                
+
                 txtNombreCategoria.Text = "";
                 ScriptManager.RegisterStartupScript(this, GetType(), "HideModalAgregar", "var modalAgregar = " +
                     "bootstrap.Modal.getInstance(document.getElementById('modalAgregar')); if(modalAgregar) { modalAgregar.hide(); }", true);//Cierra el modal de Agregar
@@ -166,7 +166,12 @@ namespace TPCGrupo8A
             if (e.CommandName == "Seleccionar")
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
+                foreach (GridViewRow row1 in GVCategorias.Rows) //Limpia la row una vez que es seleccionada
+                {
+                    row1.CssClass = "";
+                }
                 GridViewRow row = GVCategorias.Rows[rowIndex];
+                row.CssClass = "selected-row"; //Aplica el style de la clase 
                 int categoriaId = Convert.ToInt32(GVCategorias.DataKeys[rowIndex].Value);
 
                 hdnCategoriaId.Value = categoriaId.ToString(); // Asigna el ID seleccionado al HiddenField
@@ -178,14 +183,14 @@ namespace TPCGrupo8A
                 GridViewRow row = GVCategorias.Rows[rowIndex];
                 int categoriaId = Convert.ToInt32(GVCategorias.DataKeys[rowIndex].Value);
 
-               
+
                 CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
                 var categoria = categoriaNegocio.ObtenerIdCategoria(categoriaId);
                 if (categoria != null && !categoria.Estado)
                 {
                     categoria.Estado = true;
-                    categoriaNegocio.editar(categoria); 
-                    CargarCategorias(); 
+                    categoriaNegocio.editar(categoria);
+                    CargarCategorias();
                 }
             }
             var siteMaster = (SiteMaster)this.Master;
