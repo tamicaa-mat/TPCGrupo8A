@@ -21,7 +21,8 @@
     <asp:Repeater ID="rptProductos" runat="server">
         <ItemTemplate>
             <!-- Tarjeta de producto individual -->
-            <div class="card col-md-4" style="width: 18rem; margin: 10px; border-color: gray; height: 18rem;">
+         
+            <div class="card col-md-4" style="width: 18rem; margin: 10px; border-color: gray;">
                 <div class="image-container shadow" style="margin-bottom: 30px;">
                    
                     <img src='<%# Eval("Imagenes[0].ImagenUrl", "{0}") %>' class="card-img-top img-fluid" alt="Imagen del artículo">
@@ -29,6 +30,9 @@
                 <div class="card-body">
                     <h5 class="card-title"><%# Eval("Nombre") %></h5>
                     
+                        <p class="card-text"><%# Eval("Descripcion") %></p>
+                        <p class="card-text font-weight-bold">$<%# Eval("Precio", "{0:N2}") %></p>
+
                     <%-- Verifica el tipo de usuario  --%>
                     <% if (tipoUsuario != 1) { %>
                       

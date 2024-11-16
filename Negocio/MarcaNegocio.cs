@@ -75,7 +75,6 @@ namespace Negocio
                 datos.SetearParametro("@Nombre", marca.Nombre);
                 datos.SetearParametro("@IdMarca", marca.ID);
                 datos.SetearParametro("@Estado", marca.Estado);
-
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -83,7 +82,11 @@ namespace Negocio
                 throw new Exception("ERROR al editar la marca:" + ex.Message, ex);
             }
         }
-     
+        //agrego 16/11
+      
+
+
+
         public void eliminar(int id)
         {
             AccesoDatos datos = new AccesoDatos();
