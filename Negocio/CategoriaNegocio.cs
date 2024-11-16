@@ -71,6 +71,8 @@ namespace Negocio
 
         public void editar(Categoria categoria)
         {
+            
+           
             try
             {
                 AccesoDatos datos = new AccesoDatos();
@@ -84,6 +86,8 @@ namespace Negocio
             {
                 throw new Exception("ERROR al editar la categoria:" + ex.Message, ex);
             }
+
+
         }
         public void eliminar(int id)
         {

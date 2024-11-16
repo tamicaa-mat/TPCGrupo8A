@@ -129,6 +129,7 @@ namespace TPCGrupo8A
                 Categoria categoria = new Categoria();
                 categoria.ID = idCategoria;
                 categoria.Nombre = nombreCategoria;
+                categoria.Estado = true;
 
                 categoriaNegocio.editar(categoria);
                 CargarCategorias();

@@ -125,7 +125,8 @@ namespace TPCGrupo8A
                 Marca marca = new Marca();
                 marca.ID = idMarca;
                 marca.Nombre = nombreMarca;
-
+                marca.Estado = true;
+                //16/11 aca para arreglo de habilitar en editar
                 marcaNegocio.editar(marca);
                 CargarMarcas();
                 ScriptManager.RegisterStartupScript(this, GetType(), "HideModalEditar", "$('#modalEditar').modal('hide');", true); // Cerrar el modal de Editar
