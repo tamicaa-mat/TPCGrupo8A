@@ -17,8 +17,7 @@ namespace Dominio
         public int Stock { get; set; }
         public float Precio { get; set; }
         public float Estado { get; set; }
-        public string UrlImagen{ get; set;
-        } //para manejar solo una imagen
+        public Imagen imagen { get; set; }
         public List<Imagen> Imagenes { get; set; } // Lista de imágenes
                                                    //public string Imagen { get; set; } 
         //public Imagen Imagen { get; set; } // UNA SOLA IMAGEN

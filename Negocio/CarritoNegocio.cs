@@ -48,49 +48,60 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-        //public List<DetallePedido> ObtenerDetallesCarritoPorIds(List<int> idsProductos)
-        //{
-        //    List<DetallePedido> lista = new List<DetallePedido>();
-        //    AccesoDatos datos = new AccesoDatos();
+        public List<DetallePedido> DetallesCarritoIds(List<int> idProductos)
+        {
+            List<DetallePedido> lista = new List<DetallePedido>();
+            AccesoDatos datos = new AccesoDatos();
 
-        //    try
-        //    {
-        //        string query = @"SELECT P.IdProducto, P.Nombre, P.Precio, I.ImagenUrl
-        //                 FROM Productos P
-        //                 LEFT JOIN (SELECT IdProducto, ImagenUrl
-        //                                 FROM Imagenes
-        //                                 WHERE IdImagen IN (SELECT MIN(IdImagen)
-        //                                     FROM Imagenes
-        //                                     GROUP BY IdProducto)) I ON P.IdProducto = I.IdProducto
-        //                 WHERE P.IdProducto IN (" + string.Join(",", idsProductos) + ")";
-        //        datos.setearConsulta(query);
-        //        datos.ejecutarLectura();
+            try
+            {
 
-        //        while (datos.Lector.Read())
-        //        {
-        //            DetallePedido detalle = new DetallePedido();
-        //            detalle.Producto = new Producto
-        //            {
-        //                ID = (int)datos.Lector["IdProducto"],
-        //                Nombre = datos.Lector["Nombre"].ToString()
-        //            };
-        //            detalle.PrecioUnitario = (float)(decimal)datos.Lector["Precio"];
-        //            detalle.Cantidad = 1; // Por ahora asume una cantidad fija de uno
+                datos.setearConsulta(@"SELECT P.IdProducto, P.Nombre, P.Precio, I.ImagenUrl
+                                     FROM Productos P
+                                     LEFT JOIN (SELECT IdProducto, ImagenUrl
+                                     FROM Imagenes
+                                     WHERE IdImagen IN (SELECT MIN(IdImagen)
+                                     FROM Imagenes
+                                     GROUP BY IdProducto)) I ON P.IdProducto = I.IdProducto");
+                datos.ejecutarLectura();
 
-        //            lista.Add(detalle);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        datos.cerrarConexion();
-        //    }
+                while (datos.Lector.Read())
+                {
+                    int productoId = (int)datos.Lector["IdProducto"];
 
-        //    return lista;
-        //}
+                    bool estaEnCarrito = false;
 
+                    foreach (int id in idProductos)
+                    {
+                        if (id == productoId)
+                        {
+                            estaEnCarrito = true;
+                            break;
+                        }
+                    }
+
+                    if (estaEnCarrito)
+                    {
+                        DetallePedido detallePedido = new DetallePedido();
+                        detallePedido.Producto = new Producto();
+                        detallePedido.Producto.ID = productoId;
+                        detallePedido.Producto.Nombre = datos.Lector["Nombre"].ToString();
+                        detallePedido.PrecioUnitario = (float)(decimal)datos.Lector["Precio"];
+                        detallePedido.Cantidad = 1; 
+
+                        lista.Add(detallePedido);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return lista;
+        }
     }
 }

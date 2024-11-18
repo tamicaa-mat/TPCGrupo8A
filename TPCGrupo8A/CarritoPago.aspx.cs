@@ -15,21 +15,35 @@ namespace TPCGrupo8A
         {
             if (!IsPostBack)
             {
-                if (Session["IdCliente"] != null)
+                if (Session["Carrito"] != null)
                 {
-                    int idCliente = (int)Session["IdCliente"];
-                    //List<int> carritoIds = (List<int>)Session["Carrito"];
-                    CarritoNegocio negocio = new CarritoNegocio();
-                    List<DetallePedido> detallesCarrito = negocio.ListarCarritoCliente(idCliente);
+                    List<int> idProductos = (List<int>)Session["Carrito"];
 
-                    RepeaterCarrito.DataSource = detallesCarrito;
-                    RepeaterCarrito.DataBind();
+                    if (idProductos.Count > 0)
+                    {
+                        // Obtener los detalles de los productos usando los IDs
+                        List<DetallePedido> carrito = new CarritoNegocio().DetallesCarritoIds(idProductos);
 
-                    float totalCarrito = detallesCarrito.Sum(detalle => detalle.Cantidad * detalle.PrecioUnitario);
-                    totalCarritoLabel.Text = "$" + totalCarrito.ToString("F2");
+                        // Asignar el carrito al Repeater
+                        RepeaterCarrito.DataSource = carrito;
+                        RepeaterCarrito.DataBind();
+
+                        // Calcular el total
+                        float totalCarrito = 0;
+                        foreach (var detalle in carrito)
+                        {
+                            totalCarrito += detalle.Cantidad * detalle.PrecioUnitario;
+                        }
+
+                        // Mostrar el total
+                        totalCarritoLabel.Text = "$" + totalCarrito.ToString("F2");
+                    }
+                    else
+                    {
+                        totalCarritoLabel.Text = "Carrito vacío";
+                    }
                 }
             }
         }
-        
     }
 }

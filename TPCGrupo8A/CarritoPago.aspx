@@ -68,9 +68,9 @@
                 <ItemTemplate>
                     <div class="producto">
                         <h4><%# Eval("Producto.Nombre") %></h4>
-                        <img src='<%# Eval("Producto.UrlImagen") %>' alt="Producto" width="100" />
+                        <%--<img src='<%# Eval("Imagen.ImagenUrl) %>' alt="Producto" width="100" />--%>
                         <%--en proceso--%>
-                        <asp:Label ID="lblImagenUrl" runat="server" Text='<%# Eval("Producto.UrlImagen") %>' />
+                        <%--<asp:Label ID="lblImagenUrl" runat="server" Text='<%# Eval("Producto.imagen") %>' />--%>
                         <p>Precio: $<%# Eval("PrecioUnitario") %></p>
 
                         <div class="input-group mb-3 lbldatos">
