@@ -38,11 +38,7 @@ namespace TPCGrupo8A
                 cargaInformacionArticulo(idArticulo);
                 cargaOtrosArticulos(idArticulo);
             }
-
-
         }
-
-
         protected void cargaImagenes(int idArticulo)
         {
             ImagenNegocio ImagenNegocio = new ImagenNegocio();
@@ -105,12 +101,22 @@ namespace TPCGrupo8A
             Session["ID"] = idSeleccionado;
             Response.Redirect("DetalleProducto.aspx", false);
         }
-
-
-
-
-
-
+        protected void BtnAgregarCarrito_Click(object sender, EventArgs e)
+        {
+            if (Session["ID"] != null)
+            {
+                int idProducto = Convert.ToInt32(Session["ID"]);
+                List<int> carrito;
+                if (Session["Carrito"] != null)
+                    carrito = (List<int>)Session["Carrito"];
+                else
+                    carrito = new List<int>();
+                
+                carrito.Add(idProducto);
+                Session["Carrito"] = carrito;
+                string MensajeScript = "alert('Producto agregado correctamente al carrito');";
+                ClientScript.RegisterStartupScript(this.GetType(), "ProductoAgregado", MensajeScript, true);
+            }
+        }
     }
-    
 }

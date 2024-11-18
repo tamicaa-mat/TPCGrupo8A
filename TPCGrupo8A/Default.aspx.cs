@@ -211,7 +211,7 @@ namespace TPCGrupo8A
                 lblMensaje.Text = "¡Tu mensaje ha sido enviado con éxito!";
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Mensaje de error
                 lblMensaje.Text = "Hubo un error al enviar tu mensaje. Por favor intenta de nuevo.";

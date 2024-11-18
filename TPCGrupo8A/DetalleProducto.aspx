@@ -27,11 +27,7 @@
                 </div>
             </div>
         </div>
-        <asp:TemplateField CssClass="rowComprar" style="display:flex; justify-content:end;">
-            <ItemTemplate>
-             <asp:Button Text="Comprar" runat="server" CssClass="classComprar"/>
-               </ItemTemplate>
-            </asp:TemplateField>
+      
         <div class="row mt-4">
             <div class="col d-flex justify-content-between align-items-center bg-light p-4" style="border-radius: 5px;">
                 <h2 id="nombreArticulo" runat="server" style="margin: 0;"></h2>
@@ -56,6 +52,11 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="row mt-4">
+            <div class="col text-end">
+                <asp:Button Text="Agregar al Carrito" runat="server" CssClass="animated-button" OnClick="BtnAgregarCarrito_Click" />
+            </div>
         </div>
 
         <h3>TAMBIÉN PODRÍAN INTERESARTE</h3>
