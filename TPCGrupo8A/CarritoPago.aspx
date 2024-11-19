@@ -48,7 +48,7 @@
         <!--  carrito -->
         <div class="carrito-container">
             <div class="carrito-header">Tu Seleccion de Articulos</div>
-            <%--<div class="carrito-item">
+            <div class="carrito-item">
             <span>Producto 1</span>
             <span>$10.00</span>
         </div>
@@ -62,7 +62,7 @@
         </div>
         <div class="carrito-total">
             Total: $45.00
-        </div>--%>
+        </div>
 
             <asp:Repeater ID="RepeaterCarrito" runat="server">
                 <ItemTemplate>
@@ -89,14 +89,14 @@
         </div>
     </div>
 
-            <%-- <div class="totalCarrito mt-4">
+             <div class="totalCarrito mt-4">
                 <h3>Total Carrito: $<span id="totalCarrito" runat="server"></span></h3>
-                <asp:Button Text="Finalizar Compra" runat="server" OnClick="FinalizarCompra_Click" />
+           <%--     <asp:Button Text="Finalizar Compra" runat="server" OnClick="FinalizarCompra_Click" />--%>
             </div>
-        </div>--%>
+        
 
             <!--  datos del comprador -->
-            <%-- <form>
+             <form>
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" class="form-control" id="nombreCompleto" placeholder="Ingresa tu nombre " required>
@@ -118,10 +118,10 @@
                 <input type="tel" class="form-control" id="telefono" placeholder="Ingresa tu teléfono" required>
             </div>
 
-            <h4 class="mt-4">Opciones de Pago</h4>--%>
+            <h4 class="mt-4">Opciones de Pago</h4>
 
             <!-- opciones de pago -->
-            <%--<div class="form-check">
+            <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="tarjetaCredito" id="tarjetaCredito">
                 <label class="form-check-label" for="tarjetaCredito">
                     Tarjeta de Crédito
@@ -144,10 +144,10 @@
                 <label class="form-check-label" for="transferencia">
                     Transferencia Bancaria
                 </label>
-            </div>--%>
+            </div>
 
             <!-- boton confirmar pago -->
-            <%--  <button type="submit" class="btn btn-color btn-block">Confirmar Pago</button>
+              <button type="submit" class="btn btn-color btn-block">Confirmar Pago</button>
         </form>
-    </div>--%>
+    </div>
 </asp:Content>
