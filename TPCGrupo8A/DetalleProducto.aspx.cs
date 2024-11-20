@@ -116,7 +116,10 @@ namespace TPCGrupo8A
                 Session["Carrito"] = carrito;
                 string MensajeScript = "alert('Producto agregado correctamente al carrito');";
                 ClientScript.RegisterStartupScript(this.GetType(), "ProductoAgregado", MensajeScript, true);
+                Response.Redirect("CarritoPago.aspx", false);
             }
+
+
         }
     }
 }

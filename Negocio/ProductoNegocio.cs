@@ -251,53 +251,53 @@ namespace Negocio
             }
             return UltimoId;
         }
-        //        public Producto PrimerArticulo()
+        //public Producto PrimerArticulo()
+        //{
+        //    AccesoDatos datos = new AccesoDatos();
+
+        //    Producto producto = null;
+        //    try
+        //    {
+        //        datos.setearConsulta("SELECT P.IdProducto, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.Stock, " +
+        //                        "M.IdMarca, M.Nombre AS Marca, C.IdCategoria, C.Nombre AS Categoria " +
+        //                        "FROM Productos P " +
+        //                        "LEFT JOIN Marcas M ON P.IdMarca = M.IdMarca " +
+        //                        "LEFT JOIN Categorias C ON P.IdCategoria = C.IdCategoria " +
+        //                        "WHERE P.IdProducto = @IdProducto");
+
+        //        datos.SetearParametro("@IdProducto", id);
+        //        datos.ejecutarLectura();
+
+        //        if (datos.Lector.Read())
         //        {
-        //            AccesoDatos datos = new AccesoDatos();
+        //            producto = new Producto();
+        //            producto.ID = (int)datos.Lector["IdProducto"];
+        //            producto.Codigo = datos.Lector["Codigo"].ToString();
+        //            producto.Nombre = datos.Lector["Nombre"].ToString();
+        //            producto.Descripcion = datos.Lector["Descripcion"].ToString();
+        //            producto.Precio = (float)(decimal)datos.Lector["Precio"];
+        //            producto.Stock = (int)datos.Lector["Stock"];
 
-        //            Producto producto = null;
-        //            try
+        //            if (datos.Lector["IdMarca"] != DBNull.Value)
         //            {
-        //                datos.setearConsulta("SELECT P.IdProducto, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.Stock, " +
-        //                                "M.IdMarca, M.Nombre AS Marca, C.IdCategoria, C.Nombre AS Categoria " +
-        //                                "FROM Productos P " +
-        //                                "LEFT JOIN Marcas M ON P.IdMarca = M.IdMarca " +
-        //                                "LEFT JOIN Categorias C ON P.IdCategoria = C.IdCategoria " +
-        //                                "WHERE P.IdProducto = @IdProducto");
-
-        //                datos.SetearParametro("@IdProducto", id);
-        //                datos.ejecutarLectura();
-
-        //                if (datos.Lector.Read())
-        //                {
-        //                    producto = new Producto();
-        //                    producto.ID = (int)datos.Lector["IdProducto"];
-        //                    producto.Codigo = datos.Lector["Codigo"].ToString();
-        //                    producto.Nombre = datos.Lector["Nombre"].ToString();
-        //                    producto.Descripcion = datos.Lector["Descripcion"].ToString();
-        //                    producto.Precio = (float)(decimal)datos.Lector["Precio"];
-        //                    producto.Stock = (int)datos.Lector["Stock"];
-
-        //                    if (datos.Lector["IdMarca"] != DBNull.Value)
-        //                    {
-        //                        producto.Marca = new Marca();
-        //                        producto.Marca.ID = (int)datos.Lector["IdMarca"];
-        //                        producto.Marca.Nombre = datos.Lector["Marca"].ToString();
-        //                    }
-        //                    if (datos.Lector["IdCategoria"] != DBNull.Value)
-        //                    {
-        //                        producto.Categoria = new Categoria();
-        //                        producto.Categoria.ID = (int)datos.Lector["IdCategoria"];
-        //                        producto.Categoria.Nombre = datos.Lector["Categoria"].ToString();
-        //                    }
-        //                }
+        //                producto.Marca = new Marca();
+        //                producto.Marca.ID = (int)datos.Lector["IdMarca"];
+        //                producto.Marca.Nombre = datos.Lector["Marca"].ToString();
         //            }
-        //            catch (Exception ex)
+        //            if (datos.Lector["IdCategoria"] != DBNull.Value)
         //            {
-        //                if (producto == null)
-        //                {
-        //                    throw new Exception("El producto no se encontró.", ex);
-        //
+        //                producto.Categoria = new Categoria();
+        //                producto.Categoria.ID = (int)datos.Lector["IdCategoria"];
+        //                producto.Categoria.Nombre = datos.Lector["Categoria"].ToString();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        if (producto == null)
+        //        {
+        //            throw new Exception("El producto no se encontró.", ex);
+
         //            datos.setearConsulta(@"SELECT TOP 1 A.Nombre, A.Descripcion, 
         //                             MIN(I.ImagenUrl) AS ImagenUrl, 
         //                             A.Precio
@@ -323,7 +323,7 @@ namespace Negocio
         //                else
         //                {
         //                    aux.Imagenes.Add(new Imagen("https://media.istockphoto.com/id/1128826884/es/vector/ning%C3%BAn-s%C3%ADmbolo-de-vector-de-imagen-falta-icono-disponible-no-hay-galer%C3%ADa-para-este-momento.jpg?s=612x612&w=0&k=20&c=9vnjI4XI3XQC0VHfuDePO7vNJE7WDM8uzQmZJ1SnQgk="));
-        //
+
         //                }
 
         //                aux.Precio = (float)(decimal)datos.Lector["Precio"];
@@ -331,6 +331,113 @@ namespace Negocio
         //            }
         //            return null;
         //        }
+
+
+        //    }
+
+
+        //}
+
+        public Producto PrimerArticulo()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Producto producto = null;
+
+            try
+            {
+                // Consulta para obtener el producto por ID
+                datos.setearConsulta("SELECT TOP 1 P.IdProducto, P.Codigo, P.Nombre, P.Descripcion, P.Precio, P.Stock, " +
+                                     "M.IdMarca, M.Nombre AS Marca, C.IdCategoria, C.Nombre AS Categoria " +
+                                     "FROM Productos P " +
+                                     "LEFT JOIN Marcas M ON P.IdMarca = M.IdMarca " +
+                                     "LEFT JOIN Categorias C ON P.IdCategoria = C.IdCategoria");
+
+                datos.ejecutarLectura();
+
+                // Si hay datos, asignamos el producto
+                if (datos.Lector.Read())
+                {
+                    producto = new Producto
+                    {
+                        ID = (int)datos.Lector["IdProducto"],
+                        Codigo = datos.Lector["Codigo"].ToString(),
+                        Nombre = datos.Lector["Nombre"].ToString(),
+                        Descripcion = datos.Lector["Descripcion"].ToString(),
+                        Precio = (float)(decimal)datos.Lector["Precio"],
+                        Stock = (int)datos.Lector["Stock"]
+                    };
+
+                    if (datos.Lector["IdMarca"] != DBNull.Value)
+                    {
+                        producto.Marca = new Marca
+                        {
+                            ID = (int)datos.Lector["IdMarca"],
+                            Nombre = datos.Lector["Marca"].ToString()
+                        };
+                    }
+
+                    if (datos.Lector["IdCategoria"] != DBNull.Value)
+                    {
+                        producto.Categoria = new Categoria
+                        {
+                            ID = (int)datos.Lector["IdCategoria"],
+                            Nombre = datos.Lector["Categoria"].ToString()
+                        };
+                    }
+                }
+                else
+                {
+                    // Si no hay producto, intenta obtener un producto por defecto
+                    producto = ObtenerProductoPorDefecto(datos);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log o manejo de la excepción
+                throw new Exception("Error al intentar obtener el producto.", ex);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return producto;
+        }
+
+        // Método auxiliar para obtener un producto por defecto
+        private Producto ObtenerProductoPorDefecto(AccesoDatos datos)
+        {
+            datos.setearConsulta(@"SELECT TOP 1 A.Nombre, A.Descripcion, 
+                           MIN(I.ImagenUrl) AS ImagenUrl, 
+                           A.Precio
+                           FROM Productos A
+                           LEFT JOIN IMAGENES I ON A.IdProducto = I.IdProducto
+                           GROUP BY A.Nombre, A.Descripcion, A.Precio");
+            datos.ejecutarLectura();
+
+            if (datos.Lector.Read())
+            {
+                Producto productoPorDefecto = new Producto
+                {
+                    Nombre = datos.Lector["Nombre"].ToString(),
+                    Descripcion = datos.Lector["Descripcion"].ToString(),
+                    Precio = (float)(decimal)datos.Lector["Precio"],
+                    Imagenes = new List<Imagen>()
+                };
+
+                string imagenUrl = datos.Lector["ImagenUrl"] is DBNull
+                    ? "https://media.istockphoto.com/id/1128826884/es/vector/ning%C3%BAn-s%C3%ADmbolo-de-vector-de-imagen-falta-icono-disponible-no-hay-galer%C3%ADa-para-este-momento.jpg?s=612x612&w=0&k=20&c=9vnjI4XI3XQC0VHfuDePO7vNJE7WDM8uzQmZJ1SnQgk="
+                    : datos.Lector["ImagenUrl"].ToString();
+
+                productoPorDefecto.Imagenes.Add(new Imagen(imagenUrl));
+
+                return productoPorDefecto;
+            }
+
+            return null; // Si no hay datos para el producto por defecto
+        }
+
+
 
         public Producto ObtenerArticuloId(int idArticulo)
         {
@@ -397,5 +504,10 @@ namespace Negocio
             }
             return articulo;
         }
+
+
+
+
     }
+
 }

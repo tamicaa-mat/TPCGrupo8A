@@ -42,36 +42,17 @@
 
 
 
-    <div class="container mt-5">
+
         <h2 class="mb-4">Información de Compra</h2>
 
-        <!--  carrito -->
-        <div class="carrito-container">
-            <div class="carrito-header">Tu Seleccion de Articulos</div>
-            <div class="carrito-item">
-            <span>Producto 1</span>
-            <span>$10.00</span>
-        </div>
-        <div class="carrito-item">
-            <span>Producto 2</span>
-            <span>$15.00</span>
-        </div>
-        <div class="carrito-item">
-            <span>Producto 3</span>
-            <span>$20.00</span>
-        </div>
-        <div class="carrito-total">
-            Total: $45.00
-        </div>
-
-            <asp:Repeater ID="RepeaterCarrito" runat="server">
+           <%-- <asp:Repeater ID="RepeaterCarrito" runat="server">
                 <ItemTemplate>
                     <div class="producto">
                         <h4><%# Eval("Producto.Nombre") %></h4>
                         <%--<img src='<%# Eval("Imagen.ImagenUrl) %>' alt="Producto" width="100" />--%>
                         <%--en proceso--%>
                         <%--<asp:Label ID="lblImagenUrl" runat="server" Text='<%# Eval("Producto.imagen") %>' />--%>
-                        <p>Precio: $<%# Eval("PrecioUnitario") %></p>
+                      <%--  <p>Precio: $<%# Eval("PrecioUnitario") %></p>
 
                         <div class="input-group mb-3 lbldatos">
                             <asp:Label CssClass="lbldatos" ID="lblStock" runat="server" Text="Cantidad:">
@@ -80,14 +61,35 @@
                         </div>
                     </div>
                 </ItemTemplate>
-            </asp:Repeater>
+            </asp:Repeater>--%>
+
+
+     <div class="container mt-5">
+    <div class="row">
+    <div class="col-md-12">
+        <asp:Repeater ID="RepeaterCarrito" runat="server">
+            <ItemTemplate>
+                <div class="carrito-item">
+                    <h4><%# Eval("Producto.Nombre") %></h4>
+                    <p>Precio: $<%# Eval("PrecioUnitario") %></p>
+                    <div class="input-group">
+                        <label for="txtCantidad">Cantidad:</label>
+                        <asp:TextBox CssClass="form-control" ID="txtCantidad" runat="server" Text='<%# Eval("Cantidad") %>' TextMode="Number" />
+                    </div>
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
+</div>
+
+
 
             <div class="totalCarrito">
                 <h3>Total:</h3>
                 <asp:Label ID="totalCarritoLabel" runat="server" Text="Total: $0.00" />
             </div>
         </div>
-    </div>
+  
 
              <div class="totalCarrito mt-4">
                 <h3>Total Carrito: $<span id="totalCarrito" runat="server"></span></h3>
@@ -149,5 +151,12 @@
             <!-- boton confirmar pago -->
               <button type="submit" class="btn btn-color btn-block">Confirmar Pago</button>
         </form>
-    </div>
+                 
+            <!-- boton seelcciona otro articulo -->
+             <asp:Button ID="btnSeleccionarOtro"  runat="server" CssClass="btn btn-color btn-block" Text="Selecciona otro artículo" OnClick="btnSeleccionarOtro_Click" UseSubmitBehavior="false" />
+
+
+
+    
+ 
 </asp:Content>
