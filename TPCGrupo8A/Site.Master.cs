@@ -13,6 +13,7 @@ namespace TPCGrupo8A
 {
     public partial class SiteMaster : MasterPage
     {
+        public int tipoUsuario;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -28,6 +29,7 @@ namespace TPCGrupo8A
                 }
                 else
                 {
+                    tipoUsuario = (int)usuario.TipoUsuario;
                     IngresarBoton.Visible = false;
                     CerrarSesion.Visible = true;
                     //si el usuario es administrador muestra el link a administrador y si es cliente no
