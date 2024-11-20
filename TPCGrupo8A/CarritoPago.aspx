@@ -99,26 +99,32 @@
 
             <!--  datos del comprador -->
              <form>
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control" id="nombreCompleto" placeholder="Ingresa tu nombre " required>
-            </div>
-            <div class="form-group">
+                 <div class="form-group">
+                 <label for="nombre">Nombre:</label>
+                 <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Ingresa tu nombre" required=""></asp:TextBox>
+                </div>
+
+                 <div class="form-group">
                 <label for="apellido">Apellido:</label>
-                <input type="text" class="form-control" id="apellido" placeholder="Ingresa tu apellido" required>
+             <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" placeholder="Ingresa tu apellido" required=""></asp:TextBox>
             </div>
-            <div class="form-group">
-                <label for="dni">Direccion:</label>
-                <input type="text" class="form-control" id="dni" placeholder="Ingresa tu direccion" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico" required>
-            </div>
-            <div class="form-group">
-                <label for="telefono">Teléfono</label>
-                <input type="tel" class="form-control" id="telefono" placeholder="Ingresa tu teléfono" required>
-            </div>
+
+        <div class="form-group">
+     <label for="direccion">Dirección:</label>
+     <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" placeholder="Ingresa tu dirección" required=""></asp:TextBox>
+    </div>
+
+        <div class="form-group">
+    <label for="email">Correo Electrónico:</label>
+    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Ingresa tu correo electrónico" TextMode="Email" required=""></asp:TextBox>
+</div>
+
+<div class="form-group">
+    <label for="telefono">Teléfono:</label>
+    <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" placeholder="Ingresa tu teléfono" required=""></asp:TextBox>
+</div>
+
+          
 
             <h4 class="mt-4">Opciones de Pago</h4>
 
@@ -149,7 +155,12 @@
             </div>
 
             <!-- boton confirmar pago -->
-              <button type="submit" class="btn btn-color btn-block">Confirmar Pago</button>
+           <%--   <button type="submit" class="btn btn-color btn-block">Confirmar Pago</button>--%>
+                 <asp:Button  ID="btnConfirmarPago" CssClass="btn btn-color btn-block"  Text="Confirmar Pago"  OnClick="btnConfirmarPago_Click" runat="server" />
+
+
+
+
         </form>
                  
             <!-- boton seelcciona otro articulo -->

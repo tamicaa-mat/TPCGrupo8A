@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Datos;
+using System.Data.SqlClient;
 
 namespace Negocio
 {
@@ -66,5 +67,108 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+
+
+        // NO ME AGREGA EL CLIENTE A LA BD :(
+        public void RegistroCliente(Cliente cliente)
+        {
+            
+            cliente.TipoUsuario = TipoUsuario.Cliente;
+
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                // Obtener el IdUsuario basado en el Email
+                cliente.idUsuario = ObtenerIdUsuarioPorEmail(cliente.Email, datos);
+
+               
+                if (!(cliente.idUsuario > 0))
+                {
+                    Console.WriteLine("No se encontró un usuario con ese email.");
+                    return;
+                }
+
+                // Configurar la consulta de inserción
+                string consulta = "INSERT INTO Clientes (IdUsuario, Nombre, Apellido, Direccion, Email, Telefono, TipoUsuario) " +
+                                  "VALUES (@IdUsuario, @Nombre, @Apellido, @Direccion, @Email, @Telefono, @TipoUsuario)";
+
+              
+                datos.setearConsulta(consulta);
+                datos.SetearParametro("@IdUsuario", cliente.idUsuario); 
+                datos.SetearParametro("@Nombre", cliente.Nombre);
+                datos.SetearParametro("@Apellido", cliente.Apellido);
+                datos.SetearParametro("@Direccion", cliente.Direccion);
+                datos.SetearParametro("@Email", cliente.Email);
+                datos.SetearParametro("@Telefono", cliente.Telefono);
+                datos.SetearParametro("@TipoUsuario", (int)cliente.TipoUsuario); 
+
+               
+                datos.ejecutarAccion();
+                Console.WriteLine("Cliente insertado correctamente.");
+            }
+            catch (SqlException sqlEx)
+            {
+              
+                Console.WriteLine($"SQL Error: {sqlEx.Message}");
+            }
+            catch (Exception ex)
+            {
+               
+                Console.WriteLine($"Error General: {ex.Message}");
+            }
+            finally
+            {
+             
+                datos.cerrarConexion();
+            }
+        }
+
+
+
+        private int ObtenerIdUsuarioPorEmail(string email, AccesoDatos datos)
+        {
+            int idUsuario = -1;
+
+            try
+            {
+                datos.setearConsulta("SELECT IdUsuario FROM Usuarios WHERE Email = @Email");
+                datos.SetearParametro("@Email", email);
+
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    idUsuario = Convert.ToInt32(datos.Lector["IdUsuario"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return idUsuario;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

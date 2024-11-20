@@ -355,3 +355,35 @@ VALUES
 (18, 'https://http2.mlstatic.com/D_NQ_NP_634469-MLA77029249022_062024-O.webp')
 GO
 
+--------------para insertar clientes en la bd al comprar
+ALTER TABLE Clientes
+ADD Email NVARCHAR(100); --no puede ser null esta validado en backend
+
+
+ALTER PROCEDURE sp_InsertarCliente
+    @Email NVARCHAR(100),
+    @Nombre VARCHAR(100),
+    @Apellido VARCHAR(100),
+    @Direccion VARCHAR(200),
+    @Telefono VARCHAR(20)
+AS
+BEGIN
+      DECLARE @IdUsuario INT;
+
+    SELECT @IdUsuario = IdUsuario FROM Usuarios WHERE Email = @Email;
+
+    IF @IdUsuario IS NULL
+    BEGIN
+        PRINT 'Usuario no encontrado';
+        RAISERROR('No se encontró un usuario con ese email.', 16, 1);
+        RETURN;
+    END
+
+    PRINT 'Usuario encontrado, procediendo a insertar...';
+
+    INSERT INTO Clientes (IdUsuario, Nombre, Apellido, Direccion, Email, Telefono)
+    VALUES (@IdUsuario, @Nombre, @Apellido, @Direccion, @Email, @Telefono);
+
+    PRINT 'Inserción completada';
+END
+
