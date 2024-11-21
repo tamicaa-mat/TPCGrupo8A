@@ -133,7 +133,7 @@ namespace TPCGrupo8A
             }
             catch (Exception ex)
             {
-                throw new Exception("ERROR no se pudo agregar la Marca", ex);
+                throw new Exception("Error no se pudo agregar la Marca", ex);
             }
         }
         protected void btnEliminar_Click(object sender, EventArgs e)
