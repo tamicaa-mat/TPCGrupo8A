@@ -22,6 +22,10 @@ namespace TPCGrupo8A
             {
                 tipoUsuario = (int)usuario.TipoUsuario;
             }
+            if(tipoUsuario != 1)
+            {
+                Response.Redirect("Default.aspx", false);
+            }
             if (!IsPostBack)
             {
                 CargarMarcas();
@@ -186,7 +190,16 @@ namespace TPCGrupo8A
              
             if(producto != null)
             {
-                txtCodigo.Text = producto.Codigo != null ? producto.Codigo.ToString() : "";
+                if(Session["ID"] != null)
+                {
+                    txtCodigo.Enabled = false;
+
+                }
+                else
+                {
+                    txtCodigo.Text = producto.Codigo != null ? producto.Codigo.ToString() : "";
+
+                }
                 txtNombre.Text = producto.Nombre;
                 txtDescripcion.Text = producto.Descripcion;
                 txtPrecio.Text = producto.Precio.ToString();
