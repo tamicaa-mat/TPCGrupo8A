@@ -133,17 +133,9 @@ namespace TPCGrupo8A
             lblErrorStock.Visible = false;
             lblErrorPrecio.Visible = false;
             lblErrorCodigo.Visible = false;
-            
-            producto.Marca = new Marca();
-            if (ddlMarcas != null)
-            {
-                producto.Marca.ID = int.Parse(ddlMarcas.SelectedValue);
-            }
-            producto.Categoria = new Categoria();
-            if (ddlCategorias != null)
-            {
-                producto.Categoria.ID = int.Parse(ddlCategorias.SelectedValue);
-            }
+            lblErrorMarca.Visible = false;
+            lblErrorCategoria.Visible = false;
+
             if (string.IsNullOrEmpty(txtCodigo.Text))
             {
                 lblErrorCodigo.Text = "El código no puede quedar vacío";
@@ -163,6 +155,31 @@ namespace TPCGrupo8A
                 lblErrorStock.Text = "El stock no puede quedar vacío";
                 lblErrorStock.Visible = true;
                 return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtMarca.Text))
+            {
+                lblErrorMarca.Text = "Debe seleccionar una marca";
+                lblErrorMarca.Visible = true;
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtCategoria.Text))
+            {
+                lblErrorCategoria.Text = "Debe seleccionar una categoría";
+                lblErrorCategoria.Visible = true;
+                return;
+            }
+
+            producto.Marca = new Marca();
+            if (ddlMarcas != null)
+            {
+                producto.Marca.ID = int.Parse(ddlMarcas.SelectedValue);
+            }
+            producto.Categoria = new Categoria();
+            if (ddlCategorias != null)
+            {
+                producto.Categoria.ID = int.Parse(ddlCategorias.SelectedValue);
             }
 
             producto.Codigo = txtCodigo.Text;
@@ -319,17 +336,12 @@ namespace TPCGrupo8A
                 return false;
             }
 
-
             if (producto.Stock <= 0)
             {
                 lblErrorStock.Text = "El stock no puede ser negativo.";
                 lblErrorStock.Visible = true;
                 return false;
             }
-            
-            
-            
-
 
             if (producto.Precio <= 0)
                 {
@@ -339,7 +351,7 @@ namespace TPCGrupo8A
                     return false;
             }
             
-
+           
                 return true;
             }
         }

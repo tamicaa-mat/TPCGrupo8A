@@ -36,6 +36,7 @@
             <asp:DropDownList ID="ddlMarcas" runat="server" CssClass=" txtdatos" AutoPostBack="True" OnSelectedIndexChanged="ddlMarcas_SelectedIndexChanged">
             </asp:DropDownList>
             <asp:TextBox ID="txtMarca" runat="server" CssClass="form-control" Placeholder="Seleccione una marca" ReadOnly="True" visible="false"/>
+            <asp:Label ID="lblErrorMarca" runat="server" Forecolor="red" visible="false"></asp:Label>
         </div>
         <!-- Desplegable de Categorías-->
         <div class="btn-group mb-3 lbldatos">
@@ -43,6 +44,7 @@
             <asp:DropDownList ID="ddlCategorias" runat="server" CssClass=" txtdatos" AutoPostBack="True" OnSelectedIndexChanged="ddlCategorias_SelectedIndexChanged">
             </asp:DropDownList>
             <asp:TextBox ID="txtCategoria" runat="server" CssClass="form-control" Placeholder="Seleccione una Categoría" ReadOnly="True" Visible="false" />
+            <asp:Label ID="lblErrorCategoria" runat="server" Forecolor="red" visible="false"></asp:Label>
         </div>
         <div class="mb-3">
             <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" CssClass="btn-iniciar" />
