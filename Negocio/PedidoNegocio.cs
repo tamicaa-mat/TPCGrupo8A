@@ -67,7 +67,7 @@ namespace Negocio
                 UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
 
                 // Obtener el idUsuario asociado al email
-                int idUsuario = usuarioNegocio.ObtenerIdUsuarioPorEmail(email, datos);
+                int idUsuario = usuarioNegocio.ObtenerIdUsuarioPorEmail(email);
 
                 // Calcular el monto total del pedido
                 float montoTotal = 0;

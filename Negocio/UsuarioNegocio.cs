@@ -143,9 +143,37 @@ namespace Negocio
 
 
 
-        public int ObtenerIdUsuarioPorEmail(string email, AccesoDatos datos)
+        //public int ObtenerIdUsuarioPorEmail(string email, AccesoDatos datos)
+        //{
+        //    int idUsuario = -1;
+
+        //    try
+        //    {
+        //        datos.setearConsulta("SELECT IdUsuario FROM Usuarios WHERE Email = @Email");
+        //        datos.SetearParametro("@Email", email);
+
+        //        datos.ejecutarLectura();
+
+        //        if (datos.Lector.Read())
+        //        {
+        //            idUsuario = Convert.ToInt32(datos.Lector["IdUsuario"]);
+        //            return idUsuario;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarConexion();
+        //    }
+
+        //    return idUsuario;
+        //}
+        public int ObtenerIdUsuarioPorEmail(string email)
         {
-            int idUsuario = -1;
+            AccesoDatos datos = new AccesoDatos();
 
             try
             {
@@ -154,39 +182,25 @@ namespace Negocio
 
                 datos.ejecutarLectura();
 
-                if (datos.Lector.Read())
+                if (datos.Lector.HasRows)
                 {
-                    idUsuario = Convert.ToInt32(datos.Lector["IdUsuario"]);
-                    return idUsuario;
+                    Console.WriteLine("Hay filas en la consulta.");
+                    if (datos.Lector.Read())
+                    {
+                        int idUsuario = (int)datos.Lector["IdUsuario"];
+                        return idUsuario;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                else
+                {
+                    Console.WriteLine("No se encontraron resultados.");
+                }
+                throw new Exception("Usuario no encontrado.");
             }
             finally
             {
                 datos.cerrarConexion();
             }
-
-            return idUsuario;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
