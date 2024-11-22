@@ -67,18 +67,29 @@
      <div class="container mt-5">
     <div class="row">
     <div class="col-md-12">
-        <asp:Repeater ID="RepeaterCarrito" runat="server">
-            <ItemTemplate>
-                <div class="carrito-item">
-                    <h4><%# Eval("Producto.Nombre") %></h4>
-                    <p>Precio: $<%# Eval("PrecioUnitario") %></p>
-                    <div class="input-group">
-                        <label for="txtCantidad">Cantidad:</label>
-                        <asp:TextBox CssClass="form-control" ID="txtCantidad" runat="server" Text='<%# Eval("Cantidad") %>' TextMode="Number" />
-                    </div>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>
+      <asp:Repeater ID="RepeaterCarrito" runat="server">
+    <ItemTemplate>
+        <div class="carrito-item">
+            <div>
+                <asp:Label ID="lblNombre" runat="server" Text='<%# Eval("producto.Nombre") %>' />
+                <asp:Label ID="lblPrecio" runat="server" Text='<%# "Precio: $" + Eval("producto.Precio") %>' />
+            </div>
+            <div class="input-group"> 
+                <label for="txtCantidad">Cantidad:</label>
+                <asp:TextBox CssClass="form-control" ID="txtCantidad" runat="server" Text='<%# Eval("Cantidad") %>' TextMode="Number" Min="0" Max='<%# Eval("Stock") %>' />
+                 <asp:Label ID="lblError" runat="server" ForeColor="Red" Visible="false" Text="Error: Cantidad no válida." />
+            </div>
+            </div>
+            </div>
+        </div>
+    </ItemTemplate>
+</asp:Repeater>
+
+    </div>
+</div>
+
+
+
     </div>
 </div>
 

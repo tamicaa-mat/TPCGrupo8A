@@ -84,7 +84,7 @@ namespace TPCGrupo8A
             }
 
         }
-
+       
 
         // PARA LAS CAJAS DE REGISTRO VALIDACIONES
 

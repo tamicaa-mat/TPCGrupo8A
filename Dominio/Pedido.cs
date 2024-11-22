@@ -9,11 +9,15 @@ namespace Dominio
     public class Pedido
     {
         public int ID { get; set; }
-        public string NumeroPedido { get; set; }
+       // public string NumeroPedido { get; set; }
         public DateTime Fecha { get; set; }
-        public Cliente Cliente { get; set; }  
-        public List<DetallePedido> Detalles { get; set; } 
-        public EstadoPedido Estado {  get; set; } 
+        public int IdUsuario { get; set; }  
+        public int IdProducto {  get; set; }
+
+        public float Monto { get; set; }
+        //public List<DetallePedido> Detalles { get; set; } 
+        public List<Producto> Productos { get; set; }
+        public string Estado {  get; set; } 
         public MetodoPago MetodoPago { get; set; }
     }
 }

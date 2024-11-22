@@ -355,7 +355,7 @@ VALUES
 (18, 'https://http2.mlstatic.com/D_NQ_NP_634469-MLA77029249022_062024-O.webp')
 GO
 
---------------para insertar clientes en la bd al comprar
+--------------para insertar clientes en la bd al comprar------------------------------20/11
 ALTER TABLE Clientes
 ADD Email NVARCHAR(100); --no puede ser null esta validado en backend
 
@@ -387,3 +387,23 @@ BEGIN
     PRINT 'Inserción completada';
 END
 
+INSERT INTO Clientes (IdUsuario, Nombre, Apellido, Direccion, Email, Telefono, TipoUsuario)
+VALUES (2, 'Homero', 'Simpson', 'Calle Falsa 123', 'h.simpson@email.com', '1234567890', 0);
+
+CREATE TABLE Pedidos (
+    IdPedido INT PRIMARY KEY IDENTITY(1,1),
+    IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(IdUsuario),
+    IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(IdProducto),
+    Cantidad INT NOT NULL,
+	Monto MONEY,
+    FechaPedido DATETIME NOT NULL DEFAULT GETDATE(),
+    Estado VARCHAR(50) NOT NULL
+);
+GO
+
+INSERT INTO Pedidos (IdUsuario, IdProducto, Cantidad, Monto, Estado)
+VALUES (2, 1, 3, 125, 'enProceso');
+
+INSERT INTO Productos(Codigo, Nombre, Descripcion, Precio, IdCategoria, IdMarca,Stock)
+VALUES 
+('REM008','PRUEBASTOCK',' Verde Cuello Redondo',$23663,1,1,1)

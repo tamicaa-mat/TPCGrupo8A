@@ -38,6 +38,47 @@
                     <!--  pedidos dinámicamente -->
                     <tr>
                         <td colspan="5" class="text-center text-muted">Seleccione un cliente para ver los pedidos</td>
+
+<asp:Repeater ID="RepeaterPedidos" runat="server">
+    <HeaderTemplate>
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Número de Pedido</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Importe</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+    </HeaderTemplate>
+    <ItemTemplate>
+        <tr>
+            <td><%# Eval("Numero") %></td>
+            <td><%# Eval("Fecha", "{0:yyyy-MM-dd}") %></td>
+            <td><%# Eval("Cliente") %></td>
+            <td><%# Eval("Importe", "{0:C}") %></td>
+            <td><%# Eval("Estado") %></td>
+        </tr>
+    </ItemTemplate>
+    <FooterTemplate>
+            </tbody>
+        </table>
+    </FooterTemplate>
+</asp:Repeater>
+
+
+
+
+
+
+
+
+
+
+
+
                     </tr>
                 </tbody>
             </table>

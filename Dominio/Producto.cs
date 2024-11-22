@@ -23,7 +23,8 @@ namespace Dominio
         //public Imagen Imagen { get; set; } // UNA SOLA IMAGEN
         public string Color { get; set; }
         public string Talle { get; set; }
-    
+        
+       public int Cantidad { get; set; }
         public Producto()
         {
             Imagenes = new List<Imagen>();

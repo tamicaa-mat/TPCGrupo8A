@@ -16,6 +16,7 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </div>
+
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev" style="background-color: transparent">
                         <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: black"></span>
                         <span class="visually-hidden">Previous</span>
@@ -62,18 +63,20 @@
         <h3>TAMBIÉN PODRÍAN INTERESARTE</h3>
         <div style="max-height: 500px; overflow: hidden;">
             <div style="overflow: hidden;">
+
                 <asp:Repeater ID="RepeaterLista" runat="server">
                     <ItemTemplate>
                         <div class="articuloList d-flex align-items-center p-2" style="border-bottom: 1px solid #ddd;">
-                            <img src='<%# Eval("Imagenes[0].ImagenUrl") %>' class="imagenArticulo me-3" alt="Imagen del artículo" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
-                            <div>
+<%-- <img src='<%# Eval("Imagenes[0].ImagenUrl") %>' class="imagenArticulo me-3" alt="Imagen del artículo" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">--%>
+     
+                            <div class="'<%# Eval("Nombre") %>'">
                                 <h4 style="margin: 0;"><%# Eval("Nombre") %></h4>
                                 <p style="margin: 0;">Precio: $<%# Eval("Precio") %></p>
                                 <asp:Button ID="BtnVer" runat="server" Text="Ver" CommandArgument='<%# Eval("Id").ToString() %>' OnClick="BtnVer_OnClick" CssClass="btn btn-sm btn-secondary mt-2" />
                             </div>
                         </div>
                     </ItemTemplate>
-                </asp:Repeater>
+                </asp:Repeater> 
             </div>
         </div>
         <%--<div class="btn-volver p-2" style="display: flex; flex-direction: row; justify-content: end;">

@@ -505,6 +505,34 @@ namespace Negocio
             return articulo;
         }
 
+        public int VerificarStock(int idProducto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT Stock FROM Productos WHERE IdProducto = @IdProducto");
+                datos.SetearParametro("@IdProducto", idProducto);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int stock = Convert.ToInt32(datos.Lector["Stock"]);
+                    return stock ; // Devuelve true si hay stock disponible
+                }
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex; // Maneja o registra el error según tu política de manejo de excepciones
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
 
 
 

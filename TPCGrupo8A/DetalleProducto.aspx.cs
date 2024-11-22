@@ -101,25 +101,70 @@ namespace TPCGrupo8A
             Session["ID"] = idSeleccionado;
             Response.Redirect("DetalleProducto.aspx", false);
         }
+        //protected void BtnAgregarCarrito_Click(object sender, EventArgs e)
+        //{
+        //    if (Session["ID"] != null)
+        //    {
+        //        int idProducto = Convert.ToInt32(Session["ID"]);
+        //        List<int> carrito;
+        //        if (Session["Carrito"] != null)
+        //            carrito = (List<int>)Session["Carrito"];
+        //        else
+        //            carrito = new List<int>();
+
+        //        carrito.Add(idProducto);
+        //        Session["Carrito"] = carrito;
+        //        string MensajeScript = "alert('Producto agregado correctamente al carrito');";
+        //        ClientScript.RegisterStartupScript(this.GetType(), "ProductoAgregado", MensajeScript, true);
+        //        Response.Redirect("CarritoPago.aspx", false);
+        //    }
+
+
+        //}
+
         protected void BtnAgregarCarrito_Click(object sender, EventArgs e)
         {
+            ProductoNegocio prod = new ProductoNegocio();
+
             if (Session["ID"] != null)
             {
                 int idProducto = Convert.ToInt32(Session["ID"]);
-                List<int> carrito;
-                if (Session["Carrito"] != null)
-                    carrito = (List<int>)Session["Carrito"];
+
+                // Verificar stock
+                int stock = prod.VerificarStock(idProducto);
+
+                if (stock>0) // Si hay stock disponible
+                {
+                    List<int> carrito;
+
+                    if (Session["Carrito"] != null)
+                        carrito = (List<int>)Session["Carrito"];
+                    else
+                        carrito = new List<int>();
+
+                    carrito.Add(idProducto);
+                    Session["Carrito"] = carrito;
+
+                    // Mensaje de éxito
+                    string MensajeScript = "alert('Producto agregado correctamente al carrito');";
+                    ClientScript.RegisterStartupScript(this.GetType(), "ProductoAgregado", MensajeScript, true);
+                    Response.Redirect("CarritoPago.aspx", false);
+
+                  
+
+                }
                 else
-                    carrito = new List<int>();
-
-                carrito.Add(idProducto);
-                Session["Carrito"] = carrito;
-                string MensajeScript = "alert('Producto agregado correctamente al carrito');";
-                ClientScript.RegisterStartupScript(this.GetType(), "ProductoAgregado", MensajeScript, true);
-                Response.Redirect("CarritoPago.aspx", false);
+                {
+                    // Mensaje de error por falta de stock
+                    string MensajeScript = "alert('No hay suficiente stock para agregar este producto al carrito');";
+                    ClientScript.RegisterStartupScript(this.GetType(), "SinStock", MensajeScript, true);
+                    // Response.Redirect("Default.aspx", false);
+                }
             }
-
-
         }
+
+
+
+
     }
 }

@@ -12,6 +12,9 @@ namespace Dominio
         public int Cantidad { get; set; }
         public float PrecioUnitario { get; set; }
         public Imagen ImagenUrl { get; set; }
+        public string Nombre { get; set; }
+
+        public int  Stock { get; set; }
         public float Total
         {
             get

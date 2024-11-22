@@ -71,62 +71,79 @@ namespace Negocio
 
 
         // NO ME AGREGA EL CLIENTE A LA BD :(
-        public void RegistroCliente(Cliente cliente)
-        {
-            
-            cliente.TipoUsuario = TipoUsuario.Cliente;
+        //public void RegistroPedido(Usuario usuario, List<Producto> productosCarrito)
+        //{
+        //    usuario.TipoUsuario = TipoUsuario.Cliente;
+        //    Pedido pedido = new Pedido();
+        //    AccesoDatos datos = new AccesoDatos();
 
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                // Obtener el IdUsuario basado en el Email
-                cliente.idUsuario = ObtenerIdUsuarioPorEmail(cliente.Email, datos);
+        //    try
+        //    {
+        //        // Obtener el IdUsuario basado en el Email
+        //        usuario.idUsuario = ObtenerIdUsuarioPorEmail(usuario.Email, datos);
 
-               
-                if (!(cliente.idUsuario > 0))
-                {
-                    Console.WriteLine("No se encontró un usuario con ese email.");
-                    return;
-                }
+        //        if (!(usuario.idUsuario > 0))
+        //        {
+        //            Console.WriteLine("No se encontró un usuario con ese email.");
+        //            return;
+        //        }
 
-                // Configurar la consulta de inserción
-                string consulta = "INSERT INTO Clientes (IdUsuario, Nombre, Apellido, Direccion, Email, Telefono, TipoUsuario) " +
-                                  "VALUES (@IdUsuario, @Nombre, @Apellido, @Direccion, @Email, @Telefono, @TipoUsuario)";
+        //        // Calcular el monto total
+        //        float montoTotal = 0;
+        //        foreach (Producto producto in productosCarrito)
+        //        {
+        //            montoTotal += producto.Precio * producto.Cantidad;  // Precio * cantidad de cada producto
+        //        }
 
-              
-                datos.setearConsulta(consulta);
-                datos.SetearParametro("@IdUsuario", cliente.idUsuario); 
-                datos.SetearParametro("@Nombre", cliente.Nombre);
-                datos.SetearParametro("@Apellido", cliente.Apellido);
-                datos.SetearParametro("@Direccion", cliente.Direccion);
-                datos.SetearParametro("@Email", cliente.Email);
-                datos.SetearParametro("@Telefono", cliente.Telefono);
-                datos.SetearParametro("@TipoUsuario", (int)cliente.TipoUsuario); 
+        //        // Configurar la consulta para insertar el pedido
+        //        string consulta = "INSERT INTO Pedidos (IdUsuario, Monto, Estado) " +
+        //                          "VALUES (@IdUsuario, @Monto, @Estado); SELECT SCOPE_IDENTITY();";  // Obtener el ID del pedido insertado
 
-               
-                datos.ejecutarAccion();
-                Console.WriteLine("Cliente insertado correctamente.");
-            }
-            catch (SqlException sqlEx)
-            {
-              
-                Console.WriteLine($"SQL Error: {sqlEx.Message}");
-            }
-            catch (Exception ex)
-            {
-               
-                Console.WriteLine($"Error General: {ex.Message}");
-            }
-            finally
-            {
-             
-                datos.cerrarConexion();
-            }
-        }
+        //        datos.setearConsulta(consulta);
+        //        datos.SetearParametro("@IdUsuario", usuario.idUsuario);
+        //        datos.SetearParametro("@Monto", montoTotal);  // Pasar el monto calculado
+        //        datos.SetearParametro("@Estado", EstadoPedido.Pendiente);  // Asumiendo que el estado inicial es "Pendiente"
+
+        //        // Ejecutar la consulta de inserción y obtener el ID del pedido insertado
+        //        int idPedido = Convert.ToInt32(datos.ejecutarEscalar());  // Ejecutar la consulta y obtener el ID generado
+
+        //        Console.WriteLine($"Pedido insertado correctamente con ID: {idPedido}");
+
+        //        // Insertar los productos en la tabla DetallePedido
+        //        foreach (Producto producto in productosCarrito)
+        //        {
+        //            string consultaDetalle = "INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad, PrecioUnitario) " +
+        //                                     "VALUES (@IdPedido, @IdProducto, @Cantidad, @PrecioUnitario)";
+
+        //            datos.setearConsulta(consultaDetalle);
+        //            datos.SetearParametro("@IdPedido", idPedido);  // ID del pedido insertado
+        //            datos.SetearParametro("@IdProducto", producto.Id);  // Suponiendo que el producto tiene un ID
+        //            datos.SetearParametro("@Cantidad", producto.Cantidad);
+        //            datos.SetearParametro("@PrecioUnitario", producto.Precio);
+
+        //            datos.ejecutarAccion();  // Ejecutar la inserción en DetallePedido
+        //        }
+
+        //        Console.WriteLine("Detalles del pedido insertados correctamente.");
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        Console.WriteLine($"SQL Error: {sqlEx.Message}");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error General: {ex.Message}");
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarConexion();
+        //    }
+        //}
 
 
 
-        private int ObtenerIdUsuarioPorEmail(string email, AccesoDatos datos)
+
+        public int ObtenerIdUsuarioPorEmail(string email, AccesoDatos datos)
         {
             int idUsuario = -1;
 
@@ -140,6 +157,7 @@ namespace Negocio
                 if (datos.Lector.Read())
                 {
                     idUsuario = Convert.ToInt32(datos.Lector["IdUsuario"]);
+                    return idUsuario;
                 }
             }
             catch (Exception ex)

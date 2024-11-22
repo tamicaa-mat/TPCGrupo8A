@@ -26,20 +26,22 @@ namespace Dominio
         public DateTime FechaAlta { get; set; }
         public DateTime? FechaNacimiento { get; set; }
 
+        public string Direccion {  get; set; }
+        public string Telefono { get; set; }
         public TipoUsuario TipoUsuario { get; set; }
        
         public Usuario() 
         { 
         
         }
-        public Usuario(string email,string contrasenia, string apellido, string nombre, DateTime fechaNacimiento, bool administrador) 
+        public Usuario(string email,string contrasenia, string Direccion, string apellido, string nombre, DateTime fechaNacimiento, bool administrador) 
         {
             Email = email;
             Apellido = apellido;
             Nombre = nombre;
             FechaNacimiento = fechaNacimiento;
             Contrasenia = contrasenia;
-            TipoUsuario = administrador ? TipoUsuario.Administrador : TipoUsuario.Cliente;
+            TipoUsuario = TipoUsuario.Cliente;
         }
     }
 }

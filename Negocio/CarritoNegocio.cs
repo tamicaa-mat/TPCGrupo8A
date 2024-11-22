@@ -56,7 +56,7 @@ namespace Negocio
             try
             {
 
-                datos.setearConsulta(@"SELECT P.IdProducto, P.Nombre, P.Precio, I.ImagenUrl
+                datos.setearConsulta(@"SELECT P.IdProducto, P.Nombre, P.Precio, P.Stock, I.ImagenUrl
                                      FROM Productos P
                                      LEFT JOIN (SELECT IdProducto, ImagenUrl
                                      FROM Imagenes
@@ -87,7 +87,8 @@ namespace Negocio
                         detallePedido.Producto.ID = productoId;
                         detallePedido.Producto.Nombre = datos.Lector["Nombre"].ToString();
                         detallePedido.PrecioUnitario = (float)(decimal)datos.Lector["Precio"];
-                        detallePedido.Cantidad = 1; 
+                        detallePedido.Cantidad = 1;
+                        detallePedido.Stock = (int)datos.Lector["Stock"];
 
                         lista.Add(detallePedido);
                     }
