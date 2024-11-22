@@ -274,7 +274,7 @@ namespace TPCGrupo8A
         {
 
             lblErrorCodigo.Visible = false;
-            lblErrorStock.Visible = true;
+            lblErrorStock.Visible = false;
             lblErrorPrecio.Visible = false;
             ProductoNegocio productoNegocio = new ProductoNegocio();
 
