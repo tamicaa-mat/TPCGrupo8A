@@ -30,26 +30,33 @@ namespace TPCGrupo8A
             {
                 CargarMarcas();
                 CargarCategorias();
-                if (Session["ID"] != null)
+                if(Session["ID"] == null)
                 {
-                    try
+                    pnlImagenes.Visible = false;
+                }
+                else
+                {
+                    if (Session["ID"] != null && int.TryParse(Session["ID"].ToString(), out int idProducto))
                     {
-                        int idProducto = (int)Session["ID"];
-                        CargarProductos(idProducto);
-                        CargarImagenes(idProducto);
-                        pnlImagenes.Visible = true; //si hay id del producto podra agregar y ver las imgs
+                        try
+                        {
+
+                            CargarProductos(idProducto);
+                            CargarImagenes(idProducto);
+                            pnlImagenes.Visible = true; //si hay id del producto podra agregar y ver las imgs
+                        }
+                        catch (FormatException)
+                        {
+                            pnlImagenes.Visible = false;
+                        }
                     }
-                    catch (FormatException)
+                    else
                     {
                         pnlImagenes.Visible = false;
                     }
                 }
-                else
-                {
-                    pnlImagenes.Visible = false;
-                }
             }
-        }
+            }
         public void CargarMarcas()
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
@@ -133,7 +140,46 @@ namespace TPCGrupo8A
             lblErrorStock.Visible = false;
             lblErrorPrecio.Visible = false;
             lblErrorCodigo.Visible = false;
+            lblErrorMarca.Visible = false;
+            lblErrorCategoria.Visible = false;
+
+            bool esEdicion = Session["ID"] != null;
+
+            if (!esEdicion && string.IsNullOrEmpty(txtCodigo.Text))
+            {
+                lblErrorCodigo.Text = "El código no puede quedar vacío";
+                lblErrorCodigo.Visible = true;
+                return;
+            }
+
+            if (!esEdicion && string.IsNullOrEmpty(txtPrecio.Text)) {
+                lblErrorPrecio.Text = "El precio no puede quedar vacío";
+                lblErrorPrecio.Visible = true;
+                return;
+            }
+
             
+            if (!esEdicion && string.IsNullOrEmpty(txtStock.Text))
+            {
+                lblErrorStock.Text = "El stock no puede quedar vacío";
+                lblErrorStock.Visible = true;
+                return;
+            }
+
+            if (!esEdicion && string.IsNullOrWhiteSpace(txtMarca.Text))
+            {
+                lblErrorMarca.Text = "Debe seleccionar una marca";
+                lblErrorMarca.Visible = true;
+                return;
+            }
+
+            if (!esEdicion && string.IsNullOrWhiteSpace(txtCategoria.Text))
+            {
+                lblErrorCategoria.Text = "Debe seleccionar una categoría";
+                lblErrorCategoria.Visible = true;
+                return;
+            }
+
             producto.Marca = new Marca();
             if (ddlMarcas != null)
             {
@@ -144,33 +190,17 @@ namespace TPCGrupo8A
             {
                 producto.Categoria.ID = int.Parse(ddlCategorias.SelectedValue);
             }
-            if (string.IsNullOrEmpty(txtCodigo.Text))
-            {
-                lblErrorCodigo.Text = "El código no puede quedar vacío";
-                lblErrorCodigo.Visible = true;
-                return;
-            }
-
-            if (string.IsNullOrEmpty(txtPrecio.Text)) {
-                lblErrorPrecio.Text = "El precio no puede quedar vacío";
-                lblErrorPrecio.Visible = true;
-                return;
-            }
-
-            
-            if (string.IsNullOrEmpty(txtStock.Text))
-            {
-                lblErrorStock.Text = "El stock no puede quedar vacío";
-                lblErrorStock.Visible = true;
-                return;
-            }
 
             producto.Codigo = txtCodigo.Text;
             producto.Nombre = txtNombre.Text;
             producto.Descripcion = txtDescripcion.Text;
             producto.Precio = (float)decimal.Parse(txtPrecio.Text);
             producto.Stock = int.Parse(txtStock.Text);
-            
+
+            if (esEdicion)
+            {
+                producto.ID = (int)Session["ID"];
+            }
 
             if (!VerificarSiExiste(producto))
             {
@@ -181,9 +211,9 @@ namespace TPCGrupo8A
             lblExito.Visible = true;
             lblExito.ForeColor = System.Drawing.Color.Green;
 
-            if (Session["ID"] != null)
+            if (producto.ID > 0)
             {
-                producto.ID = (int)Session["ID"];
+
                 productoNegocio.editar(producto);
                 pnlImagenes.Visible = true;
                 Session["ID"] = "";
@@ -194,6 +224,9 @@ namespace TPCGrupo8A
                 Session["ID"] = (int)productoNegocio.ObtenerUltimoIdProducto();
                 pnlImagenes.Visible = true;
             }
+
+            Session["ID"] = null;
+
             var siteMaster = (SiteMaster)this.Master;
             if (siteMaster != null)
             {
@@ -311,14 +344,13 @@ namespace TPCGrupo8A
             lblErrorPrecio.Visible = false;
             ProductoNegocio productoNegocio = new ProductoNegocio();
 
-            // Verificar si el código ya existe en la base de datos
-            if (productoNegocio.ObtenerArticuloPorCodigo(producto.Codigo) != null)
+           
+            if (producto.ID == 0 && productoNegocio.ObtenerArticuloPorCodigo(producto.Codigo) != null)
             {
                 lblErrorCodigo.Text = "El código ya existe.";
                 lblErrorCodigo.Visible = true;
                 return false;
             }
-
 
             if (producto.Stock <= 0)
             {
@@ -326,10 +358,6 @@ namespace TPCGrupo8A
                 lblErrorStock.Visible = true;
                 return false;
             }
-            
-            
-            
-
 
             if (producto.Precio <= 0)
                 {
@@ -339,7 +367,7 @@ namespace TPCGrupo8A
                     return false;
             }
             
-
+           
                 return true;
             }
         }
