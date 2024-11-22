@@ -37,7 +37,7 @@ namespace TPCGrupo8A
                     }
                     catch (FormatException)
                     {
-                        pnlImagenes.Visible = false; 
+                        pnlImagenes.Visible = false;
                     }
                 }
                 else
@@ -84,7 +84,7 @@ namespace TPCGrupo8A
         }
         public void CargarCategorias()
         {
-            CategoriaNegocio categoriaNegocio= new CategoriaNegocio();
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
             List<Categoria> categorias = categoriaNegocio.listar();
 
             ddlCategorias.Items.Clear();
@@ -119,34 +119,54 @@ namespace TPCGrupo8A
             }
         }
 
-      
+
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            Producto producto = new Producto(); 
+            Producto producto = new Producto();
             ProductoNegocio productoNegocio = new ProductoNegocio();
-            
 
-
-            producto.Codigo = txtCodigo.Text;
-            producto.Nombre = txtNombre.Text;
-            producto.Descripcion = txtDescripcion.Text;
             lblExito.Visible = false;
-
-
-
+            lblErrorStock.Visible = false;
+            lblErrorPrecio.Visible = false;
+            lblErrorCodigo.Visible = false;
+            
             producto.Marca = new Marca();
-            if(ddlMarcas != null)
+            if (ddlMarcas != null)
             {
                 producto.Marca.ID = int.Parse(ddlMarcas.SelectedValue);
             }
             producto.Categoria = new Categoria();
-            if(ddlCategorias!= null)
+            if (ddlCategorias != null)
             {
                 producto.Categoria.ID = int.Parse(ddlCategorias.SelectedValue);
             }
+            if (string.IsNullOrEmpty(txtCodigo.Text))
+            {
+                lblErrorCodigo.Text = "El código no puede quedar vacío";
+                lblErrorCodigo.Visible = true;
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtPrecio.Text)) {
+                lblErrorPrecio.Text = "El precio no puede quedar vacío";
+                lblErrorPrecio.Visible = true;
+                return;
+            }
+
+            
+            if (string.IsNullOrEmpty(txtStock.Text))
+            {
+                lblErrorStock.Text = "El stock no puede quedar vacío";
+                lblErrorStock.Visible = true;
+                return;
+            }
+
+            producto.Codigo = txtCodigo.Text;
+            producto.Nombre = txtNombre.Text;
+            producto.Descripcion = txtDescripcion.Text;
             producto.Precio = (float)decimal.Parse(txtPrecio.Text);
-            //producto.Imagenes = txtImagenUrl.Text;
             producto.Stock = int.Parse(txtStock.Text);
+            
 
             if (!VerificarSiExiste(producto))
             {
@@ -183,18 +203,18 @@ namespace TPCGrupo8A
         {
             ProductoNegocio productoNegocio = new ProductoNegocio();
             Producto producto = productoNegocio.ObtenerIdProducto(idProducto);
-             
-            if(producto != null)
+
+            if (producto != null)
             {
                 txtCodigo.Text = producto.Codigo != null ? producto.Codigo.ToString() : "";
                 txtNombre.Text = producto.Nombre;
                 txtDescripcion.Text = producto.Descripcion;
                 txtPrecio.Text = producto.Precio.ToString();
                 txtStock.Text = producto.Stock.ToString();
-                if(producto.Marca != null)
-                ddlMarcas.SelectedValue = producto.Marca.ID.ToString();
-                if(producto.Categoria != null)
-                ddlCategorias.SelectedValue = producto.Categoria.ID.ToString();
+                if (producto.Marca != null)
+                    ddlMarcas.SelectedValue = producto.Marca.ID.ToString();
+                if (producto.Categoria != null)
+                    ddlCategorias.SelectedValue = producto.Categoria.ID.ToString();
             }
             var siteMaster = (SiteMaster)this.Master;
             if (siteMaster != null)
@@ -208,7 +228,7 @@ namespace TPCGrupo8A
             ImagenNegocio imagenNegocio = new ImagenNegocio();
             List<Imagen> imagenes = imagenNegocio.imagenesxProducto(idProducto);
 
-            if(imagenes != null && imagenes.Count > 0)
+            if (imagenes != null && imagenes.Count > 0)
             {
                 rptImagenes.DataSource = imagenes;
                 rptImagenes.DataBind();
@@ -230,8 +250,8 @@ namespace TPCGrupo8A
                 {
                     Imagen imagenNueva = new Imagen();
                     imagenNueva.IdProducto = idProducto;
-                    imagenNueva.ImagenUrl = imagenUrl;  
-                
+                    imagenNueva.ImagenUrl = imagenUrl;
+
                     ImagenNegocio imagenNegocio = new ImagenNegocio();
                     imagenNegocio.agregar(imagenNueva);
 
@@ -251,7 +271,7 @@ namespace TPCGrupo8A
         {
             try
             {
-                ImagenNegocio imagenNegocio= new ImagenNegocio();
+                ImagenNegocio imagenNegocio = new ImagenNegocio();
                 int idImagen = Convert.ToInt32(e.CommandArgument);
                 imagenNegocio.eliminar(idImagen);
                 int idProducto = (int)Session["ID"];
@@ -283,28 +303,31 @@ namespace TPCGrupo8A
             {
                 lblErrorCodigo.Text = "El código ya existe.";
                 lblErrorCodigo.Visible = true;
-                
                 return false;
             }
-            
-            if(producto.Stock <= 0)
+
+
+            if (producto.Stock <= 0)
             {
                 lblErrorStock.Text = "El stock no puede ser negativo.";
                 lblErrorStock.Visible = true;
                 return false;
             }
-
             
+            
+            
+
+
             if (producto.Precio <= 0)
-            {
-                lblErrorPrecio.Text = "El precio no puede ser negativo. ";
-                lblErrorPrecio.Visible = true;
+                {
+                    lblErrorPrecio.Text = "El precio no puede ser negativo. ";
+                    lblErrorPrecio.Visible = true;
 
-                return false; 
+                    return false;
             }
+            
 
-
-            return true;
+                return true;
+            }
         }
     }
-}
