@@ -8,7 +8,7 @@
         <div class="mb-3 ">
             <asp:Label CssClass="form-label lbldatos" ID="lblCodigo" runat="server" Text="Codigo:"></asp:Label>
             <asp:TextBox CssClass="txtdatos" ID="txtCodigo" runat="server" placeholder="Código del Producto"></asp:TextBox>
-            <asp:Label ID="lblErrorCodigo" runat="server" Forecolor="red" Visible="false"></asp:Label>
+            <asp:Label ID="lblErrorCodigo" runat="server" Forecolor="red" Visible="false" Enabled="false"></asp:Label>
         </div>
         <div class="mb-3">
             <asp:Label CssClass="form-label lbldatos" ID="lblNombre" runat="server" Text="Nombre:"></asp:Label>
