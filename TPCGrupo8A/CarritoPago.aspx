@@ -64,52 +64,37 @@
             </asp:Repeater>--%>
 
 
-    <div class="container mt-5">
+    <div class="container mt-5 ">
         <div class="row">
-            <div class="col-md-12">
-                <asp:Repeater ID="RepeaterCarrito" runat="server">
-                    <itemtemplate>
+            <div class="col-md-12 rpt-carrito">
+                <asp:Repeater ID="RepeaterCarrito" runat="server" >
+                    <ItemTemplate>
                         <div class="carrito-item">
                             <div>
+                                <div class="repeater-imagen">
+                                    <img src='<%# Eval("Imagenes[0].ImagenUrl", "{0}") %>' class="card-img-top img-fluid" alt="Imagen del artículo">
+                                </div>
                                 <asp:Label ID="lblNombre" runat="server" Text='<%# Eval("producto.Nombre") %>' />
-                                <asp:Label ID="lblPrecio" runat="server" Text='<%# "Precio: $" + Eval("producto.Precio") %>' />
+                                <asp:Label ID="lblPrecio" runat="server" Text='<%# "Precio: $" + Eval("Total") %>' />
                             </div>
-                            <div class="input-group">
+                            <div class="input-group ">
                                 <label for="txtCantidad">Cantidad:</label>
-                                <asp:TextBox CssClass="form-control" ID="txtCantidad" runat="server" Text='<%# Eval("Cantidad") %>' TextMode="Number" Min="0" Max='<%# Eval("Stock") %>' />
+                                <asp:TextBox CssClass="form-control spinner-cantidad" ID="txtCantidad" runat="server" Text='<%# Eval("Cantidad") %>' TextMode="Number" Min="0" Max='<%# Eval("Stock") %>' />
                                 <asp:Label ID="lblError" runat="server" ForeColor="Red" Visible="false" Text="Error: Cantidad no válida." />
                             </div>
                         </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+                <div class="totalCarrito mt-5">
+                    <h3>Total Carrito:<asp:Label ID="totalCarritoLabel" runat="server" Text="Total: $0.00" /></h3>
+                    <%--     <asp:Button Text="Finalizar Compra" runat="server" OnClick="FinalizarCompra_Click" />--%>
+                </div>
+
             </div>
         </div>
-        </ItemTemplate>
-</asp:Repeater>
-
     </div>
-    </div>
-
-
-
-    </div>
-</div>
-
-
-
-            <div class="totalCarrito">
-                <h3>Total:</h3>
-                <asp:Label ID="totalCarritoLabel" runat="server" Text="Total: $0.00" />
-            </div>
-    </div>
-  
-
-             <div class="totalCarrito mt-4">
-                 <h3>Total Carrito: $<span id="totalCarrito" runat="server"></span></h3>
-                 <%--     <asp:Button Text="Finalizar Compra" runat="server" OnClick="FinalizarCompra_Click" />--%>
-             </div>
-
-
     <!--  datos del comprador -->
-    <form>
+    <div class="container mt-5">
         <div class="form-group">
             <label for="nombre">Nombre:</label>
             <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Ingresa tu nombre" required=""></asp:TextBox>
@@ -167,18 +152,11 @@
 
         <!-- boton confirmar pago -->
         <%--   <button type="submit" class="btn btn-color btn-block">Confirmar Pago</button>--%>
-        <asp:Button ID="btnConfirmarPago" CssClass="btn btn-color btn-block" Text="Confirmar Pago" OnClick="btnConfirmarPago_Click" runat="server" />
-
-
-
-
-    </form>
-
-    <!-- boton seelcciona otro articulo -->
-    <asp:Button ID="btnSeleccionarOtro" runat="server" CssClass="btn btn-color btn-block" Text="Selecciona otro artículo" OnClick="btnSeleccionarOtro_Click" UseSubmitBehavior="false" />
-
-
-
-
-
+        <div style="margin: 5px">
+            <asp:Button ID="btnConfirmarPago" CssClass="btn btn-color btn-block" Text="Confirmar Pago" OnClick="btnConfirmarPago_Click" runat="server" />
+        </div>
+        <div style="margin: 5px">
+            <asp:Button ID="btnSeleccionarOtro" runat="server" CssClass="btn btn-color btn-block" Text="Selecciona otro artículo" OnClick="btnSeleccionarOtro_Click" UseSubmitBehavior="false" />
+        </div>
+    </div>
 </asp:Content>

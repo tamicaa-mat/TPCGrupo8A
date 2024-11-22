@@ -89,6 +89,14 @@ namespace Negocio
                         detallePedido.PrecioUnitario = (float)(decimal)datos.Lector["Precio"];
                         detallePedido.Cantidad = 1;
                         detallePedido.Stock = (int)datos.Lector["Stock"];
+                        if (!(datos.Lector["ImagenUrl"] is DBNull))
+                        {
+                            detallePedido.Imagenes.Add(new Imagen(datos.Lector["ImagenUrl"].ToString()));
+                        }
+                        else
+                        {
+                            detallePedido.Imagenes.Add(new Imagen("https://path/to/default/image.jpg"));
+                        }
 
                         lista.Add(detallePedido);
                     }

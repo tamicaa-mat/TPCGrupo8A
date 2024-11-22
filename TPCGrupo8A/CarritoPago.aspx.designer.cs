@@ -33,15 +33,6 @@ namespace TPCGrupo8A
         protected global::System.Web.UI.WebControls.Label totalCarritoLabel;
 
         /// <summary>
-        /// totalCarrito control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl totalCarrito;
-
-        /// <summary>
         /// txtNombre control.
         /// </summary>
         /// <remarks>

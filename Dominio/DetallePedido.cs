@@ -11,7 +11,8 @@ namespace Dominio
         public Producto Producto { get; set; }
         public int Cantidad { get; set; }
         public float PrecioUnitario { get; set; }
-        public Imagen ImagenUrl { get; set; }
+        public string ImagenUrl { get; set; }
+        public List<Imagen> Imagenes { get; set; } = new List<Imagen>();
         public string Nombre { get; set; }
 
         public int  Stock { get; set; }
@@ -23,11 +24,12 @@ namespace Dominio
             }
         }
         public DetallePedido() { }
-        public DetallePedido(Producto produco, int cantidad, float precioUnitario) 
+        public DetallePedido(Producto produco, int cantidad, float precioUnitario, string imagenUrl) 
         { 
             Producto = produco;
             Cantidad = cantidad;
             PrecioUnitario = precioUnitario;
+            ImagenUrl = imagenUrl;
         }
     }
 }

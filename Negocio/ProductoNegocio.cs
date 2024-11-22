@@ -128,10 +128,10 @@ namespace Negocio
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta("UPDATE Productos SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, " +
+                datos.setearConsulta("UPDATE Productos SET Nombre = @Nombre, Descripcion = @Descripcion, " +
                                      "Precio  = @Precio, Stock = @Stock, IdMarca = @IdMarca, IdCategoria = @IdCategoria " +
                                      "WHERE IdProducto = @IdProducto");
-                datos.SetearParametro("@Codigo", producto.Codigo);
+                //datos.SetearParametro("@Codigo", producto.Codigo);
                 datos.SetearParametro("@Nombre", producto.Nombre);
                 datos.SetearParametro("@Descripcion", producto.Descripcion);
                 datos.SetearParametro("@Precio", producto.Precio);
