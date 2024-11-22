@@ -34,7 +34,7 @@ namespace TPCGrupo8A
                 else if (Request.QueryString["marcaId"] != null)
                 {
                     int marcaId = int.Parse(Request.QueryString["marcaId"]);
-                    CargarProductosPorMarca(marcaId);
+                    CargarProductosPorMarca(marcaId);///
                 }
             }
         }

@@ -652,6 +652,7 @@ number-control {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
+    border-bottom: 1px solid #d95030;
 }
 
 .carrito-total {
@@ -720,4 +721,30 @@ number-control {
 
 .classComprar {
     background-color: #d95030;
+}
+
+/*---- cantd ---*/
+.spinner-cantidad {
+    width: 15px;
+    height: 25px;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    position: relative;
+    display: flex;
+    width: 50%;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+.repeater-imagen {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 5px;
+}
+.rpt-carrito {
+    border: 1px solid #ccc;
 }

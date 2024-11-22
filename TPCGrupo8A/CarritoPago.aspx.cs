@@ -111,15 +111,30 @@ namespace TPCGrupo8A
               
             }
 
+            try
+            {
+                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                ClienteNegocio clienteNegocio = new ClienteNegocio();
+
+                int idUsuario = usuarioNegocio.ObtenerIdUsuarioPorEmail(email);
+
+                clienteNegocio.RegistrarComoCliente(
+                    idUsuario,
+                    txtApellido.Text,
+                    txtNombre.Text,
+                    txtDireccion.Text,
+                    txtTelefono.Text
+                );
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
             PedidoNegocio pedidoNegocio = new PedidoNegocio();
             pedidoNegocio.RegistroPedido(productosCarrito, email);
-
-
-
         }
-
-
 
         // PARA LAS CAJAS DE cliente VALIDACIONES
 
