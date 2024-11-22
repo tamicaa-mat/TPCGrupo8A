@@ -4,21 +4,6 @@
 
    <div class="container">
     
-    <div class="row justify-content-center">
-        <div class="col-auto">
-            <div class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Perfil</button>
-                
-                <button class="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-disabled" type="button" role="tab" aria-controls="pills-disabled" aria-selected="false" disabled>Disabled</button>
-                <button class="nav-link" id="pills-messages-tab" data-bs-toggle="pill" data-bs-target="#pills-messages" type="button" role="tab" aria-controls="pills-messages" aria-selected="false">Messages</button>
-                <button class="nav-link" id="pills-settings-tab" data-bs-toggle="pill" data-bs-target="#pills-settings" type="button" role="tab" aria-controls="pills-settings" aria-selected="false">Settings</button>
-            </div>
-        </div>
-    </div>
-
-   
-    <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             
             
             <main id="perfil">
@@ -74,21 +59,7 @@
                 <asp:Button ID="btnGuardar" runat="server" Text="Guardar Cambios" CssClass="btn-bd-primary-Personalizado-violeta" OnClick="btnGuardarPerfilOnClick" />
                 <%--//tendra una opcion de editar perfil y ahi guardara los cambios de ser necesario--%>
             </main>
-        </div>
         
-        <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab">
-            <h1>Disabled</h1>
-            
-        </div>
-        <div class="tab-pane fade" id="pills-messages" role="tabpanel" aria-labelledby="pills-messages-tab">
-            <h1>Messages</h1>
-            
-        </div>
-        <div class="tab-pane fade" id="pills-settings" role="tabpanel" aria-labelledby="pills-settings-tab">
-            <h1>Settings</h1>
-           
-        </div>
-    </div>
 </div>
 
 

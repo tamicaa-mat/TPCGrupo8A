@@ -1,8 +1,9 @@
 ﻿ <%@ Page Title="Tienda" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TPCGrupo8A._Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
+      
     <main>
+        
         <div class="img-card">
             <img src="./assets/fondo.jpeg" alt="fondo" style="width: 100%; height: auto;" />
             
