@@ -64,7 +64,7 @@
             </asp:Repeater>--%>
 
 
-    <div class="container mt-5 ">
+    <%--<div class="container mt-5 ">
         <div class="row">
             <div class="col-md-12 rpt-carrito">
 
@@ -89,11 +89,44 @@
                 <div class="totalCarrito mt-5">
                     <h3>Total Carrito:<asp:Label ID="totalCarritoLabel" runat="server" Text="Total: $0.00" /></h3>
                     <%--     <asp:Button Text="Finalizar Compra" runat="server" OnClick="FinalizarCompra_Click" />--%>
-                </div>
+    <%--            </div>
 
             </div>
         </div>
+    </div>--%>
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12 rpt-carrito">
+            <div class="scroll-container"> <%-- scroll --%>
+                <asp:Repeater ID="RepeaterCarrito" runat="server">
+                    <ItemTemplate>
+                        <div class="carrito-item">
+                            <div class="repeater-imagen">
+                                <img src='<%# Eval("Imagenes[0].ImagenUrl", "{0}") %>' class="producto-img" alt="Imagen del artículo">
+                            </div>
+                            <div class="producto-info">
+                                <asp:Label ID="lblNombre" runat="server" Text='<%# Eval("producto.Nombre") %>' CssClass="producto-nombre" />
+                                <asp:Label ID="lblPrecio" runat="server" Text='<%# "Precio: $" + Eval("Total") %>' CssClass="producto-precio" />
+                            </div>
+                            <div class="input-group">
+                                <label for="txtCantidad">Cantidad:</label>
+                                <asp:TextBox CssClass="form-control spinner-cantidad" ID="txtCantidad" runat="server" Text='<%# Eval("Cantidad") %>' TextMode="Number" Min="0" Max='<%# Eval("Stock") %>' />
+                                <asp:Label ID="lblError" runat="server" ForeColor="Red" Visible="false" Text="Error: Cantidad no válida." />
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+            <div class="totalCarrito mt-5">
+                <h3>Total Carrito:<asp:Label ID="totalCarritoLabel" runat="server" Text="Total: $0.00" /></h3>
+            </div>
+        </div>
     </div>
+</div>
+
+
    <%-- <!--  datos del comprador -->
     <div class="container mt-5">
         <div class="form-group">

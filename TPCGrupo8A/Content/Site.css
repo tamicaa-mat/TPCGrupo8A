@@ -748,3 +748,45 @@ number-control {
 .rpt-carrito {
     border: 1px solid #ccc;
 }
+
+/*--------- carrito ---------*/
+.scroll-container { /*-- scroll*/
+    max-height: 400px; 
+    overflow-y: auto; 
+    border: 1px solid #ddd; 
+    padding: 10px; 
+}
+
+.carrito-item {
+    display: flex; 
+    align-items: center;
+    margin-bottom: 15px; 
+    /*border-bottom: 1px solid #ccc;*/ 
+    padding-bottom: 10px;
+}
+
+.repeater-imagen {
+    margin-right: 15px; 
+}
+
+.producto-img {
+    width: 150px; 
+    height: 150px; 
+    object-fit: cover; 
+    border-radius: 5px; 
+    border: 1px solid #ddd; 
+}
+
+.producto-info {
+    display: flex;
+    flex-direction: column; 
+}
+
+.producto-nombre {
+    font-weight: bold;
+    margin-bottom: 5px; 
+}
+
+.producto-precio {
+    color: #888; 
+}
