@@ -45,7 +45,7 @@ CREATE TABLE Usuarios (
     Apellido VARCHAR(100) NOT NULL,
     Nombre VARCHAR(100) NOT NULL,
     Email VARCHAR(150) NOT NULL UNIQUE,
-    Contraseña VARCHAR(150) NOT NULL,
+    ContraseÃ±a VARCHAR(150) NOT NULL,
     FechaAlta DATETIME NOT NULL DEFAULT GETDATE(),
     FechaNacimiento DATETIME NULL,
 	TipoUsuario INT NOT NULL
@@ -128,7 +128,7 @@ BEGIN
     BEGIN CATCH
         IF @@TRANCOUNT > 0
             ROLLBACK TRANSACTION;
-        PRINT 'Error: Ocurrió un problema al eliminar el producto y sus imágenes.';
+        PRINT 'Error: OcurriÃ³ un problema al eliminar el producto y sus imÃ¡genes.';
     END CATCH
 END;
 GO
@@ -140,7 +140,7 @@ BEGIN
 		UPDATE Productos
 		SET Estado = 0
 		WHERE IdProducto = @idProducto;
-		PRINT 'PRODUCTO ELIMINADO (ELIMINACIÓN LOGICA)'
+		PRINT 'PRODUCTO ELIMINADO (ELIMINACIÃ“N LOGICA)'
 	END TRY
 	BEGIN CATCH
 		PRINT 'ERROR: NO SE PUDO ELIMINAR EL PRODUCTO'
@@ -157,23 +157,23 @@ BEGIN
         -- Verificar si la marca con el ID proporcionado existe
         IF EXISTS(SELECT 1 FROM Marcas WHERE IdMarca = @IDMARCA)
         BEGIN
-            -- Actualizar el estado de la marca para realizar la eliminación lógica
+            -- Actualizar el estado de la marca para realizar la eliminaciÃ³n lÃ³gica
             UPDATE Marcas 
             SET Estado = 0  
             WHERE IdMarca = @IDMARCA;
 
-            PRINT 'Marca eliminada lógicamente con éxito.';
+            PRINT 'Marca eliminada lÃ³gicamente con Ã©xito.';
         END
         ELSE
         BEGIN
             PRINT 'ERROR: No hay una marca asociada a ese ID';
         END
 
-        -- Confirmar la transacción si no hubo problemas
+        -- Confirmar la transacciÃ³n si no hubo problemas
         COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH 
-        -- Deshacer la transacción en caso de error y levantar un error personalizado
+        -- Deshacer la transacciÃ³n en caso de error y levantar un error personalizado
         IF @@TRANCOUNT > 0
             ROLLBACK TRANSACTION;
 
@@ -208,23 +208,23 @@ BEGIN
         -- Verificar si la marca con el ID proporcionado existe
         IF EXISTS(SELECT 1 FROM Categorias WHERE IdCategoria = @IDCATEGORIA)
         BEGIN
-            -- Actualizar el estado de la marca para realizar la eliminación lógica
+            -- Actualizar el estado de la marca para realizar la eliminaciÃ³n lÃ³gica
             UPDATE Categorias 
             SET Estado = 0  
             WHERE IdCategoria = @IDCATEGORIA;
 
-            PRINT 'Categoria eliminada lógicamente con éxito.';
+            PRINT 'Categoria eliminada lÃ³gicamente con Ã©xito.';
         END
         ELSE
         BEGIN
             PRINT 'ERROR: No hay una Categoria asociada a ese ID';
         END
 
-        -- Confirmar la transacción si no hubo problemas
+        -- Confirmar la transacciÃ³n si no hubo problemas
         COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH 
-        -- Deshacer la transacción en caso de error y levantar un error personalizado
+        -- Deshacer la transacciÃ³n en caso de error y levantar un error personalizado
         IF @@TRANCOUNT > 0
             ROLLBACK TRANSACTION;
 
@@ -297,13 +297,13 @@ VALUES
 GO
 
 SET DATEFORMAT 'YMD';
-INSERT INTO Usuarios (Apellido, Nombre, Email, Contraseña, TipoUsuario)
+INSERT INTO Usuarios (Apellido, Nombre, Email, ContraseÃ±a, TipoUsuario)
 VALUES 
 ('Administrador', 'Admin', 'administrador@email.com', 'admin123', 1);
 GO
 
 SET DATEFORMAT 'YMD';
-INSERT INTO Usuarios (Apellido, Nombre, Email, Contraseña, FechaAlta, FechaNacimiento, TipoUsuario)
+INSERT INTO Usuarios (Apellido, Nombre, Email, ContraseÃ±a, FechaAlta, FechaNacimiento, TipoUsuario)
 VALUES 
 ('Simpson', 'Homero', 'h.simpson@email.com', 'homer123', DEFAULT, '1980-05-12', 0);
 GO
@@ -319,11 +319,11 @@ GO
 INSERT INTO Productos(Codigo, Nombre, Descripcion, Precio, IdCategoria, IdMarca,Stock)
 VALUES 
 ('REM003','Remera Lisa',' Verde Cuello Redondo',$23663,1,1,10),
-('REM004','Remera Naranja','Remera naranja,cuello redondo, algodón',$56000,1,2,5),
-('CAM003','Camisa','Camisa de algodón 100%, blanca rayas negras',$63000,2,1,3),
-('CAM004','Camisa','Camisa de licra 10% y algodón 90% rosa',$23663,2,1,4),
-('PAN003','Pantalon','Pantalón jogger azul algodón,bolsillos y cordón',$86000,3,2,6),
-('PAN004','Pantalon','Pantalón jogger gris claro,bolsillos y cordón',$95660,3,2,2),
+('REM004','Remera Naranja','Remera naranja,cuello redondo, algodÃ³n',$56000,1,2,5),
+('CAM003','Camisa','Camisa de algodÃ³n 100%, blanca rayas negras',$63000,2,1,3),
+('CAM004','Camisa','Camisa de licra 10% y algodÃ³n 90% rosa',$23663,2,1,4),
+('PAN003','Pantalon','PantalÃ³n jogger azul algodÃ³n,bolsillos y cordÃ³n',$86000,3,2,6),
+('PAN004','Pantalon','PantalÃ³n jogger gris claro,bolsillos y cordÃ³n',$95660,3,2,2),
 ('REM005','Remera Lisa','Cuello Redondo, algodon 90%',$23663,1,3,5),
 ('REM006','Remera Lacoste','Nueva Temporada',$126000,1,3,6),
 ('CAM005','Camisa Lacoste','Camisa de algodon ',$33000,2,3,2),
@@ -372,7 +372,7 @@ GO
 --    IF @IdUsuario IS NULL
 --    BEGIN
 --        PRINT 'Usuario no encontrado';
---        RAISERROR('No se encontró un usuario con ese email.', 16, 1);
+--        RAISERROR('No se encontrÃ³ un usuario con ese email.', 16, 1);
 --        RETURN;
 --    END
 
@@ -381,7 +381,7 @@ GO
 --    INSERT INTO Clientes (IdUsuario, Nombre, Apellido, Direccion, Email, Telefono)
 --    VALUES (@IdUsuario, @Nombre, @Apellido, @Direccion, @Email, @Telefono);
 
---    PRINT 'Inserción completada';
+--    PRINT 'InserciÃ³n completada';
 --END
 
 --CREATE TABLE Pedidos (
@@ -394,3 +394,32 @@ GO
 --    Estado VARCHAR(50) NOT NULL
 --);
 --GO
+
+ALTER TABLE Clientes
+ALTER COLUMN Telefono VARCHAR(20) NOT NULL;
+
+GO
+
+
+INSERT INTO Clientes (IdUsuario, IdPedido, Direccion, Telefono, TipoUsuario)
+VALUES 
+(1, NULL, 'Av. Principal 123', 1234567890, 1),
+(2, NULL, 'Calle Secundaria 45', 9876543210, 1)
+
+GO
+
+INSERT INTO Pedidos (IdUsuario, MontoTotal, Estado)
+VALUES 
+(1, 1500.00, 'Pendiente'),
+(2, 2000.50, 'Entregado')
+
+GO
+
+UPDATE Clientes
+SET IdPedido = Pedidos.IdPedido
+FROM Clientes
+INNER JOIN Pedidos
+ON Clientes.IdUsuario = Pedidos.IdUsuario;
+
+DELETE FROM Pedidos
+WHERE IdPedido = 1;

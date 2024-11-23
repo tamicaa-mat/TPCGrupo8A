@@ -124,7 +124,7 @@ namespace Negocio
             try
             {
                 
-                string consulta = "SELECT IdPedido AS Numero, FechaPedido as Fecha, IdCliente AS Cliente, Monto AS Importe, Estado FROM Pedidos";
+                string consulta = "SELECT IdPedido AS Numero, Fecha, IdUsuario AS Cliente, MontoTotal AS Importe, Estado FROM Pedidos";
                 if (!string.IsNullOrEmpty(estadoFiltro))
                 {
                     consulta += " WHERE Estado = @Estado";
