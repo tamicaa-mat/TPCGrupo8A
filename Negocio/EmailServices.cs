@@ -25,6 +25,7 @@ namespace Negocio
 
         public void armarCorreo(string emailDestino, string asunto, string cuerpo, string emailRemitente)
         {
+            if(string.IsNullOrEmpty(emailDestino) || string.IsNullOrEmpty(asunto) || string.IsNullOrEmpty(cuerpo) || string.IsNullOrEmpty(emailRemitente)) { return; }
             email = new MailMessage();
             email.From = new MailAddress(emailRemitente); // Usa el correo ingresado como remitente
             email.To.Add(emailDestino);
