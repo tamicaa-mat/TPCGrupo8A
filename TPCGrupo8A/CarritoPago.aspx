@@ -1,9 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CarritoPago.aspx.cs" Inherits="TPCGrupo8A.CarritoPago" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-
-
     <style>
         .btn-color {
             background-color: #FA8072;
@@ -40,61 +37,7 @@
         }
     </style>
 
-
-
-
     <h2 class="mb-4">Información de Compra</h2>
-
-    <%-- <asp:Repeater ID="RepeaterCarrito" runat="server">
-                <ItemTemplate>
-                    <div class="producto">
-                        <h4><%# Eval("Producto.Nombre") %></h4>
-                        <%--<img src='<%# Eval("Imagen.ImagenUrl) %>' alt="Producto" width="100" />--%>
-    <%--en proceso--%>
-    <%--<asp:Label ID="lblImagenUrl" runat="server" Text='<%# Eval("Producto.imagen") %>' />--%>
-    <%--  <p>Precio: $<%# Eval("PrecioUnitario") %></p>
-
-                        <div class="input-group mb-3 lbldatos">
-                            <asp:Label CssClass="lbldatos" ID="lblStock" runat="server" Text="Cantidad:">
-                                <asp:TextBox CssClass="txtdatos" ID="txtCantidad" runat="server" Text='<%# Eval("Cantidad") %>' TextMode="Number" Step="1" />
-                            </asp:Label>
-                        </div>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>--%>
-
-
-    <%--<div class="container mt-5 ">
-        <div class="row">
-            <div class="col-md-12 rpt-carrito">
-
-                <asp:Repeater ID="RepeaterCarrito" runat="server" >
-                    <ItemTemplate>
-                        <div class="carrito-item">
-                            <div>
-                                <div class="repeater-imagen">
-                                    <img src='<%# Eval("Imagenes[0].ImagenUrl", "{0}") %>' class="card-img-top img-fluid" alt="Imagen del artículo">
-                                </div>
-                                <asp:Label ID="lblNombre" runat="server" Text='<%# Eval("Nombre") %>' />
-                                <asp:Label ID="lblPrecio" runat="server" Text='<%# "Precio: $" + Eval("Total") %>' />
-                            </div>
-                            <div class="input-group ">
-                                <label for="txtCantidad">Cantidad:</label>
-                                <asp:TextBox CssClass="form-control spinner-cantidad" ID="txtCantidad" runat="server" Text='<%# Eval("Cantidad") %>' TextMode="Number" Min="0" Max='<%# Eval("Stock") %>' />
-                                <asp:Label ID="lblError" runat="server" ForeColor="Red" Visible="false" Text="Error: Cantidad no válida." />
-                            </div>
-                        </div>
-                    </ItemTemplate>
-                </asp:Repeater>
-                <div class="totalCarrito mt-5">
-                    <h3>Total Carrito:<asp:Label ID="totalCarritoLabel" runat="server" Text="Total: $0.00" /></h3>
-                    <%--     <asp:Button Text="Finalizar Compra" runat="server" OnClick="FinalizarCompra_Click" />--%>
-    <%--            </div>
-
-            </div>
-        </div>
-    </div>--%>
-
 
 <div class="container mt-5">
     <div class="row">
@@ -108,11 +51,11 @@
                             </div>
                             <div class="producto-info">
                                 <asp:Label ID="lblNombre" runat="server" Text='<%# Eval("producto.Nombre") %>' CssClass="producto-nombre" />
-                                <asp:Label ID="lblPrecio" runat="server" Text='<%# "Precio: $" + Eval("Total") %>' CssClass="producto-precio" />
+                                <asp:Label ID="lblPrecio" runat="server" Text='<%# "Precio: $" + Eval("PrecioUnitario") %>' CssClass="producto-precio" />
                             </div>
                             <div class="input-group">
                                 <label for="txtCantidad">Cantidad:</label>
-                                <asp:TextBox CssClass="form-control spinner-cantidad" ID="txtCantidad" runat="server" Text='<%# Eval("Cantidad") %>' TextMode="Number" Min="0" Max='<%# Eval("Stock") %>' />
+                                <asp:TextBox CssClass="form-control spinner-cantidad" ID="txtCantidad" runat="server" Text='<%# Eval("Cantidad") %>' TextMode="Number" Min="1" Max='<%# Eval("Stock") %>' AutoPostBack="true" OnTextChanged="ActualizarTotal" />
                                 <asp:Label ID="lblError" runat="server" ForeColor="Red" Visible="false" Text="Error: Cantidad no válida." />
                             </div>
                         </div>
@@ -120,7 +63,7 @@
                 </asp:Repeater>
             </div>
             <div class="totalCarrito mt-5">
-                <h3>Total Carrito:<asp:Label ID="totalCarritoLabel" runat="server" Text="Total: $0.00" /></h3>
+                <h3>Total Carrito:<asp:Label ID="totalCarritoLabel" runat="server" Text='<%#" $" + Eval("Total") %>'/></h3>
             </div>
         </div>
     </div>
@@ -192,5 +135,4 @@
         <div style="margin: 5px">
             <asp:Button ID="btnSeleccionarOtro" runat="server" CssClass="btn btn-color btn-block" Text="Selecciona otro artículo" OnClick="btnSeleccionarOtro_Click" UseSubmitBehavior="false" />
         </div>
-    </div>
 </asp:Content>

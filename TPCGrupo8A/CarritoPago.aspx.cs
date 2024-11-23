@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.DynamicData;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -177,6 +178,42 @@ namespace TPCGrupo8A
 
 
         //}
+        protected void ActualizarTotal(object sender, EventArgs e)//--Función para actualizar el total del carrito tomando por repeater el precio del producto y la cantidad
+        {
+            float totalCarrito = 0;
+
+            foreach (RepeaterItem item in RepeaterCarrito.Items)
+            {
+                TextBox txtCantidad = (TextBox)item.FindControl("txtCantidad");
+                Label lblPrecio = (Label)item.FindControl("lblPrecio");
+
+                if (txtCantidad != null && lblPrecio != null)
+                {
+                    if (int.TryParse(txtCantidad.Text, out int cantidad) && cantidad > 0) //--si la cant es valida prosigue
+                    {
+                        string precioTexto = lblPrecio.Text.Replace("Precio: $", "").Trim();
+                        if (float.TryParse(precioTexto, out float precioUnitario))
+                        {
+                            totalCarrito += precioUnitario * cantidad;
+                        }
+                        else
+                        {
+                            lblPrecio.Text = "Precio erroneo"; 
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        txtCantidad.Text = "1"; 
+                    }
+                }
+                else
+                {
+                    Response.Redirect("Error.aspx", false);
+                }
+            }
+            totalCarritoLabel.Text = $"Total: ${totalCarrito:F2}";//--Actualiza el total de todo el carrito
+        }
 
         protected void btnConfirmarPago_Click(object sender, EventArgs e)
         {

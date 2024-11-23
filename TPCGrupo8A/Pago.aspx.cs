@@ -43,16 +43,6 @@ namespace TPCGrupo8A
                    // lblError.Visible = true;
                 }
             }
-
-
-
-
-
         }
-
-
     }
-
-
-
 }

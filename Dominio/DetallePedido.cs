@@ -20,7 +20,7 @@ namespace Dominio
         {
             get
             {
-                return PrecioUnitario * Cantidad;
+                return (float)PrecioUnitario * (float)Cantidad;
             }
         }
         public DetallePedido() { }
