@@ -69,72 +69,93 @@ namespace TPCGrupo8A
         }
 
 
+        //protected void btnConfirmarPago_Click(object sender, EventArgs e)
+        //{
+        //    // Lista para guardar los productos seleccionados
+        //    List<Producto> productosCarrito = new List<Producto>();
+        //    string email = txtEmail.Text;
+
+        //    foreach (RepeaterItem item in RepeaterCarrito.Items)
+        //    {
+        //        if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+        //        {
+        //            // Encontrar los controles en el Repeater
+        //            Label lblNombre = item.FindControl("lblNombre") as Label;
+        //            Debug.WriteLine("NOMBRE " + lblNombre);
+        //            Label lblPrecio = item.FindControl("lblPrecio") as Label;
+        //            Debug.WriteLine("PRECIO " + lblPrecio);
+        //            TextBox txtCantidad = item.FindControl("Cantidad") as TextBox;
+        //            Debug.WriteLine("CANTIDAD " + txtCantidad);
+
+        //            if (txtCantidad != null)
+        //            {
+        //                string cantidadLimpia = txtCantidad.Text.Trim();
+        //                int cantidad;
+        //                if (int.TryParse(cantidadLimpia, out cantidad) && cantidad > 0)
+        //                {
+        //                    Producto producto = new Producto
+        //                    {
+        //                        Nombre = lblNombre.Text,
+        //                        Precio = float.Parse(lblPrecio.Text.Replace("$", "").Replace(",", "").Trim()),
+        //                        Cantidad = cantidad
+        //                    };
+
+        //                    productosCarrito.Add(producto);
+
+        //                    Response.Redirect("Pago.aspx", false);
+        //                }
+        //                else
+        //                {
+
+        //                }
+        //            }
+        //        }
+
+        //    }
+
+        //    try
+        //    {
+        //        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+        //        ClienteNegocio clienteNegocio = new ClienteNegocio();
+
+        //        int idUsuario = usuarioNegocio.ObtenerIdUsuarioPorEmail(email);
+
+        //        clienteNegocio.RegistrarComoCliente(
+        //            idUsuario,
+        //            txtApellido.Text,
+        //            txtNombre.Text,
+        //            txtDireccion.Text,
+        //            txtTelefono.Text
+        //        );
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+
+        //    PedidoNegocio pedidoNegocio = new PedidoNegocio();
+        //    pedidoNegocio.RegistroPedido(productosCarrito, email);
+        //}
+
         protected void btnConfirmarPago_Click(object sender, EventArgs e)
         {
-            // Lista para guardar los productos seleccionados
-            List<Producto> productosCarrito = new List<Producto>();
-            string email = txtEmail.Text;
 
-            foreach (RepeaterItem item in RepeaterCarrito.Items)
-            {
-                if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
-                {
-                    // Encontrar los controles en el Repeater
-                    Label lblNombre = item.FindControl("lblNombre") as Label;
-                    Debug.WriteLine("NOMBRE " + lblNombre);
-                    Label lblPrecio = item.FindControl("lblPrecio") as Label;
-                    Debug.WriteLine("PRECIO " + lblPrecio);
-                    TextBox txtCantidad = item.FindControl("Cantidad") as TextBox;
-                    Debug.WriteLine("CANTIDAD " + txtCantidad);
 
-                    if (txtCantidad != null)
-                    {
-                        string cantidadLimpia = txtCantidad.Text.Trim();
-                        int cantidad;
-                        if (int.TryParse(cantidadLimpia, out cantidad) && cantidad > 0)
-                        {
-                            Producto producto = new Producto
-                            {
-                                Nombre = lblNombre.Text,
-                                Precio = float.Parse(lblPrecio.Text.Replace("$", "").Replace(",", "").Trim()),
-                                Cantidad = cantidad
-                            };
 
-                            productosCarrito.Add(producto);
-                        }
-                        else
-                        {
-                            
-                        }
-                    }
-                }
-              
-            }
+            Response.Redirect("Pago.aspx", false);
 
-            try
-            {
-                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-                ClienteNegocio clienteNegocio = new ClienteNegocio();
 
-                int idUsuario = usuarioNegocio.ObtenerIdUsuarioPorEmail(email);
 
-                clienteNegocio.RegistrarComoCliente(
-                    idUsuario,
-                    txtApellido.Text,
-                    txtNombre.Text,
-                    txtDireccion.Text,
-                    txtTelefono.Text
-                );
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            PedidoNegocio pedidoNegocio = new PedidoNegocio();
-            pedidoNegocio.RegistroPedido(productosCarrito, email);
         }
+
+
+
+
+
+
+
 
         // PARA LAS CAJAS DE cliente VALIDACIONES
 
