@@ -93,7 +93,7 @@
             </div>
         </div>
     </div>
-    <!--  datos del comprador -->
+   <%-- <!--  datos del comprador -->
     <div class="container mt-5">
         <div class="form-group">
             <label for="nombre">Nombre:</label>
@@ -118,11 +118,11 @@
         <div class="form-group">
             <label for="telefono">Teléfono:</label>
             <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" placeholder="Ingresa tu teléfono" required=""></asp:TextBox>
-        </div>
+        </div>--%>
 
 
 
-        <h4 class="mt-4">Opciones de Pago</h4>
+<%--        <h4 class="mt-4">Opciones de Pago</h4>
 
         <!-- opciones de pago -->
         <div class="form-check">
@@ -148,12 +148,12 @@
             <label class="form-check-label" for="transferencia">
                 Transferencia Bancaria
             </label>
-        </div>
+        </div>--%>
 
         <!-- boton confirmar pago -->
         <%--   <button type="submit" class="btn btn-color btn-block">Confirmar Pago</button>--%>
         <div style="margin: 5px">
-            <asp:Button ID="btnConfirmarPago" CssClass="btn btn-color btn-block" Text="Confirmar Pago" OnClick="btnConfirmarPago_Click" runat="server" />
+            <asp:Button ID="btnConfirmarPago" CssClass="btn btn-color btn-block" Text="Completar la Compra" OnClick="btnConfirmarPago_Click" runat="server" />
         </div>
         <div style="margin: 5px">
             <asp:Button ID="btnSeleccionarOtro" runat="server" CssClass="btn btn-color btn-block" Text="Selecciona otro artículo" OnClick="btnSeleccionarOtro_Click" UseSubmitBehavior="false" />

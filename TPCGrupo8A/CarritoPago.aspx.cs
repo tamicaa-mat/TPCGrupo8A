@@ -172,84 +172,84 @@ namespace TPCGrupo8A
             }
 
 
-            public bool ValidarDatosUsuario()
-            {
-                string mensajeErrorNombre = "";
-                string mensajeErrorApellido = "";
-                string mensajeErrorEmail = "";
-                string mensajeErrorTelefono = "";
-                bool hayErrores = false;
+            //public bool ValidarDatosUsuario()
+            //{
+            //    string mensajeErrorNombre = "";
+            //    string mensajeErrorApellido = "";
+            //    string mensajeErrorEmail = "";
+            //    string mensajeErrorTelefono = "";
+            //    bool hayErrores = false;
 
-                // Validación campo APELLIDO
-                if (string.IsNullOrEmpty(txtApellido.Text))
-                {
-                    mensajeErrorApellido = "El campo APELLIDO no puede estar vacío.";
-                    hayErrores = true;
-                }
-                else if (esNumero(txtApellido.Text))
-                {
-                    mensajeErrorApellido = "APELLIDO debe contener solo LETRAS.";
-                    hayErrores = true;
-                }
+            //    // Validación campo APELLIDO
+            //    if (string.IsNullOrEmpty(txtApellido.Text))
+            //    {
+            //        mensajeErrorApellido = "El campo APELLIDO no puede estar vacío.";
+            //        hayErrores = true;
+            //    }
+            //    else if (esNumero(txtApellido.Text))
+            //    {
+            //        mensajeErrorApellido = "APELLIDO debe contener solo LETRAS.";
+            //        hayErrores = true;
+            //    }
 
-                // Validación campo NOMBRE
-                if (string.IsNullOrEmpty(txtNombre.Text))
-                {
-                    mensajeErrorNombre = "El campo NOMBRE no puede estar vacío.";
-                    hayErrores = true;
-                }
-                else if (esNumero(txtNombre.Text))
-                {
-                    mensajeErrorNombre = "NOMBRE debe contener solo LETRAS.";
-                    hayErrores = true;
-                }
+            //    // Validación campo NOMBRE
+            //    if (string.IsNullOrEmpty(txtNombre.Text))
+            //    {
+            //        mensajeErrorNombre = "El campo NOMBRE no puede estar vacío.";
+            //        hayErrores = true;
+            //    }
+            //    else if (esNumero(txtNombre.Text))
+            //    {
+            //        mensajeErrorNombre = "NOMBRE debe contener solo LETRAS.";
+            //        hayErrores = true;
+            //    }
 
-                // Validación campo EMAIL
-                if (string.IsNullOrEmpty(txtEmail.Text))
-                {
-                    mensajeErrorEmail = "El campo EMAIL no puede estar vacío.";
-                    hayErrores = true;
-                }
-                else if (!esEmailValido(txtEmail.Text))
-                {
-                    mensajeErrorEmail = "El campo EMAIL no es válido.";
-                    hayErrores = true;
-                }
+            //    // Validación campo EMAIL
+            //    if (string.IsNullOrEmpty(txtEmail.Text))
+            //    {
+            //        mensajeErrorEmail = "El campo EMAIL no puede estar vacío.";
+            //        hayErrores = true;
+            //    }
+            //    else if (!esEmailValido(txtEmail.Text))
+            //    {
+            //        mensajeErrorEmail = "El campo EMAIL no es válido.";
+            //        hayErrores = true;
+            //    }
 
-                // Validación campo TELEFONO
-                if (string.IsNullOrEmpty(txtTelefono.Text))
-                {
-                    mensajeErrorTelefono = "El campo TELEFONO no puede estar vacío.";
-                    hayErrores = true;
-                }
-                else if (!(esNumero(txtTelefono.Text)))
-                {
-                    mensajeErrorTelefono = "El campo TELEFONO debe contener solo NÚMEROS.";
-                    hayErrores = true;
-                }
+            //    // Validación campo TELEFONO
+            //    if (string.IsNullOrEmpty(txtTelefono.Text))
+            //    {
+            //        mensajeErrorTelefono = "El campo TELEFONO no puede estar vacío.";
+            //        hayErrores = true;
+            //    }
+            //    else if (!(esNumero(txtTelefono.Text)))
+            //    {
+            //        mensajeErrorTelefono = "El campo TELEFONO debe contener solo NÚMEROS.";
+            //        hayErrores = true;
+            //    }
 
-                if (hayErrores)
-                {
-                    if (!string.IsNullOrEmpty(mensajeErrorNombre))
-                        txtNombre.Attributes["placeholder"] = mensajeErrorNombre;
-                    if (!string.IsNullOrEmpty(mensajeErrorApellido))
-                        txtApellido.Attributes["placeholder"] = mensajeErrorApellido;
-                    if (!string.IsNullOrEmpty(mensajeErrorEmail))
-                        txtEmail.Attributes["placeholder"] = mensajeErrorEmail;
-                    if (!string.IsNullOrEmpty(mensajeErrorTelefono))
-                        txtTelefono.Attributes["placeholder"] = mensajeErrorTelefono;
+            //    if (hayErrores)
+            //    {
+            //        if (!string.IsNullOrEmpty(mensajeErrorNombre))
+            //            txtNombre.Attributes["placeholder"] = mensajeErrorNombre;
+            //        if (!string.IsNullOrEmpty(mensajeErrorApellido))
+            //            txtApellido.Attributes["placeholder"] = mensajeErrorApellido;
+            //        if (!string.IsNullOrEmpty(mensajeErrorEmail))
+            //            txtEmail.Attributes["placeholder"] = mensajeErrorEmail;
+            //        if (!string.IsNullOrEmpty(mensajeErrorTelefono))
+            //            txtTelefono.Attributes["placeholder"] = mensajeErrorTelefono;
 
-                    txtNombre.ForeColor = System.Drawing.Color.Red;
-                    txtApellido.ForeColor = System.Drawing.Color.Red;
-                    txtEmail.ForeColor = System.Drawing.Color.Red;
-                    txtTelefono.ForeColor = System.Drawing.Color.Red;
+            //        txtNombre.ForeColor = System.Drawing.Color.Red;
+            //        txtApellido.ForeColor = System.Drawing.Color.Red;
+            //        txtEmail.ForeColor = System.Drawing.Color.Red;
+            //        txtTelefono.ForeColor = System.Drawing.Color.Red;
 
-                    return false;
-                }
+            //        return false;
+            //    }
 
-                // Si no hay errores
-                return true;
-            }
+            //    // Si no hay errores
+            //    return true;
+            //}
 
 
         
