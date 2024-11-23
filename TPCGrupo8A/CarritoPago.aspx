@@ -67,6 +67,7 @@
     <div class="container mt-5 ">
         <div class="row">
             <div class="col-md-12 rpt-carrito">
+
                 <asp:Repeater ID="RepeaterCarrito" runat="server" >
                     <ItemTemplate>
                         <div class="carrito-item">
@@ -74,7 +75,7 @@
                                 <div class="repeater-imagen">
                                     <img src='<%# Eval("Imagenes[0].ImagenUrl", "{0}") %>' class="card-img-top img-fluid" alt="Imagen del artículo">
                                 </div>
-                                <asp:Label ID="lblNombre" runat="server" Text='<%# Eval("producto.Nombre") %>' />
+                                <asp:Label ID="lblNombre" runat="server" Text='<%# Eval("Nombre") %>' />
                                 <asp:Label ID="lblPrecio" runat="server" Text='<%# "Precio: $" + Eval("Total") %>' />
                             </div>
                             <div class="input-group ">

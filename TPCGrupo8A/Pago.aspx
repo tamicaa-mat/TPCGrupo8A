@@ -21,16 +21,16 @@
                     </thead>
                     <tbody>
                         <!-- Repeater para cargar dinámicamente los productos del carrito -->
-                        <asp:Repeater ID="RepeaterCarrito" runat="server">
-                            <ItemTemplate>
-                                <tr>
-                                    <td><%# Eval("Producto") %></td>
-                                    <td><%# Eval("Cantidad") %></td>
-                                    <td>$<%# Eval("PrecioUnitario") %></td>
-                                    <td>$<%# Eval("Total") %></td>
-                                </tr>
-                            </ItemTemplate>
-                        </asp:Repeater>
+                    <asp:Repeater ID="RepeaterCarrito" runat="server">
+    <ItemTemplate>
+        <tr>
+            <td><%# Eval("Producto") %></td>
+            <td><%# Eval("Cantidad") %></td>
+            <td>$<%# Eval("PrecioUnitario") %></td>
+            <td>$<%# Eval("Total") %></td>
+        </tr>
+    </ItemTemplate>
+</asp:Repeater>
                     </tbody>
                     <tfoot>
                         <tr>

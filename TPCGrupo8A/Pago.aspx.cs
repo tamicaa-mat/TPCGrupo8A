@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace TPCGrupo8A
 {
     public partial class Pago : System.Web.UI.Page
@@ -19,50 +20,39 @@ namespace TPCGrupo8A
                 Response.Redirect("IniciarSesion.aspx", false);
             }
 
+
             if (!IsPostBack)
             {
+                // Verificar si hay datos en la sesión
                 if (Session["Carrito"] != null)
                 {
-                    List<int> idProductos = (List<int>)Session["Carrito"];
+                    // Obtener el carrito desde la sesión
+                    var carrito = (Carrito)Session["Carrito"];
 
-                    if (idProductos.Count > 0)
-                    {
+                    // Enlazar los detalles del carrito al Repeater
+                    RepeaterCarrito.DataSource = carrito.Detalles;
+                    RepeaterCarrito.DataBind();
 
-                        List<DetallePedido> carrito = new CarritoNegocio().DetallesCarritoIds(idProductos);
-
-
-                        RepeaterCarrito.DataSource = carrito;
-                        RepeaterCarrito.DataBind();
-
-
-
-                        float totalCarrito = 0;
-                        foreach (var detalle in carrito)
-                        {
-
-                            {
-                                totalCarrito += detalle.Cantidad * detalle.PrecioUnitario;
-                            }
-                        }
-
-
-                        lblTotal.Text = "$" + totalCarrito.ToString("F2");
-                    }
-                    else
-                    {
-                        lblTotal.Text = "Carrito vacío";
-                    }
+                    // Calcular y mostrar el total
+                    lblTotal.Text = $"Total: ${carrito.Total:F2}";
+                }
+                else
+                {
+                    // Mostrar un mensaje si no hay carrito
+                   // lblError.Text = "No hay productos en el carrito.";
+                   // lblError.Visible = true;
                 }
             }
+
+
+
+
+
         }
 
 
-
-
-
-
-
-
-
     }
+
+
+
 }
