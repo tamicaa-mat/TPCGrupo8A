@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -42,6 +43,29 @@ namespace Datos
             }
         }
 
+        public DataTable ejecutarLectura2()
+        {
+            comando.Connection = conexion;
+            DataTable tabla = new DataTable();
+
+            try
+            {
+                conexion.Open();
+                lector = comando.ExecuteReader();
+                tabla.Load(lector); // Cargar los datos del lector en un DataTable
+                return tabla;       // Devolver el DataTable con los resultados
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al ejecutar la lectura: " + ex.Message);
+            }
+            finally
+            {
+                if (lector != null)
+                    lector.Close(); // Asegurarse de cerrar el lector
+                conexion.Close();   // Cerrar la conexión
+            }
+        }
         public void ejecutarAccion()
         {
             comando.Connection = conexion;

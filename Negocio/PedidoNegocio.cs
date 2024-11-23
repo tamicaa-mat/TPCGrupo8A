@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -116,7 +117,32 @@ namespace Negocio
 
 
 
+        public DataTable ObtenerPedidos(string estadoFiltro = "")
+        {
+            AccesoDatos datos = new AccesoDatos();
 
+            try
+            {
+                
+                string consulta = "SELECT IdPedido AS Numero, FechaPedido as Fecha, IdCliente AS Cliente, Monto AS Importe, Estado FROM Pedidos";
+                if (!string.IsNullOrEmpty(estadoFiltro))
+                {
+                    consulta += " WHERE Estado = @Estado";
+                    datos.SetearParametro("@Estado", estadoFiltro);
+                }
+
+                datos.setearConsulta(consulta);
+                return datos.ejecutarLectura2();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener los pedidos: " + ex.Message);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
 
 
