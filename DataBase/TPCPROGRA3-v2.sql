@@ -4,19 +4,15 @@ GO
 USE TPCGRUPO8A;
 GO
 
------------------------------------------ TABLAS -----------------------------------------
-
 CREATE TABLE Categorias(
     IdCategoria INT PRIMARY KEY IDENTITY(1,1),
-    Nombre VARCHAR(50) NOT NULL,
-	Estado BIT  NOT NULL DEFAULT '1'
+    Nombre VARCHAR(50) NOT NULL
 );
 GO
 
 CREATE TABLE Marcas(
     IdMarca INT PRIMARY KEY IDENTITY(1,1),
-    Nombre VARCHAR(50) NOT NULL,
-	Estado BIT  NOT NULL DEFAULT '1'
+    Nombre VARCHAR(50) NOT NULL
 );
 GO
 
@@ -28,8 +24,7 @@ CREATE TABLE Productos (
     Precio DECIMAL(18,2) NOT NULL,
 	Estado BIT NOT NULL DEFAULT 1,
     IdCategoria INT FOREIGN KEY REFERENCES Categorias(IdCategoria),
-    IdMarca INT FOREIGN KEY REFERENCES Marcas(IdMarca),
-	Stock INT NOT NULL DEFAULT 0
+    IdMarca INT FOREIGN KEY REFERENCES Marcas(IdMarca)
 );
 GO
 
@@ -52,31 +47,30 @@ CREATE TABLE Usuarios (
 );
 GO
 
-CREATE TABLE Pedidos (
-    IdPedido INT PRIMARY KEY IDENTITY(1,1),
-    IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(IdUsuario),
-	MontoTotal MONEY NULL,
-    Fecha DATETIME NULL DEFAULT GETDATE(),
-    Estado VARCHAR(50) NOT NULL
-);
+ALTER TABLE Productos
+ADD Stock INT NOT NULL DEFAULT 0;
 GO
 
 CREATE TABLE Clientes (
     IdCliente INT PRIMARY KEY IDENTITY(1,1),
 	IdUsuario INT FOREIGN KEY REFERENCES Usuarios(IdUsuario),
-	IdPedido INT FOREIGN KEY REFERENCES Pedidos(IdPedido),
+	Dni VARCHAR(10) NOT NULL,
+    Apellido VARCHAR(100) NOT NULL,
+    Nombre VARCHAR(100) NOT NULL,
 	Direccion VARCHAR(200) NOT NULL,
-	Telefono INT NOT NULL,
+	Provincia VARCHAR(150) NOT NULL,
 	TipoUsuario INT NOT NULL
 );
 GO
 
-CREATE TABLE DetallePedido(
-	IdDetallePedido INT PRIMARY KEY IDENTITY(1,1),
-	IdPedido INT NOT NULL FOREIGN KEY REFERENCES Pedidos(IdPedido),
-	IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(IdProducto),
-	Cantidad INT NULL,
-	Preciounitario DECIMAL(18,2) NULL
+CREATE TABLE Pedidos (
+    IdPedido INT PRIMARY KEY IDENTITY(1,1),
+    IdCliente INT NOT NULL FOREIGN KEY REFERENCES Clientes(IdCliente),
+    IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(IdProducto),
+    Cantidad INT NOT NULL,
+	Monto MONEY,
+    FechaPedido DATETIME NOT NULL DEFAULT GETDATE(),
+    Estado VARCHAR(50) NOT NULL
 );
 GO
 
@@ -102,9 +96,7 @@ CREATE TABLE DetallesCarrito (
 );
 GO
 
------------------- PROCEDIMIENTOS, TRIGGERS, FUNCIONES, ETC... -----------------------------------------
-
-CREATE TRIGGER EliminarProductoYRelaciones ON Productos --ELIMINA EL PRODUCTO DE FORMA FISICA
+CREATE TRIGGER EliminarProductoYRelaciones ON Productos
 INSTEAD OF DELETE
 AS
 BEGIN
@@ -133,7 +125,7 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE EliminacionLogicaProducto @idProducto INT --ELIMINA EL PRODUCTO DE FORMA LOGICA
+CREATE PROCEDURE EliminacionLogicaProducto @idProducto INT
 AS 
 BEGIN
 	BEGIN TRY 
@@ -148,7 +140,20 @@ BEGIN
 END;
 GO
 
-CREATE PROCEDURE SP_EliminacionLogicaMarcas(@IDMARCA INT) --- ELIMINA LA MARCA DE FORMA LOGICA
+ALTER TABLE Clientes
+ADD Telefono VARCHAR(20) NOT NULL DEFAULT 'Sin especificar'
+GO
+ -----------------------------8/11 ----------------------------
+ALTER TABLE Marcas
+ADD Estado BIT  NOT NULL DEFAULT '1'
+GO
+
+ALTER TABLE Categorias
+ADD Estado BIT  NOT NULL DEFAULT '1'
+GO
+
+---------------------PARA ELIMINAR MARCAS Y AGREGAR--------------------
+CREATE PROCEDURE SP_EliminacionLogicaMarcas(@IDMARCA INT)
 AS
 BEGIN
     BEGIN TRY 
@@ -182,7 +187,9 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER Al_Agregar_Marca ON Marcas --INSERTA UNA MARCA NUEVA Y LA PONE EN ESTADO 1 "ACTIVO"
+--------------trigger para insertar una marca y poner el estado en 1
+ 
+CREATE TRIGGER Al_Agregar_Marca ON Marcas
 
 AFTER INSERT 
 AS
@@ -198,8 +205,9 @@ SELECT @IDMARCAAGREGADA=IdMarca FROM INSERTED
 
 END
 GO
+-------------------------PARA ELIMINAR Y AGREGAR CATEGORIAS----------------------------
 
-CREATE PROCEDURE SP_EliminacionLogicaCategorias(@IDCATEGORIA INT) --ELIMINACION LOGICA DE CATEGORIAS
+CREATE PROCEDURE SP_EliminacionLogicaCategorias(@IDCATEGORIA INT)
 AS
 BEGIN
     BEGIN TRY 
@@ -233,7 +241,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER Al_Agregar_Categoria ON Categorias --AGREGA LA CATEGORIA Y LA SETEA EN ESTADO 1 "ACTIVO"
+CREATE TRIGGER Al_Agregar_Categoria ON Categorias
 
 AFTER INSERT 
 AS
@@ -273,8 +281,6 @@ UPDATE Marcas
 	SET Nombre = 'AliciaEnLasMaravillas'
 	WHERE IdMarca = 2;
 GO
-
----------------------------- INSERTS -----------------------------------------
 
 INSERT INTO Productos(Codigo, Nombre, Descripcion, Precio, IdCategoria, IdMarca)
 VALUES 
@@ -316,6 +322,7 @@ UPDATE Productos SET Stock = 3 WHERE IdProducto = 5;
 UPDATE Productos SET Stock = 15 WHERE IdProducto = 6;
 GO
 
+---------------------------03/11------------
 INSERT INTO Productos(Codigo, Nombre, Descripcion, Precio, IdCategoria, IdMarca,Stock)
 VALUES 
 ('REM003','Remera Lisa',' Verde Cuello Redondo',$23663,1,1,10),
@@ -348,49 +355,55 @@ VALUES
 (18, 'https://http2.mlstatic.com/D_NQ_NP_634469-MLA77029249022_062024-O.webp')
 GO
 
-INSERT INTO Pedidos (IdUsuario, MontoTotal, Estado)
-VALUES (2, 125, 'enProceso');
+--------------para insertar clientes en la bd al comprar------------------------------20/11
+ALTER TABLE Clientes
+ADD Email NVARCHAR(100); --no puede ser null esta validado en backend
+
+
+ALTER PROCEDURE sp_InsertarCliente
+    @Email NVARCHAR(100),
+    @Nombre VARCHAR(100),
+    @Apellido VARCHAR(100),
+    @Direccion VARCHAR(200),
+    @Telefono VARCHAR(20)
+AS
+BEGIN
+      DECLARE @IdUsuario INT;
+
+    SELECT @IdUsuario = IdUsuario FROM Usuarios WHERE Email = @Email;
+
+    IF @IdUsuario IS NULL
+    BEGIN
+        PRINT 'Usuario no encontrado';
+        RAISERROR('No se encontró un usuario con ese email.', 16, 1);
+        RETURN;
+    END
+
+    PRINT 'Usuario encontrado, procediendo a insertar...';
+
+    INSERT INTO Clientes (IdUsuario, Nombre, Apellido, Direccion, Email, Telefono)
+    VALUES (@IdUsuario, @Nombre, @Apellido, @Direccion, @Email, @Telefono);
+
+    PRINT 'Inserción completada';
+END
+
+INSERT INTO Clientes (IdUsuario, Nombre, Apellido, Direccion, Email, Telefono, TipoUsuario)
+VALUES (2, 'Homero', 'Simpson', 'Calle Falsa 123', 'h.simpson@email.com', '1234567890', 0);
+
+CREATE TABLE Pedidos (
+    IdPedido INT PRIMARY KEY IDENTITY(1,1),
+    IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(IdUsuario),
+    IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(IdProducto),
+    Cantidad INT NOT NULL,
+	Monto MONEY,
+    FechaPedido DATETIME NOT NULL DEFAULT GETDATE(),
+    Estado VARCHAR(50) NOT NULL
+);
 GO
+
+INSERT INTO Pedidos (IdUsuario, IdProducto, Cantidad, Monto, Estado)
+VALUES (2, 1, 3, 125, 'enProceso');
 
 INSERT INTO Productos(Codigo, Nombre, Descripcion, Precio, IdCategoria, IdMarca,Stock)
 VALUES 
 ('REM008','PRUEBASTOCK',' Verde Cuello Redondo',$23663,1,1,1)
-GO
-
---ALTER PROCEDURE sp_InsertarCliente
---    @Email NVARCHAR(100),
---    @Nombre VARCHAR(100),
---    @Apellido VARCHAR(100),
---    @Direccion VARCHAR(200),
---    @Telefono VARCHAR(20)
---AS
---BEGIN
---      DECLARE @IdUsuario INT;
-
---    SELECT @IdUsuario = IdUsuario FROM Usuarios WHERE Email = @Email;
-
---    IF @IdUsuario IS NULL
---    BEGIN
---        PRINT 'Usuario no encontrado';
---        RAISERROR('No se encontró un usuario con ese email.', 16, 1);
---        RETURN;
---    END
-
---    PRINT 'Usuario encontrado, procediendo a insertar...';
-
---    INSERT INTO Clientes (IdUsuario, Nombre, Apellido, Direccion, Email, Telefono)
---    VALUES (@IdUsuario, @Nombre, @Apellido, @Direccion, @Email, @Telefono);
-
---    PRINT 'Inserción completada';
---END
-
---CREATE TABLE Pedidos (
---    IdPedido INT PRIMARY KEY IDENTITY(1,1),
---    IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(IdUsuario),
---    IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(IdProducto),
---    Cantidad INT NOT NULL,
---	Monto MONEY,
---    FechaPedido DATETIME NOT NULL DEFAULT GETDATE(),
---    Estado VARCHAR(50) NOT NULL
---);
---GO
