@@ -34,7 +34,8 @@ namespace TPCGrupo8A
                     RepeaterCarrito.DataBind();
 
                     // Calcular y mostrar el total
-                    lblTotal.Text = $"Total: ${carrito.Total:F2}";
+                    float total = carrito.Detalles.Sum(d => d.Total);  // Suponiendo que 'Total' ya está calculado en el objeto 'Detalle'
+                    lblTotal.Text = $"${total:F2}";
                 }
                 else
                 {

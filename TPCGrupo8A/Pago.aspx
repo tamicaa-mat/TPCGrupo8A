@@ -33,10 +33,18 @@
 </asp:Repeater>
                     </tbody>
                     <tfoot>
-                        <tr>
+                       <%-- <tr>
                             <th colspan="3" class="text-end">Total</th>
-                            <th>$<asp:Label ID="lblTotal" runat="server"></asp:Label></th>
-                        </tr>
+                            <th>$<asp:Label ID="lblTotal" runat="server" Text="<%# Eval("PrecioFinal") %>"></asp:Label></th>
+                        </tr>--%>
+
+                    <tr>
+                        <th colspan="3" class="text-end">Total</th>
+                        <th><asp:Label ID="lblTotal" runat="server" Text="0.00"></asp:Label></th>
+                    </tr>
+
+
+
                     </tfoot>
                 </table>
             </div>

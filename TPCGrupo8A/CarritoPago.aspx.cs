@@ -42,18 +42,20 @@ namespace TPCGrupo8A
                         RepeaterCarrito.DataBind();
 
 
-
+                       
                         float totalCarrito = 0;
                         foreach (var detalle in carrito)
                         {
 
                             {
                                 totalCarrito += detalle.Cantidad * detalle.PrecioUnitario;
+                               
                             }
                         }
 
 
                         totalCarritoLabel.Text = "$" + totalCarrito.ToString("F2");
+                        
                     }
                     else
                     {
