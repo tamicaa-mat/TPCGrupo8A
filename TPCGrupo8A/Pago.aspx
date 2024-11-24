@@ -89,7 +89,7 @@
         <!-- Botones -->
         <div class="d-flex justify-content-between">
             <button type="button" class="btn btn-secondary">Volver</button>
-            <button type="submit" class="btn" style="background-color: salmon; color: white;">Finalizar Compra</button>
+            <asp:Button type="submit" class="btn" style="background-color: salmon; color: white;" runat="server" OnClick= "btn_finalizarCompra" Text="Finalizar Compra"/> 
         </div>
     </form>
 </div>

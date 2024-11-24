@@ -44,5 +44,47 @@ namespace TPCGrupo8A
                 }
             }
         }
+
+        protected void btn_finalizarCompra(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtener el carrito de la sesión
+                if (Session["Carrito"] != null)
+                {
+                    Carrito carrito = (Carrito)Session["Carrito"]; // Asegúrate de que la sesión contiene un objeto de tipo Carrito
+                                                                   //List<Producto> productosCarrito = carrito.Detalles.Select(d => d.Producto).ToList();
+                    List<Producto> productosCarrito = new List<Producto>();
+                    // Obtener el email del usuario desde la sesión
+                    Usuario usuario = (Usuario)Session["Usuario"]; // Suponiendo que el usuario está almacenado en la sesión
+                    string email = usuario.Email;
+
+                    // Crear una instancia de la clase que contiene el método RegistroPedido
+                    PedidoNegocio pedidoNegocio = new PedidoNegocio();
+
+                    // Registrar el pedido
+                    pedidoNegocio.RegistroPedido(productosCarrito, email);
+
+                    // Mostrar un mensaje de éxito o redirigir a otra página
+                    ClientScript.RegisterStartupScript(this.GetType(), "PedidoRegistrado", "alert('Compra finalizada con éxito.');", true);
+                    Response.Redirect("Default.aspx", false);
+                }
+                else
+                {
+                    // Manejo si el carrito está vacío
+                    ClientScript.RegisterStartupScript(this.GetType(), "CarritoVacio", "alert('El carrito está vacío.');", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                Console.WriteLine($"Error: {ex.Message}");
+                ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('Ocurrió un error al finalizar la compra.');", true);
+            }
+
+
+
+        }
+
     }
 }
