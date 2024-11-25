@@ -423,3 +423,24 @@ ON Clientes.IdUsuario = Pedidos.IdUsuario;
 
 DELETE FROM Pedidos
 WHERE IdPedido = 1;
+------------------------------------------------------------------ 25/11
+
+ALTER TABLE Clientes
+ADD Direccion VARCHAR(255) NULL,
+    Telefono VARCHAR(50) NULL;
+
+CREATE TRIGGER trg_InsertCliente
+ON Pedidos
+AFTER INSERT
+AS
+BEGIN
+    -- Verificar si hay registros insertados
+    IF EXISTS (SELECT 1 FROM inserted)
+    BEGIN
+        -- Insertar datos en la tabla Clientes usando los valores del inserted
+        INSERT INTO Clientes (IdUsuario)
+        SELECT IdUsuario
+        FROM inserted
+    END
+END;
+GO

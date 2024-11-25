@@ -92,8 +92,7 @@ namespace Negocio
 
                 // Insertar el pedido en la tabla Pedidos
                 datos.setearConsulta("INSERT INTO Pedidos (IdUsuario, MontoTotal, Estado) " +
-                                     "OUTPUT INSERTED.IdPedido " + // Obtener el Id del pedido generado
-                                     "VALUES (@IdUsuario, @MontoTotal, @Estado)");
+                      "VALUES (@IdUsuario, @MontoTotal, @Estado)");
 
                 datos.SetearParametro("@IdUsuario", idUsuario);
                 datos.SetearParametro("@MontoTotal", montoTotal);
