@@ -122,7 +122,7 @@ namespace Negocio
 
             try
             {
-                
+
                 string consulta = "SELECT IdPedido AS Numero, Fecha, IdUsuario AS Cliente, MontoTotal AS Importe, Estado FROM Pedidos";
                 if (!string.IsNullOrEmpty(estadoFiltro))
                 {
@@ -139,6 +139,34 @@ namespace Negocio
             }
             finally
             {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void CambiarEstadoAPedido(int idPedido, string nuevoEstado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+               
+                datos.setearConsulta("UPDATE Pedidos SET Estado = @NuevoEstado WHERE IdPedido = @IdPedido");
+
+
+                datos.SetearParametro("@NuevoEstado", nuevoEstado);
+                datos.SetearParametro("@IdPedido", idPedido);
+
+                datos.ejecutarAccion();
+
+               
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al cambiar el estado del pedido: " + ex.Message);
+            }
+            finally
+            {
+                // Cerrar la conexión
                 datos.cerrarConexion();
             }
         }

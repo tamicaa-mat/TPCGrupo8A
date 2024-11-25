@@ -64,6 +64,31 @@ namespace TPCGrupo8A
             CargarPedidos(estadoSeleccionado);
         }
 
-        
+        protected void BtnCambiarEstado_Click(object sender, EventArgs e)
+        {
+            try
+            {
+               
+                Button btn = (Button)sender;
+                RepeaterItem item = (RepeaterItem)btn.NamingContainer;
+
+                int idPedido = Convert.ToInt32(((Label)item.FindControl("lblNumeroPedido")).Text);
+                Console.WriteLine($"IdPedido obtenido: {idPedido}");
+
+                string nuevoEstado = btn.Text.Contains("Entregado") ? "Entregado" : "Pendiente";
+                Console.WriteLine($"Estado a aplicar: {nuevoEstado}");
+
+                PedidoNegocio pedidoNegocio = new PedidoNegocio();
+
+                pedidoNegocio.CambiarEstadoAPedido(idPedido, nuevoEstado);
+
+                CargarPedidos();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al cambiar el estado: {ex.Message}");
+            }
+        }
+
     }
 }

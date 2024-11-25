@@ -81,6 +81,8 @@ namespace Datos
                 throw ex;
             }
         }
+
+        
         public object ejecutarScalar()
         {
             comando.Connection = conexion;

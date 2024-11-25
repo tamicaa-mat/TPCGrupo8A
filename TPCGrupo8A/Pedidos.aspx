@@ -15,7 +15,7 @@
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-6 align-self-end">
-                    <asp:Button ID="BtnFiltrarPedidos" runat="server" Text="Filtrar pedidos por estado" OnClick="BtnFiltrarPedidos_Click" CssClass="btn btn-primary" />
+                    <asp:Button ID="BtnFiltrarPedidos" runat="server" Text="Filtrar pedidos por estado" OnClick="BtnFiltrarPedidos_Click" CssClass="btn-iniciar" />
                 </div>
             </div>
         </div>
@@ -31,17 +31,21 @@
                             <th>Cliente</th>
                             <th>Importe</th>
                             <th>Estado</th>
+                            <th>Cambiar Estado</th>
                         </tr>
                     </thead>
                     <tbody>
             </HeaderTemplate>
             <ItemTemplate>
                 <tr>
-                    <td><%# Eval("Numero") %></td>
+                    <td><asp:Label ID="lblNumeroPedido" runat="server" Text='<%# Eval("Numero") %>'></asp:Label></td>
                     <td><%# Eval("Fecha", "{0:yyyy-MM-dd}") %></td>
                     <td><%# Eval("Cliente") %></td>
                     <td><%# Eval("Importe", "{0:C}") %></td>
                     <td><%# Eval("Estado") %></td>
+                    <td>
+                    <asp:Button ID="BtnCambiarEstado" runat="server" Text='<%# Eval("Estado").ToString() == "Pendiente" ? "Marcar como Entregado" : "Marcar como Pendiente" %>' CssClass="animated-button" OnClick="BtnCambiarEstado_Click" />
+                    </td>
                 </tr>
             </ItemTemplate>
             <FooterTemplate>
