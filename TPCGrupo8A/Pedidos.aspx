@@ -8,7 +8,7 @@
         <div class="mb-4">
             <div class="row g-3">
                 <div class="col-md-6">
-                    <asp:DropDownList ID="DropDownEstado" runat="server" CssClass="form-select">
+                    <asp:DropDownList ID="DropDownEstado" runat="server" CssClass="form-select" >
                         <asp:ListItem Text="Seleccione un estado" Value="" />
                         <asp:ListItem Text="Pendiente" Value="Pendiente" />
                         <asp:ListItem Text="Entregado" Value="Entregado" />

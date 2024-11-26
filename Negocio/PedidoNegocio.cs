@@ -123,18 +123,21 @@ namespace Negocio
             try
             {
 
-                string consulta = "SELECT IdPedido AS Numero, Fecha, IdUsuario AS Cliente, MontoTotal AS Importe, Estado FROM Pedidos";
+                string consulta = "SELECT DISTINCT P.IdPedido AS Numero, P.Fecha, P.IdUsuario AS Cliente, P.MontoTotal AS Importe, P.Estado FROM Pedidos P";
 
                 if (tipoUsuario == TipoUsuario.Cliente)
                 {
-                    consulta += " WHERE IdUsuario = @IdUsuario";
+                    consulta += " INNER JOIN Clientes C ON P.IdUsuario = C.IdUsuario WHERE C.IdUsuario = @IdUsuario AND C.TipoUsuario = @TipoUsuario";
+                    datos.SetearParametro("@IdUsuario", idUsuario);
+                    datos.SetearParametro("@TipoUsuario", (int)tipoUsuario);
                     if (!string.IsNullOrEmpty(estadoFiltro))
                     {
                         consulta += " AND Estado = @Estado";
                         datos.SetearParametro("@Estado", estadoFiltro);
                     }
                 }
-                else if (tipoUsuario == TipoUsuario.Administrador)
+                else 
+                if (tipoUsuario == TipoUsuario.Administrador)
                 {
                     if (!string.IsNullOrEmpty(estadoFiltro))
                     {
