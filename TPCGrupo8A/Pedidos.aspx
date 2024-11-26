@@ -31,7 +31,9 @@
                             <th>Cliente</th>
                             <th>Importe</th>
                             <th>Estado</th>
-                            <th>Cambiar Estado</th>
+                            
+                            <th id="thEstado" runat="server" Visible='<%# Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).TipoUsuario == Dominio.TipoUsuario.Administrador %>'>Cambiar Estado</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -43,9 +45,12 @@
                     <td><%# Eval("Cliente") %></td>
                     <td><%# Eval("Importe", "{0:C}") %></td>
                     <td><%# Eval("Estado") %></td>
+                    
                     <td>
-                    <asp:Button ID="BtnCambiarEstado" runat="server" Text='<%# Eval("Estado").ToString() == "Pendiente" ? "Marcar como Entregado" : "Marcar como Pendiente" %>' CssClass="animated-button" OnClick="BtnCambiarEstado_Click" />
+                        <asp:Button ID="BtnCambiarEstado" runat="server" Text='<%# Eval("Estado").ToString() == "Pendiente" ? "Marcar como Entregado" : "Marcar como Pendiente" %>' CssClass="animated-button" OnClick="BtnCambiarEstado_Click"
+                        Visible='<%# Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).TipoUsuario == Dominio.TipoUsuario.Administrador %>' />
                     </td>
+                    
                 </tr>
             </ItemTemplate>
             <FooterTemplate>
@@ -55,3 +60,4 @@
         </asp:Repeater>
     </main>
 </asp:Content>
+

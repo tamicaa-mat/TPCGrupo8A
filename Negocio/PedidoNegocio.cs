@@ -116,7 +116,7 @@ namespace Negocio
 
 
 
-        public DataTable ObtenerPedidos(string estadoFiltro = "")
+        public DataTable ObtenerPedidos(int idUsuario, TipoUsuario tipoUsuario,  string estadoFiltro = "")
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -124,12 +124,24 @@ namespace Negocio
             {
 
                 string consulta = "SELECT IdPedido AS Numero, Fecha, IdUsuario AS Cliente, MontoTotal AS Importe, Estado FROM Pedidos";
-                if (!string.IsNullOrEmpty(estadoFiltro))
-                {
-                    consulta += " WHERE Estado = @Estado";
-                    datos.SetearParametro("@Estado", estadoFiltro);
-                }
 
+                if (tipoUsuario == TipoUsuario.Cliente)
+                {
+                    consulta += " WHERE IdUsuario = @IdUsuario";
+                    if (!string.IsNullOrEmpty(estadoFiltro))
+                    {
+                        consulta += " AND Estado = @Estado";
+                        datos.SetearParametro("@Estado", estadoFiltro);
+                    }
+                }
+                else if (tipoUsuario == TipoUsuario.Administrador)
+                {
+                    if (!string.IsNullOrEmpty(estadoFiltro))
+                    {
+                        consulta += " WHERE Estado = @Estado";
+                        datos.SetearParametro("@Estado", estadoFiltro);
+                    }
+                }
                 datos.setearConsulta(consulta);
                 return datos.ejecutarLectura2();
             }
