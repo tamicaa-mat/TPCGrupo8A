@@ -444,3 +444,28 @@ BEGIN
     END
 END;
 GO
+ ----------------------27/11 trigger para descontar stock
+ CREATE TRIGGER Trigger_ActualizarStock
+ON DetallePedido
+AFTER INSERT
+AS
+BEGIN
+   
+    UPDATE Productos
+    SET Stock = Stock - I.Cantidad
+    FROM Productos P
+    INNER JOIN INSERTED I
+        ON P.IdProducto = I.IdProducto;
+
+   
+    IF EXISTS (
+        SELECT 1
+        FROM Productos
+        WHERE Stock < 0
+    )
+    BEGIN
+       
+        RAISERROR ('Error: Stock insuficiente para uno o más productos.', 16, 1);
+        ROLLBACK TRANSACTION;
+    END
+END;
