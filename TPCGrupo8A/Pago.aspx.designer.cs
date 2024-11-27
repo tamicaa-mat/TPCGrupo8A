@@ -24,12 +24,30 @@ namespace TPCGrupo8A
         protected global::System.Web.UI.WebControls.Repeater RepeaterCarrito;
 
         /// <summary>
-        /// Control lblTotal.
+        /// Control totalCarritoLabel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotal;
+        protected global::System.Web.UI.WebControls.Label totalCarritoLabel;
+
+        /// <summary>
+        /// Control btnVolver2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnVolver2;
+
+        /// <summary>
+        /// Control btnPagar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPagar;
     }
 }

@@ -131,10 +131,52 @@ namespace TPCGrupo8A
 
         //}
 
+        //protected void BtnAgregarCarrito_Click(object sender, EventArgs e)
+        //{
+        //    ProductoNegocio prod = new ProductoNegocio();
+
+
+        //    if (Session["Carrito"] != null)
+        //    {
+        //        int idProducto = Convert.ToInt32(Session["ID"]);
+
+        //        // Verificar stock
+        //        int stock = prod.VerificarStock(idProducto);
+
+        //        if (stock>0) // Si hay stock disponible
+        //        {
+        //            List<int> listaIDPRODcarrito;
+
+        //            if (Session["Carrito"] != null)
+        //                listaIDPRODcarrito = (List<int>)Session["ID"];
+        //            else
+        //                listaIDPRODcarrito = new List<int>();
+
+        //            listaIDPRODcarrito.Add(idProducto);
+        //            Session["Carrito"] = listaIDPRODcarrito;
+
+        //            // Mensaje de éxito
+        //            string MensajeScript = "alert('Producto agregado correctamente al carrito');";
+        //            ClientScript.RegisterStartupScript(this.GetType(), "ProductoAgregado", MensajeScript, true);
+        //            Response.Redirect("CarritoPago.aspx", false);
+
+
+
+        //        }
+        //        else
+        //        {
+        //            // Mensaje de error por falta de stock
+        //            string MensajeScript = "alert('No hay suficiente stock para agregar este producto al carrito');";
+        //            ClientScript.RegisterStartupScript(this.GetType(), "SinStock", MensajeScript, true);
+        //            // Response.Redirect("Default.aspx", false);
+        //        }
+        //    }
+        //}
         protected void BtnAgregarCarrito_Click(object sender, EventArgs e)
         {
             ProductoNegocio prod = new ProductoNegocio();
-
+            Usuario usuario = new Usuario();
+            // Obtén el ID del producto de la sesión
             if (Session["ID"] != null)
             {
                 int idProducto = Convert.ToInt32(Session["ID"]);
@@ -142,33 +184,34 @@ namespace TPCGrupo8A
                 // Verificar stock
                 int stock = prod.VerificarStock(idProducto);
 
-                if (stock>0) // Si hay stock disponible
+                if (stock > 0) // Si hay stock disponible
                 {
-                    List<int> carrito;
+                    // Recuperar o inicializar la lista de IDs del carrito
+                    List<int> listaIDPRODcarrito = Session["Carrito"] as List<int> ?? new List<int>();
 
-                    if (Session["Carrito"] != null)
-                        carrito = (List<int>)Session["Carrito"];
-                    else
-                        carrito = new List<int>();
-
-                    carrito.Add(idProducto);
-                    Session["Carrito"] = carrito;
-
+                    listaIDPRODcarrito.Add(idProducto);
+                    Session["Carrito"] = listaIDPRODcarrito;
+                  
                     // Mensaje de éxito
                     string MensajeScript = "alert('Producto agregado correctamente al carrito');";
                     ClientScript.RegisterStartupScript(this.GetType(), "ProductoAgregado", MensajeScript, true);
+
+                    // Redirigir al carrito
                     Response.Redirect("CarritoPago.aspx", false);
-
-                  
-
+                    Context.ApplicationInstance.CompleteRequest(); // Asegura que no se siga procesando la página actual
                 }
                 else
                 {
                     // Mensaje de error por falta de stock
                     string MensajeScript = "alert('No hay suficiente stock para agregar este producto al carrito');";
                     ClientScript.RegisterStartupScript(this.GetType(), "SinStock", MensajeScript, true);
-                    // Response.Redirect("Default.aspx", false);
                 }
+            }
+            else
+            {
+                // Mensaje de error por ID no válido
+                string MensajeScript = "alert('Error: No se encontró el ID del producto en la sesión');";
+                ClientScript.RegisterStartupScript(this.GetType(), "ErrorID", MensajeScript, true);
             }
         }
 

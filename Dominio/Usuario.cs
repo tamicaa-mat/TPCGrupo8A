@@ -43,5 +43,7 @@ namespace Dominio
             Contrasenia = contrasenia;
             TipoUsuario = TipoUsuario.Cliente;
         }
+
+       public List<Producto> productos { get; set; } = new List<Producto>();
     }
 }

@@ -87,7 +87,7 @@ namespace Negocio
                         detallePedido.Producto.ID = productoId;
                         detallePedido.Producto.Nombre = datos.Lector["Nombre"].ToString();
                         detallePedido.PrecioUnitario = (float)(decimal)datos.Lector["Precio"];
-                        detallePedido.Cantidad = 1;
+                        detallePedido.Cantidad = 1 ;
                         detallePedido.Stock = (int)datos.Lector["Stock"];
                         if (!(datos.Lector["ImagenUrl"] is DBNull))
                         {

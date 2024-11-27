@@ -23,7 +23,12 @@ namespace Dominio
         //        return total;
         //    }
         //}
+        public List<Producto> Productos { get; set; }
 
+        public Carrito()
+        {
+            Productos = new List<Producto>();
+        }
 
         public Producto Producto { get; set; }
 

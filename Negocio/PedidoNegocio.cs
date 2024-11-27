@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using Datos;
+using System.Data.SqlClient;
 
 namespace Negocio
 {
@@ -56,65 +57,124 @@ namespace Negocio
         //        }
         //    }
         //}
-
-
-        public void RegistroPedido(List<Producto> productosCarrito, string email)
+        public void RegistroDetallePedido(int idPedido, List<DetallePedido> detalleCarrito)
         {
-            AccesoDatos datos = null; // Declarar fuera del try
+            // Inicializar las variables fuera del foreach
+            int idProducto = 0;
+            int cantidad = 0;
+            float precioUnitario = 0;
+
+            AccesoDatos datos = null;
 
             try
             {
-                datos = new AccesoDatos(); // Inicializar dentro del try
-                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
 
-                // Obtener el idUsuario asociado al email
-                int idUsuario = usuarioNegocio.ObtenerIdUsuarioPorEmail(email);
-
-                // Calcular el monto total del pedido
-                float montoTotal = 0;
-
-                Console.WriteLine("---- Inicio del cálculo de Monto Total ----");
-                foreach (Producto producto in productosCarrito)
+                foreach (var productoC in detalleCarrito)
                 {
-                    Console.WriteLine($"Producto: {producto.Nombre}, Precio: {producto.Precio}, Cantidad: {producto.Cantidad}");
-
-                    if (producto.Precio > 0 && producto.Cantidad > 0)
+                       datos = new AccesoDatos(); // Crear la conexión
+                   
+                    if (productoC.PrecioUnitario > 0 && productoC.Cantidad > 0)
                     {
-                        montoTotal += producto.Precio * producto.Cantidad; // Precio por cantidad
+                        // Asignar las variables con los valores del producto
+                        idProducto = productoC.Producto.ID;
+                        cantidad = productoC.Cantidad;
+                        precioUnitario = productoC.PrecioUnitario;
+
+                       
+                        string consulta = @"INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad, Preciounitario) 
+                                    VALUES (@IdPedido, @IdProducto, @Cantidad, @Preciounitario);";
+                        datos.setearConsulta(consulta);
+
+                        datos.SetearParametro("@IdPedido", idPedido);
+                        datos.SetearParametro("@IdProducto", idProducto);
+                        datos.SetearParametro("@Cantidad", cantidad);
+                        datos.SetearParametro("@Preciounitario", precioUnitario);
+
+                        // Ejecutar la acción para insertar cada detalle
+                        datos.ejecutarAccion();
+                        Console.WriteLine($"Detalle de pedido para producto ID {idProducto} insertado correctamente.");
                     }
                     else
                     {
-                        Console.WriteLine($"[ADVERTENCIA] Producto con valores inválidos: Precio={producto.Precio}, Cantidad={producto.Cantidad}");
+                        
+                        Console.WriteLine($"[ADVERTENCIA] Producto con valores inválidos: Precio={productoC.PrecioUnitario}, Cantidad={productoC.Cantidad}");
                     }
+
+                    datos.cerrarConexion();
                 }
-                Console.WriteLine($"Monto Total Calculado: {montoTotal}");
-                Console.WriteLine("---- Fin del cálculo de Monto Total ----");
-
-                // Insertar el pedido en la tabla Pedidos
-                datos.setearConsulta("INSERT INTO Pedidos (IdUsuario, MontoTotal, Estado) " +
-                      "VALUES (@IdUsuario, @MontoTotal, @Estado)");
-
-                datos.SetearParametro("@IdUsuario", idUsuario);
-                datos.SetearParametro("@MontoTotal", montoTotal);
-                datos.SetearParametro("@Estado", "Pendiente"); // Estado inicial del pedido
-
-                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+               
+                Console.WriteLine($"Error al registrar los detalles del pedido: {ex.Message}");
+                throw;
             }
             finally
             {
-                if (datos != null)
-                {
-                    datos.cerrarConexion(); // Asegurarse de cerrar la conexión
-                }
+              
+                datos?.cerrarConexion();
             }
         }
 
 
+        public void RegistroPedido(List<DetallePedido> carritoDetalles, string email)
+        {
+            AccesoDatos datos = null;
 
+
+            try
+            {
+                datos = new AccesoDatos();
+                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+
+                float totalCarrito = 0;
+
+              
+                int idUsuario = usuarioNegocio.ObtenerIdUsuarioPorEmail(email);
+
+               
+                foreach (var productoC in carritoDetalles)
+                {
+                    if (productoC.PrecioUnitario > 0 && productoC.Cantidad > 0)
+                    {
+                        totalCarrito += productoC.Cantidad * productoC.PrecioUnitario;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"[ADVERTENCIA] Producto con valores inválidos: Precio={productoC.PrecioUnitario}, Cantidad={productoC.Cantidad}");
+                    }
+                }
+
+               
+                datos.setearConsulta(@"INSERT INTO Pedidos (IdUsuario, MontoTotal, Estado) 
+                        VALUES (@IdUsuario, @MontoTotal, @Estado);
+                        SELECT SCOPE_IDENTITY();");
+                datos.SetearParametro("@IdUsuario", idUsuario);
+                datos.SetearParametro("@MontoTotal", totalCarrito);
+                datos.SetearParametro("@Estado", "Pendiente");
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+                int idPedido = Convert.ToInt32(datos.ejecutarScalar());
+
+              
+                RegistroDetallePedido(idPedido, carritoDetalles);
+
+                Console.WriteLine("Pedido registrado exitosamente.");
+
+
+            }
+            catch (Exception ex)
+            {
+               
+                Console.WriteLine($"Error al registrar el pedido: {ex.Message}");
+                throw;
+            }
+            finally
+            {
+               
+                datos?.cerrarConexion();
+            }
+        }
 
         public DataTable ObtenerPedidos(int idUsuario, TipoUsuario tipoUsuario,  string estadoFiltro = "")
         {

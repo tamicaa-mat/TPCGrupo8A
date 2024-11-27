@@ -8,7 +8,8 @@ namespace Dominio
 {
     public class DetallePedido
     {
-        public Producto Producto { get; set; }
+       public Producto Producto { get; set; }
+        public int idProducto { get; set; }
         public int Cantidad { get; set; }
         public float PrecioUnitario { get; set; }
         public string ImagenUrl { get; set; }
@@ -20,16 +21,26 @@ namespace Dominio
         {
             get
             {
-                return (float)PrecioUnitario * (float)Cantidad;
+                // Verificar si PrecioUnitario o Cantidad son válidos
+                if (PrecioUnitario > 0 && Cantidad > 0)
+                {
+                    return PrecioUnitario * Cantidad;
+                }
+                return 0; // O el valor predeterminado que consideres
             }
+            set { }
         }
+
+        public List<DetallePedido> detallePedidos { get; set; }
         public DetallePedido() { }
-        public DetallePedido(Producto produco, int cantidad, float precioUnitario, string imagenUrl) 
-        { 
-            Producto = produco;
-            Cantidad = cantidad;
-            PrecioUnitario = precioUnitario;
-            ImagenUrl = imagenUrl;
-        }
+        //public DetallePedido(Producto producto, int cantidad, float precioUnitario, string imagenUrl,float total)
+        //{
+        //    Producto = producto;
+
+        //    Cantidad = cantidad;
+        //    PrecioUnitario = precioUnitario;
+        //    ImagenUrl = imagenUrl;
+        //    Total = total;
+        //}
     }
 }

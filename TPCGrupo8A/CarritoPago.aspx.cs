@@ -72,114 +72,7 @@ namespace TPCGrupo8A
         }
 
 
-        //protected void btnConfirmarPago_Click(object sender, EventArgs e)
-        //{
-        //    // Lista para guardar los productos seleccionados
-        //    List<Producto> productosCarrito = new List<Producto>();
-        //    string email = txtEmail.Text;
-
-        //    foreach (RepeaterItem item in RepeaterCarrito.Items)
-        //    {
-        //        if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
-        //        {
-        //            // Encontrar los controles en el Repeater
-        //            Label lblNombre = item.FindControl("lblNombre") as Label;
-        //            Debug.WriteLine("NOMBRE " + lblNombre);
-        //            Label lblPrecio = item.FindControl("lblPrecio") as Label;
-        //            Debug.WriteLine("PRECIO " + lblPrecio);
-        //            TextBox txtCantidad = item.FindControl("Cantidad") as TextBox;
-        //            Debug.WriteLine("CANTIDAD " + txtCantidad);
-
-        //            if (txtCantidad != null)
-        //            {
-        //                string cantidadLimpia = txtCantidad.Text.Trim();
-        //                int cantidad;
-        //                if (int.TryParse(cantidadLimpia, out cantidad) && cantidad > 0)
-        //                {
-        //                    Producto producto = new Producto
-        //                    {
-        //                        Nombre = lblNombre.Text,
-        //                        Precio = float.Parse(lblPrecio.Text.Replace("$", "").Replace(",", "").Trim()),
-        //                        Cantidad = cantidad
-        //                    };
-
-        //                    productosCarrito.Add(producto);
-
-        //                    Response.Redirect("Pago.aspx", false);
-        //                }
-        //                else
-        //                {
-
-        //                }
-        //            }
-        //        }
-
-        //    }
-
-        //    try
-        //    {
-        //        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-        //        ClienteNegocio clienteNegocio = new ClienteNegocio();
-
-        //        int idUsuario = usuarioNegocio.ObtenerIdUsuarioPorEmail(email);
-
-        //        clienteNegocio.RegistrarComoCliente(
-        //            idUsuario,
-        //            txtApellido.Text,
-        //            txtNombre.Text,
-        //            txtDireccion.Text,
-        //            txtTelefono.Text
-        //        );
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-
-        //    PedidoNegocio pedidoNegocio = new PedidoNegocio();
-        //    pedidoNegocio.RegistroPedido(productosCarrito, email);
-        //}
-
-        //protected void btnConfirmarPago_Click(object sender, EventArgs e)
-        //{
-        //    Carrito carrito = new Carrito();
-        //    // Crear una lista tipada para el carrito
-
-        //    List<Producto> productosCarrito = new List<Producto>();
-        //    Producto producto=new Producto();
-
-        //    foreach (RepeaterItem item in RepeaterCarrito.Items)
-        //    {
-        //        // Buscar controles dentro del Repeater
-        //        var lblNombre = (Label)item.FindControl("lblNombre");
-        //        var txtCantidad = (TextBox)item.FindControl("txtCantidad");
-        //        var lblPrecio = (Label)item.FindControl("lblPrecio");
-
-        //        // Extraer los valores
-        //        string nombre = lblNombre.Text;
-        //        int cantidad = int.Parse(txtCantidad.Text);
-        //        float precio = float.Parse(lblPrecio.Text.Replace("Precio: $", "").Trim());
-
-        //        producto.Nombre = nombre;
-        //        producto.Cantidad = cantidad;
-        //        producto.Precio = precio;
-
-
-        //        // Agregar a la lista
-        //        productosCarrito.Add(producto);
-
-        //    }
-
-        //    Session["Carrito"] = carrito;
-        //    // Guardar la lista tipada en la sesión
-
-        //    // Redirigir a la página de pago
-        //    Response.Redirect("Pago.aspx");
-
-
-
-        //}
+        
         protected void ActualizarTotal(object sender, EventArgs e)//--Función para actualizar el total del carrito tomando por repeater el precio del producto y la cantidad
         {
             float totalCarrito = 0;
@@ -214,46 +107,74 @@ namespace TPCGrupo8A
                     Response.Redirect("Error.aspx", false);
                 }
             }
-            totalCarritoLabel.Text = $"Total: ${totalCarrito:F2}";//--Actualiza el total de todo el carrito
+            totalCarritoLabel.Text = $"Total: ${totalCarrito:F2}";
         }
 
         protected void btnConfirmarPago_Click(object sender, EventArgs e)
         {
-            // Crear un objeto carrito
+            
             Carrito carrito = new Carrito();
+            Usuario usuario = new Usuario();
 
-            // Crear los detalles del carrito
+          
             foreach (RepeaterItem item in RepeaterCarrito.Items)
             {
-                // Buscar controles dentro del Repeater
+               
                 var lblNombre = (Label)item.FindControl("lblNombre");
                 var txtCantidad = (TextBox)item.FindControl("txtCantidad");
                 var lblPrecio = (Label)item.FindControl("lblPrecio");
 
-                // Extraer los valores
-                string nombre = lblNombre.Text;
-                int cantidad = int.Parse(txtCantidad.Text);
-                float precioUnitario = float.Parse(lblPrecio.Text.Replace("Precio: $", "").Trim());
-
-                // Crear un nuevo DetallePedido
-                DetallePedido detalle = new DetallePedido
+               
+                if (lblNombre != null && txtCantidad != null && lblPrecio != null)
                 {
-                    Nombre = nombre,
-                    Cantidad = cantidad,
-                    PrecioUnitario = precioUnitario,
-                };
+                    string nombre = lblNombre.Text;  
+                    int cantidad = 0;
 
-                // Agregar el detalle al carrito
-                carrito.Detalles.Add(detalle);
+                   
+                    if (int.TryParse(txtCantidad.Text, out cantidad) && cantidad > 0)
+                    {
+                        float precioUnitario = 0;
+
+                      
+                        if (float.TryParse(lblPrecio.Text.Replace("Precio: $", "").Trim(), out precioUnitario) && precioUnitario > 0)
+                        {
+                           
+                            Producto prod = new Producto
+                            {
+                                Nombre = nombre,
+                                Cantidad = cantidad,
+                                Precio = precioUnitario,
+                            };
+
+                            
+                            carrito.Productos.Add(prod);
+                            int idProducto = Convert.ToInt32(Session["ID"]);
+
+                            List<int> listaIDPRODcarrito = Session["Carrito"] as List<int> ?? new List<int>();
+
+                            listaIDPRODcarrito.Add(idProducto);
+                            Session["Carrito"] = listaIDPRODcarrito;
+                           
+
+                        }
+                        else
+                        {
+                           
+                            Console.WriteLine("Precio inválido.");
+                        }
+                    }
+                    else
+                    {
+                       
+                        Console.WriteLine("Cantidad inválida.");
+                    }
+                }
             }
-
-            // Guardar el carrito en la sesión
-            Session["Carrito"] = carrito;
-
-            // Redirigir a la página de pago
+           
+   
+            
             Response.Redirect("Pago.aspx");
         }
-
 
 
 
