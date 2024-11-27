@@ -138,7 +138,7 @@ namespace TPCGrupo8A
 
                 // Mostrar un mensaje de éxito o redirigir a otra página
                 ClientScript.RegisterStartupScript(this.GetType(), "PedidoRegistrado", "alert('Compra finalizada con éxito.');", true);
-              
+                 Response.Redirect("~/Perfil.aspx");
             }
             catch (Exception ex)
             {

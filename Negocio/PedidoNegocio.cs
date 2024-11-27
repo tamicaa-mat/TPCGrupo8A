@@ -12,51 +12,7 @@ namespace Negocio
 {
     public class PedidoNegocio
     {
-        //public void RegistroPedido(List<Producto> productosCarrito, string email)
-        //{
-        //    AccesoDatos datos = null; // Declarar fuera del try
-
-        //    try
-        //    {
-        //        datos = new AccesoDatos(); // Inicializar dentro del try
-        //        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-
-        //        // Obtener el idUsuario asociado al email
-        //        int idUsuario = usuarioNegocio.ObtenerIdUsuarioPorEmail(email, datos);
-
-        //        // Calcular el monto total del pedido
-        //        float montoTotal =0;
-
-        //        foreach (Producto producto in productosCarrito)
-        //        {
-        //            montoTotal += producto.Precio * producto.Cantidad; // Precio por cantidad
-        //        }
-
-        //        // Insertar el pedido en la tabla Pedidos
-        //        datos.setearConsulta("INSERT INTO Pedidos (IdUsuario, MontoTotal, Estado) " +
-        //                             "OUTPUT INSERTED.IdPedido " + // Obtener el Id del pedido generado
-        //                             "VALUES (@IdUsuario, @MontoTotal, @Estado)");
-
-        //        datos.SetearParametro("@IdUsuario", idUsuario);
-        //        datos.SetearParametro("@MontoTotal", montoTotal);
-        //        datos.SetearParametro("@Estado", "Pendiente"); // Estado inicial del pedido
-
-        //        datos.ejecutarAccion();
-
-        //       // Response.Redirect("RegistroExitoso.aspx?nombre=Usuario", false);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Error: {ex.Message}");
-        //    }
-        //    finally
-        //    {
-        //        if (datos != null)
-        //        {
-        //            datos.cerrarConexion(); // Asegurarse de cerrar la conexión
-        //        }
-        //    }
-        //}
+       
         public void RegistroDetallePedido(int idPedido, List<DetallePedido> detalleCarrito)
         {
             // Inicializar las variables fuera del foreach
