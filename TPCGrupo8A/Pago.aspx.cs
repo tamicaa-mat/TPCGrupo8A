@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -103,14 +104,11 @@ namespace TPCGrupo8A
         }
 
 
-
         protected void btn_finalizarCompra(object sender, EventArgs e)
         {
-          
-        
             try
             {
-                // Verificar si el usuario está en la sesión
+               
                 Usuario usuario = (Usuario)Session["Usuario"];
                 if (usuario == null)
                 {
@@ -120,7 +118,7 @@ namespace TPCGrupo8A
 
                 string email = usuario.Email;
 
-                // Verificar si el carrito existe y tiene productos
+               
                 List<int> idProductos = (List<int>)Session["Carrito"];
                 if (idProductos == null || idProductos.Count == 0)
                 {
@@ -128,7 +126,22 @@ namespace TPCGrupo8A
                     return;
                 }
 
-                // Aquí va el resto de la lógica para procesar la compra
+                
+                if (!validarCajasTexto())
+                {
+                    //Response.Redirect("Error.aspx",false);
+                    ClientScript.RegisterStartupScript(this.GetType(), "ErrorValidacion", "alert('Hay errores en el formulario. Por favor, corríjalos e intente nuevamente.');", true);
+                    return;
+                }
+
+                // Si los campos son válidos, se actualizan los datos del usuario
+                usuario.Nombre = Request.Form["Nombre"];
+                usuario.Apellido = Request.Form["Apellido"];
+                usuario.Email = Request.Form["Email"];
+                usuario.Contrasenia = Request.Form["Contrasenia"];
+                usuario.TipoUsuario = 0;
+
+                // Obtener los detalles del carrito
                 List<DetallePedido> carritoDetalles = new CarritoNegocio().DetallesCarritoIds(idProductos);
 
                 PedidoNegocio pedidoNegocio = new PedidoNegocio();
@@ -136,31 +149,134 @@ namespace TPCGrupo8A
                 // Registrar el pedido
                 pedidoNegocio.RegistroPedido(carritoDetalles, email);
 
-                // Mostrar un mensaje de éxito o redirigir a otra página
+                // Mostrar un mensaje de éxito
                 ClientScript.RegisterStartupScript(this.GetType(), "PedidoRegistrado", "alert('Compra finalizada con éxito.');", true);
-                 Response.Redirect("~/Perfil.aspx");
+                Response.Redirect("~/Perfil.aspx");
             }
             catch (Exception ex)
             {
                 // Manejo de errores
                 Console.WriteLine($"Error: {ex.Message}");
-                ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('Ocurrió un error al finalizar la compra. " + ex.Message + "');", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('Ocurrió un error al finalizar la compra: " + ex.Message + "');", true);
             }
-        
-
-
         }
+
+
+
+
+
+
         protected void btnVolver2_Click(object sender, EventArgs e)
         {
             Response.Redirect("CarritoPago.aspx", false);
 
         }
 
+        //validaciones cajas de txt pago 27/11
 
+        public bool validarCajasTexto()
+        {
+            string mensajeErrorNombre = "";
+            string mensajeErrorApellido = "";
+            string mensajeErrorTelefono = "";
+            string mensajeErrorDireccion = "";
+            bool hayErroresNombre = false;
+            bool hayErroresApellido = false;
+            bool hayErroresTelefono = false;
+            bool hayErroresDireccion = false;
 
+            // Validación del campo NOMBRE
+            string nombre = Request.Form["nombre"].Trim();
+            if (string.IsNullOrEmpty(nombre))
+            {
+                mensajeErrorNombre = "El campo NOMBRE no puede estar vacío.";
+                hayErroresNombre = true;
+            }
+            else if (!esSoloLetras(nombre))
+            {
+                mensajeErrorNombre = "NOMBRE debe contener solo LETRAS.";
+                hayErroresNombre = true;
+            }
 
+            // Validación del campo APELLIDO
+            string apellido = Request.Form["apellido"].Trim();
+            if (string.IsNullOrEmpty(apellido))
+            {
+                mensajeErrorApellido = "El campo APELLIDO no puede estar vacío.";
+                hayErroresApellido = true;
+            }
+            else if (!esSoloLetras(apellido))
+            {
+                mensajeErrorApellido = "APELLIDO debe contener solo LETRAS.";
+                hayErroresApellido = true;
+            }
 
+            // Validación del campo TELEFONO
+            string telefono = Request.Form["telefono"].Trim();
+            if (string.IsNullOrEmpty(telefono))
+            {
+                mensajeErrorTelefono = "El campo TELEFONO no puede estar vacío.";
+                hayErroresTelefono = true;
+            }
+            else if (!esNumero(telefono))
+            {
+                mensajeErrorTelefono = "TELEFONO debe contener solo NUMEROS.";
+                hayErroresTelefono = true;
+            }
 
+            // Validación del campo DIRECCION
+            string direccion = Request.Form["direccion"].Trim();
+            if (string.IsNullOrEmpty(direccion))
+            {
+                mensajeErrorDireccion = "El campo DIRECCION no puede estar vacío.";
+                hayErroresDireccion = true;
+            }
+           
+
+            // Mostrar mensajes de error y retornar false si hay errores
+            if (hayErroresNombre)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "ErrorNombre", $"alert('{mensajeErrorNombre}');", true);
+                return false;
+            }
+
+            if (hayErroresApellido)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "ErrorApellido", $"alert('{mensajeErrorApellido}');", true);
+                return false;
+            }
+
+            if (hayErroresTelefono)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "ErrorTelefono", $"alert('{mensajeErrorTelefono}');", true);
+                return false;
+            }
+
+            if (hayErroresDireccion)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "ErrorDireccion", $"alert('{mensajeErrorDireccion}');", true);
+                return false;
+            }
+
+            hayErroresNombre = false;
+            hayErroresApellido = false;
+            hayErroresTelefono = false;
+            hayErroresDireccion = false;
+            return true;
+        }
+
+        // Función para validar si el texto contiene solo letras
+        bool esSoloLetras(string texto)
+        {
+            return texto.All(c => char.IsLetter(c)); // Verifica si todos los caracteres son letras
+        }
+
+        // Función para validar si es un número
+        bool esNumero(string texto)
+        {
+            long numero;
+            return long.TryParse(texto, out numero);
+        }
 
 
 

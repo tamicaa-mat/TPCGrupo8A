@@ -72,19 +72,19 @@
         <form>
             <div class="form-group">
     <label for="nombre">Nombre</label>
-    <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre">
+    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa tu nombre">
 </div>
 <div class="form-group">
     <label for="apellido">Apellido</label>
-    <input type="text" class="form-control" id="apellido" placeholder="Ingresa tu apellido">
+    <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingresa tu apellido">
 </div>
 <div class="form-group">
     <label for="telefono">Teléfono</label>
-    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control" placeholder="Ingresa tu número de teléfono">
+    <input type="tel" id="phone" name="telefono" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control" placeholder="Ingresa tu número de teléfono">
 </div>
 <div class="form-group">
     <label for="direccion">Dirección</label>
-    <input type="text" class="form-control" id="direccion" placeholder="Ingresa tu dirección">
+    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingresa tu dirección">
 </div>
 <div class="form-group grid-container row">
     <label for="metodoPago">Método de pago</label>
