@@ -37,7 +37,7 @@
         }
     </style>
 
-    <h2 class="mb-4">Información de Compra</h2>
+    <h2 class="mb-4">Carrito de Productos</h2>
 
 <div class="container mt-5">
     <div class="row">
@@ -70,69 +70,15 @@
 </div>
 
 
-   <%-- <!--  datos del comprador -->
-    <div class="container mt-5">
-        <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Ingresa tu nombre" required=""></asp:TextBox>
-        </div>
 
-        <div class="form-group">
-            <label for="apellido">Apellido:</label>
-            <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" placeholder="Ingresa tu apellido" required=""></asp:TextBox>
-        </div>
-
-        <div class="form-group">
-            <label for="direccion">Dirección:</label>
-            <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" placeholder="Ingresa tu dirección" required=""></asp:TextBox>
-        </div>
-
-        <div class="form-group">
-            <label for="email">Correo Electrónico:</label>
-            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Ingresa tu correo electrónico" TextMode="Email" required=""></asp:TextBox>
-        </div>
-
-        <div class="form-group">
-            <label for="telefono">Teléfono:</label>
-            <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" placeholder="Ingresa tu teléfono" required=""></asp:TextBox>
-        </div>--%>
-
-
-
-<%--        <h4 class="mt-4">Opciones de Pago</h4>
-
-        <!-- opciones de pago -->
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="tarjetaCredito" id="tarjetaCredito">
-            <label class="form-check-label" for="tarjetaCredito">
-                Tarjeta de Crédito
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="tarjetaDebito" id="tarjetaDebito">
-            <label class="form-check-label" for="tarjetaDebito">
-                Tarjeta de Débito
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="paypal" id="paypal">
-            <label class="form-check-label" for="paypal">
-                PayPal
-            </label>
-        </div>
-        <div class="form-check mb-4">
-            <input class="form-check-input" type="checkbox" value="transferencia" id="transferencia">
-            <label class="form-check-label" for="transferencia">
-                Transferencia Bancaria
-            </label>
-        </div>--%>
-
-        <!-- boton confirmar pago -->
-        <%--   <button type="submit" class="btn btn-color btn-block">Confirmar Pago</button>--%>
-        <div style="margin: 5px">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+        <div class="col" style="margin: 5px">
             <asp:Button ID="btnConfirmarPago" CssClass="btn btn-color btn-block" Text="Completar la Compra" OnClick="btnConfirmarPago_Click" runat="server" />
         </div>
-        <div style="margin: 5px">
+        <div class="col" style="margin: 5px">
             <asp:Button ID="btnSeleccionarOtro" runat="server" CssClass="btn btn-color btn-block" Text="Selecciona otro artículo" OnClick="btnSeleccionarOtro_Click" UseSubmitBehavior="false" />
         </div>
+                </div>
+            </div>
 </asp:Content>

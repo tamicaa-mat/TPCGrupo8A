@@ -37,7 +37,7 @@
         }
     </style>
 
-    <h2 class="mb-4">Información de Compra</h2>
+    <h2 class="mb-4">Finalizar Compra</h2>
 
 <div class="container mt-5">
     <div class="row">
@@ -68,13 +68,60 @@
         </div>
     </div>
 </div>
+    <div class="container flex">
+        <form>
+            <div class="form-group">
+    <label for="nombre">Nombre</label>
+    <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre">
+</div>
+<div class="form-group">
+    <label for="apellido">Apellido</label>
+    <input type="text" class="form-control" id="apellido" placeholder="Ingresa tu apellido">
+</div>
+<div class="form-group">
+    <label for="telefono">Teléfono</label>
+    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control" placeholder="Ingresa tu número de teléfono">
+</div>
+<div class="form-group">
+    <label for="direccion">Dirección</label>
+    <input type="text" class="form-control" id="direccion" placeholder="Ingresa tu dirección">
+</div>
+<div class="form-group grid-container row">
+    <label for="metodoPago">Método de pago</label>
+    <select class="form-control" id="metodoPago">
+        <option value="credito">Tarjeta de crédito/débito</option>
+        <option value="transferencia">Transferencia</option>
+        <option value="efectivo">Efectivo</option>
+    </select>
+    <div class="col-6">
+        <input type="file">
+    </div>
+</div>
+<div class="form-check">
+    <input type="checkbox" class="form-check-input" id="terminos">
+    <label class="form-check-label" for="terminos">Acepto los términos y condiciones</label>
+</div>
 
-        <div style="margin: 5px">
-            <asp:Button ID="btnVolver2" CssClass="btn btn-color btn-block" Text="Volver" OnClick="btnVolver2_Click" runat="server" />
+        </form>
+    </div>
+
+
+
+            <div class="container">
+                <div class="row justify-content-center align-items-center">
+        <div class="col" style="margin: 5px">
+            <asp:Button ID="btnVolver2" CssClass="btn btn-color btn-block" Text="Volver al Carrito" OnClick="btnVolver2_Click" runat="server" />
         </div>
-        <div style="margin: 5px">
-            <asp:Button ID="btnPagar" runat="server" CssClass="btn btn-color btn-block" Text="Pagar" OnClick="btn_finalizarCompra" UseSubmitBehavior="false" />
+        <div class="col" style="margin: 5px">
+            <asp:Button ID="btnPagar" runat="server" CssClass="btn btn-color btn-block" Text="Realizar Pago" OnClick="btn_finalizarCompra" UseSubmitBehavior="false" />
+            </div>
+             </div>
         </div>
+
+
+
+
+
 </asp:Content>  
   
 
