@@ -185,6 +185,9 @@ namespace TPCGrupo8A
             bool hayErroresTelefono = false;
             bool hayErroresDireccion = false;
 
+            Usuario usuario = new Usuario();
+            usuario = (Usuario)Session["usuario"];
+
             // Validación del campo NOMBRE
             string nombre = Request.Form["nombre"].Trim();
             if (string.IsNullOrEmpty(nombre))
@@ -259,9 +262,40 @@ namespace TPCGrupo8A
             }
 
             hayErroresNombre = false;
+
+            if (hayErroresNombre == false)
+            {
+                usuario.Nombre = nombre;
+
+            }
+
             hayErroresApellido = false;
+
+
+            if (hayErroresApellido == false)
+            {
+                usuario.Apellido = apellido;
+
+            }
+
             hayErroresTelefono = false;
+
             hayErroresDireccion = false;
+
+            if (hayErroresDireccion == false)
+            {
+                usuario.Direccion = direccion;
+
+            }
+
+            if (hayErroresTelefono == false)
+            {
+                usuario.Telefono =telefono;
+
+            }
+
+            Session["usuario"] = usuario;
+
             return true;
         }
 

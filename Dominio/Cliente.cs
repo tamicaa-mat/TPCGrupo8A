@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Cliente:Usuario
+    public class Cliente
     {
        // public int IDCLIENTE { get; set; }
         public List<Pedido> Pedidos { get; set; }
@@ -41,8 +41,11 @@ namespace Dominio
             }
         }
 
+        public string Nombre { get; set; }
 
+        public string Apellido { get; set; }
 
+        public string Email { get; set; }
 
     }
 }
