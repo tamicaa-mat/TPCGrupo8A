@@ -18,6 +18,7 @@ namespace TPCGrupo8A
         {
             if (!IsPostBack)
             {
+                LimpiarMensajes();
                 CargarCategorias();
 
                 //Usuario usuario = Session["usuario"] as Usuario;
@@ -29,6 +30,7 @@ namespace TPCGrupo8A
         }
         private void CargarCategorias()
         {
+            LimpiarMensajes();
 
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
             try
@@ -37,11 +39,30 @@ namespace TPCGrupo8A
                 GVCategorias.DataSource = categoriaNegocio.listar();
                 GVCategorias.DataBind();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MostrarMensajeError($"Error al cargar categorías: {ex.Message}");
+                RedirigirAError("Ocurrió un error inesperado.");
             }
+
             var siteMaster = (SiteMaster)this.Master;
+            if (siteMaster != null)
+            {
+                try
+                {
+                    siteMaster.CargarCategorias();
+                    siteMaster.CargarMarcas();
+                }
+                catch (Exception ex)
+                {
+                    MostrarMensajeError($"Error al cargar categorías o marcas en el Master: {ex.Message}");
+                    RedirigirAError("No se pudo cargar el sitio correctamente.");
+                }
+            }
+            else
+            {
+                MostrarMensajeError("No se pudo acceder al MasterPage.");
+            }
             if (siteMaster != null)
             {
                 siteMaster.CargarCategorias();
@@ -50,30 +71,38 @@ namespace TPCGrupo8A
         }
         protected void GVCategorias_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            try
             {
-                // Obtener el valor de Estado de la categoría actual
-                var estado = DataBinder.Eval(e.Row.DataItem, "Estado");
-
-
-                if (estado != null && !(bool)estado)
+            LimpiarMensajes();
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
+                    // Obtener el valor de Estado de la categoría actual
+                    var estado = DataBinder.Eval(e.Row.DataItem, "Estado");
 
-                    var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
-                    btnHabilitar.Visible = true; // Mostrar el botón "Habilitar"
-                }
-                else
-                {
-
-                    var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
-                    btnHabilitar.Visible = false;
+                    if (estado != null && !(bool)estado)
+                    {
+                        var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
+                        btnHabilitar.Visible = true; // Mostrar el botón "Habilitar"
+                    }
+                    else
+                    {
+                        var btnHabilitar = (Button)e.Row.Cells[3].Controls[0];
+                        btnHabilitar.Visible = false;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MostrarMensajeError("Error al mostrar las categorías: " + ex.Message);
+            }
         }
+
         protected void btnGuardarCategoria_OnClick(object sender, EventArgs e)
         {
             try
             {
+                LimpiarMensajes();
+
                 lblExito.Visible = false;
                 Categoria nuevaCategoria = new Categoria();
                 nuevaCategoria.Nombre = txtNombreCategoria.Text;
@@ -84,8 +113,8 @@ namespace TPCGrupo8A
                     lblMensaje.Text = "La categoría: " + nuevaCategoria.Nombre + " ya existe";
                     lblMensaje.Visible = true;
                     return;
-                    throw new Exception("La categoría: " + nuevaCategoria.Nombre + " ya existe");
                 }
+
                 hdnCategoriaId.Value = "";
                 categoriaNegocio.agregar(nuevaCategoria);
                 CargarCategorias();
@@ -95,18 +124,21 @@ namespace TPCGrupo8A
 
                 txtNombreCategoria.Text = "";
                 ScriptManager.RegisterStartupScript(this, GetType(), "HideModalAgregar", "var modalAgregar = " +
-                    "bootstrap.Modal.getInstance(document.getElementById('modalAgregar')); if(modalAgregar) { modalAgregar.hide(); }", true);//Cierra el modal de Agregar
-
+                    "bootstrap.Modal.getInstance(document.getElementById('modalAgregar')); if(modalAgregar) { modalAgregar.hide(); }", true);
             }
             catch (Exception ex)
             {
-                throw new Exception("ERROR no se pudo agregar la categoría", ex);
+                MostrarMensajeError("ERROR no se pudo agregar la categoría: " + ex.Message);
             }
         }
+
         protected void btnEditarCategoria_OnClick(object sender, EventArgs e)
         {
             try
             {
+                LimpiarMensajes();
+
+
                 lblExito.Visible = false;
                 lblMensaje.Visible = false;
                 if (string.IsNullOrEmpty(hdnCategoriaId.Value))
@@ -124,7 +156,6 @@ namespace TPCGrupo8A
                     lblMensaje.Text = "La categoría: " + nombreCategoria + " ya existe";
                     lblMensaje.Visible = true;
                     return;
-                    throw new Exception("La categoría: " + nombreCategoria + " ya existe");
                 }
                 Categoria categoria = new Categoria();
                 categoria.ID = idCategoria;
@@ -133,17 +164,20 @@ namespace TPCGrupo8A
 
                 categoriaNegocio.editar(categoria);
                 CargarCategorias();
-                ScriptManager.RegisterStartupScript(this, GetType(), "HideModalEditar", "$('#modalEditar').modal('hide');", true); // Cerrar el modal de Editar
+                ScriptManager.RegisterStartupScript(this, GetType(), "HideModalEditar", "$('#modalEditar').modal('hide');", true);
             }
             catch (Exception ex)
             {
-                throw new Exception("ERROR no se pudo agregar la categoría", ex);
+                MostrarMensajeError("ERROR no se pudo editar la categoría: " + ex.Message);
             }
         }
+
         protected void btnEliminar_OnClick(object sender, EventArgs e)
         {
             try
             {
+                LimpiarMensajes();
+
                 lblExito.Visible = false;
                 lblMensaje.Visible = false;
                 if (string.IsNullOrEmpty(hdnCategoriaId.Value))
@@ -159,47 +193,76 @@ namespace TPCGrupo8A
             }
             catch (Exception ex)
             {
-                throw ex;
+                MostrarMensajeError("ERROR no se pudo eliminar la categoría: " + ex.Message);
             }
         }
+
         protected void GVCategorias_OnRowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Seleccionar")
+            try
             {
-                int rowIndex = Convert.ToInt32(e.CommandArgument);
-                foreach (GridViewRow row1 in GVCategorias.Rows) //Limpia la row una vez que es seleccionada
+                LimpiarMensajes();
+
+                if (e.CommandName == "Seleccionar")
                 {
-                    row1.CssClass = "";
+                    int rowIndex = Convert.ToInt32(e.CommandArgument);
+                    foreach (GridViewRow row1 in GVCategorias.Rows) // Limpia la row una vez que es seleccionada
+                    {
+                        row1.CssClass = "";
+                    }
+                    GridViewRow row = GVCategorias.Rows[rowIndex];
+                    row.CssClass = "selected-row"; // Aplica el style de la clase 
+                    int categoriaId = Convert.ToInt32(GVCategorias.DataKeys[rowIndex].Value);
+
+                    hdnCategoriaId.Value = categoriaId.ToString(); // Asigna el ID seleccionado al HiddenField
+                    txtNombreCategoriaEditar.Text = row.Cells[1].Text; // Muestra el nombre de la categoría seleccionada
                 }
-                GridViewRow row = GVCategorias.Rows[rowIndex];
-                row.CssClass = "selected-row"; //Aplica el style de la clase 
-                int categoriaId = Convert.ToInt32(GVCategorias.DataKeys[rowIndex].Value);
-
-                hdnCategoriaId.Value = categoriaId.ToString(); // Asigna el ID seleccionado al HiddenField
-                txtNombreCategoriaEditar.Text = row.Cells[1].Text; // Muestra el nombre de la categoría seleccionada
-            }
-            else if (e.CommandName == "Habilitar")
-            {
-                int rowIndex = Convert.ToInt32(e.CommandArgument);
-                GridViewRow row = GVCategorias.Rows[rowIndex];
-                int categoriaId = Convert.ToInt32(GVCategorias.DataKeys[rowIndex].Value);
-
-
-                CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-                var categoria = categoriaNegocio.ObtenerIdCategoria(categoriaId);
-                if (categoria != null && !categoria.Estado)
+                else if (e.CommandName == "Habilitar")
                 {
-                    categoria.Estado = true;
-                    categoriaNegocio.editar(categoria);
-                    CargarCategorias();
+                    int rowIndex = Convert.ToInt32(e.CommandArgument);
+                    GridViewRow row = GVCategorias.Rows[rowIndex];
+                    int categoriaId = Convert.ToInt32(GVCategorias.DataKeys[rowIndex].Value);
+
+                    CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+                    var categoria = categoriaNegocio.ObtenerIdCategoria(categoriaId);
+                    if (categoria != null && !categoria.Estado)
+                    {
+                        categoria.Estado = true;
+                        categoriaNegocio.editar(categoria);
+                        CargarCategorias();
+                    }
+                }
+                var siteMaster = (SiteMaster)this.Master;
+                if (siteMaster != null)
+                {
+                    siteMaster.CargarCategorias();
+                    siteMaster.CargarMarcas();
                 }
             }
-            var siteMaster = (SiteMaster)this.Master;
-            if (siteMaster != null)
+            catch (Exception ex)
             {
-                siteMaster.CargarCategorias();
-                siteMaster.CargarMarcas();
+                MostrarMensajeError("Error al procesar la acción en la fila: " + ex.Message);
             }
+        }
+        ///mensaje d error
+        private void MostrarMensajeError(string mensaje)
+        {
+            lblMensajeError.Text = mensaje;
+            lblMensajeError.Visible = true; 
+        }
+
+        private void RedirigirAError(string mensaje)
+        {
+            Response.Redirect($"Error.aspx?message={Server.UrlEncode(mensaje)}");
+        }
+        private void LimpiarMensajes()
+        {
+            lblMensajeError.Visible = false;
+            lblMensaje.Visible = false;
+            lblExito.Visible = false;
+            lblMensaje.Text = "";
+            lblExito.Text = "";
+            lblMensajeError.Text = "";
         }
     }
 }

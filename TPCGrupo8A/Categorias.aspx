@@ -3,6 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="container">
+        <asp:Label ID="lblMensajeError" runat="server" CssClass="alert alert-danger" Visible="false" />
+    </div>
+    <div class="container">
         <h1 class="tex-center my-4">Categorías</h1>
     </div>
     <div class="mb-3">

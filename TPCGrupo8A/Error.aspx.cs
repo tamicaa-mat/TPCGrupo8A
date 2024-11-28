@@ -11,7 +11,13 @@ namespace TPCGrupo8A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                if (Request.QueryString["message"] != null)
+                {
+                    MensajeError.Text = Request.QueryString["message"];
+                }
+            }
         }
     }
 }
