@@ -31,9 +31,8 @@
                             <th>Cliente</th>
                             <th>Importe</th>
                             <th>Estado</th>
-                            
                             <th id="thEstado" runat="server" Visible='<%# Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).TipoUsuario == Dominio.TipoUsuario.Administrador %>'>Cambiar Estado</th>
-                            
+                            <th>Ver detalle</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,7 +49,9 @@
                         <asp:Button ID="BtnCambiarEstado" runat="server" Text='<%# Eval("Estado").ToString() == "Pendiente" ? "Marcar como Entregado" : "Marcar como Pendiente" %>' CssClass="animated-button" OnClick="BtnCambiarEstado_Click"
                         Visible='<%# Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).TipoUsuario == Dominio.TipoUsuario.Administrador %>' />
                     </td>
-                    
+                    <td>
+                           <a href="VerDetalle.aspx?idPedido=<%# Eval("Numero") %>">Ver detalle</a>
+                    </td>
                 </tr>
             </ItemTemplate>
             <FooterTemplate>
@@ -58,6 +59,8 @@
                 </table>
             </FooterTemplate>
         </asp:Repeater>
+
+        
     </main>
 </asp:Content>
 

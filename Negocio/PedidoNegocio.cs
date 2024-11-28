@@ -12,7 +12,7 @@ namespace Negocio
 {
     public class PedidoNegocio
     {
-       
+
         public void RegistroDetallePedido(int idPedido, List<DetallePedido> detalleCarrito)
         {
             // Inicializar las variables fuera del foreach
@@ -27,8 +27,8 @@ namespace Negocio
 
                 foreach (var productoC in detalleCarrito)
                 {
-                       datos = new AccesoDatos(); // Crear la conexión
-                   
+                    datos = new AccesoDatos(); // Crear la conexión
+
                     if (productoC.PrecioUnitario > 0 && productoC.Cantidad > 0)
                     {
                         // Asignar las variables con los valores del producto
@@ -36,7 +36,7 @@ namespace Negocio
                         cantidad = productoC.Cantidad;
                         precioUnitario = productoC.PrecioUnitario;
 
-                       
+
                         string consulta = @"INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad, Preciounitario) 
                                     VALUES (@IdPedido, @IdProducto, @Cantidad, @Preciounitario);";
                         datos.setearConsulta(consulta);
@@ -52,7 +52,7 @@ namespace Negocio
                     }
                     else
                     {
-                        
+
                         Console.WriteLine($"[ADVERTENCIA] Producto con valores inválidos: Precio={productoC.PrecioUnitario}, Cantidad={productoC.Cantidad}");
                     }
 
@@ -61,13 +61,13 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-               
+
                 Console.WriteLine($"Error al registrar los detalles del pedido: {ex.Message}");
                 throw;
             }
             finally
             {
-              
+
                 datos?.cerrarConexion();
             }
         }
@@ -85,10 +85,10 @@ namespace Negocio
 
                 float totalCarrito = 0;
 
-              
+
                 int idUsuario = usuarioNegocio.ObtenerIdUsuarioPorEmail(email);
 
-               
+
                 foreach (var productoC in carritoDetalles)
                 {
                     if (productoC.PrecioUnitario > 0 && productoC.Cantidad > 0)
@@ -101,7 +101,7 @@ namespace Negocio
                     }
                 }
 
-               
+
                 datos.setearConsulta(@"INSERT INTO Pedidos (IdUsuario, MontoTotal, Estado) 
                         VALUES (@IdUsuario, @MontoTotal, @Estado);
                         SELECT SCOPE_IDENTITY();");
@@ -112,7 +112,7 @@ namespace Negocio
                 datos.cerrarConexion();
                 int idPedido = Convert.ToInt32(datos.ejecutarScalar());
 
-              
+
                 RegistroDetallePedido(idPedido, carritoDetalles);
 
                 Console.WriteLine("Pedido registrado exitosamente.");
@@ -121,18 +121,18 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-               
+
                 Console.WriteLine($"Error al registrar el pedido: {ex.Message}");
                 throw;
             }
             finally
             {
-               
+
                 datos?.cerrarConexion();
             }
         }
 
-        public DataTable ObtenerPedidos(int idUsuario, TipoUsuario tipoUsuario,  string estadoFiltro = "")
+        public DataTable ObtenerPedidos(int idUsuario, TipoUsuario tipoUsuario, string estadoFiltro = "")
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -152,7 +152,7 @@ namespace Negocio
                         datos.SetearParametro("@Estado", estadoFiltro);
                     }
                 }
-                else 
+                else
                 if (tipoUsuario == TipoUsuario.Administrador)
                 {
                     if (!string.IsNullOrEmpty(estadoFiltro))
@@ -180,7 +180,7 @@ namespace Negocio
 
             try
             {
-               
+
                 datos.setearConsulta("UPDATE Pedidos SET Estado = @NuevoEstado WHERE IdPedido = @IdPedido");
 
 
@@ -189,7 +189,7 @@ namespace Negocio
 
                 datos.ejecutarAccion();
 
-               
+
             }
             catch (Exception ex)
             {
@@ -202,6 +202,49 @@ namespace Negocio
             }
         }
 
+
+        public List<DetallePedido> ObtenerDetallesPedido(int idPedido)
+        {
+            List<DetallePedido> detallesPedido = new List<DetallePedido>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // Consulta para obtener los detalles del pedido
+                string consulta = "SELECT dp.IdProducto, dp.Cantidad, dp.PrecioUnitario, p.Nombre FROM DetallePedido dp INNER JOIN Productos p ON dp.IdProducto = p.IdProducto"
+           + " WHERE dp.IdPedido = @IdPedido";
+
+                datos.setearConsulta(consulta);
+                datos.SetearParametro("@IdPedido", idPedido);
+
+                // Ejecutar la consulta y obtener los resultados
+                DataTable dt = datos.ejecutarLectura2();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    DetallePedido detalle = new DetallePedido
+                    {
+                        idProducto = Convert.ToInt32(row["IdProducto"]),
+                        Cantidad = Convert.ToInt32(row["Cantidad"]),
+                        PrecioUnitario = Convert.ToSingle(row["PrecioUnitario"]),
+                        Nombre = row["Nombre"].ToString(),
+                      
+                    };
+
+                    detallesPedido.Add(detalle);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener los detalles del pedido: " + ex.Message);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return detallesPedido;
+        }
 
 
     }
